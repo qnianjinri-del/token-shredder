@@ -12,6 +12,12 @@ Token Shredder is a local-first Electron desktop pet. Configure your provider ke
 
 No cloud backend. No hosted account. No prompt or completion logging. API keys stay on your machine.
 
+## Try It
+
+- Download the macOS v0.1.0 build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0).
+- Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
+- Want to help? See [CONTRIBUTING.md](CONTRIBUTING.md) and open a small issue or PR.
+
 ## A Small Note
 
 I am not a professional developer and I built this as a small learning project with AI assistance. Many parts are still rough, and some engineering decisions may not be ideal yet. If you find bugs, rough edges, better UX ideas, safer integration patterns, or cleaner code structure, contributions and suggestions are very welcome.
@@ -40,7 +46,7 @@ I am not a professional developer and I built this as a small learning project w
 
 v0.1.0 targets macOS first.
 
-Download from GitHub Releases once published. The first public build is expected to be an unsigned macOS `.dmg` plus `.zip`, so macOS may show a warning when opening it. Build from source if you prefer to inspect and run the app locally.
+Download from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0). The first public build is an unsigned macOS `.dmg` plus `.zip`, so macOS may show a warning when opening it. Build from source if you prefer to inspect and run the app locally.
 
 Platform status:
 

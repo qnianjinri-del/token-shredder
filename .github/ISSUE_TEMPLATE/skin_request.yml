@@ -1,0 +1,27 @@
+name: Skin idea
+description: Suggest or contribute a new desktop pet skin.
+title: "[Skin]: "
+labels: ["skin", "good first issue"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Skin name
+      placeholder: "Example: Budget Black Hole"
+    validations:
+      required: true
+  - type: textarea
+    id: concept
+    attributes:
+      label: Concept
+      description: What should the pet look like and how should it consume token spend?
+    validations:
+      required: true
+  - type: textarea
+    id: assets
+    attributes:
+      label: Asset notes
+      description: If you are contributing art, confirm that you own it or have permission to contribute it.
+    validations:
+      required: false
+

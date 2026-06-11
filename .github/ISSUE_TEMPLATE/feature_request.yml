@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest an improvement for Token Shredder.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Explain the real workflow or pain point.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed solution
+      description: Describe the feature or improvement.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Desktop pet
+        - Local usage collector
+        - OpenAI-compatible proxy
+        - Provider setup
+        - Skins
+        - Packaging
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy notes
+      description: Would this require storing or transmitting any new data?
+    validations:
+      required: false
+
