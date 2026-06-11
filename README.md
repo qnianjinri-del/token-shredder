@@ -4,9 +4,9 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 > Stop pretending tokens are free. Watch your AI agent shred dollars in real time.
 
-![Screenshot placeholder](docs/screenshot-placeholder.svg)
+![Token Shredder generated project cover](docs/assets/token-shredder-cover.png)
 
-Screenshot/GIF coming soon. The placeholder above is not a product screenshot.
+Generated project cover. Real screenshots/GIFs are still coming soon.
 
 Token Shredder is a local-first Electron desktop pet. Configure your provider key, base URL, model ID, and editable sample token prices, then point your OpenAI-compatible client at the local proxy. The pixel shredder pet turns real token spend into shredded TOKEN blocks.
 
