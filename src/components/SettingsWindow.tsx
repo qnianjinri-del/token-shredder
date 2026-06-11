@@ -93,6 +93,13 @@ export function SettingsWindow({
             </button>
           </div>
 
+          <PetSkinPanel petSkin={state.petSkin} onPetSkinChange={onPetSkinChange} />
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            <PetSizePanel petScale={state.petScale} onPetScaleChange={onPetScaleChange} />
+            <DemoModePanel demoMode={state.demoMode} onDemoModeChange={onDemoModeChange} />
+          </div>
+
           {!state.onboardingComplete ? (
             <OnboardingCard
               monitorInfo={monitorInfo}
@@ -132,12 +139,6 @@ export function SettingsWindow({
             onPresetChange={onPresetChange}
             onPricingChange={onPricingChange}
           />
-
-          <PetSizePanel petScale={state.petScale} onPetScaleChange={onPetScaleChange} />
-
-          <PetSkinPanel petSkin={state.petSkin} onPetSkinChange={onPetSkinChange} />
-
-          <DemoModePanel demoMode={state.demoMode} onDemoModeChange={onDemoModeChange} />
 
           <div className="glass-panel flex flex-wrap gap-2 p-4">
             <button type="button" onClick={onReset} className="action-button">
