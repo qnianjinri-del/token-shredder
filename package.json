@@ -1,0 +1,92 @@
+{
+  "name": "token-shredder",
+  "private": false,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "description": "A funny, brutally honest token cost visualizer for AI budgets.",
+  "author": "Token Shredder contributors",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "dev:desktop": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && node scripts/dev-electron.mjs\"",
+    "build": "tsc -b && vite build && tsc -p tsconfig.electron.json",
+    "start:desktop": "npm run build && electron .",
+    "preview": "vite preview --host 0.0.0.0",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "release:check": "npm test && npm run lint && npm run build",
+    "package:mac": "npm run build && electron-builder --mac --dir",
+    "dist:mac": "npm run build && electron-builder --mac dmg zip"
+  },
+  "build": {
+    "appId": "com.tokenshredder.app",
+    "productName": "Token Shredder",
+    "copyright": "Copyright © 2026 Token Shredder contributors",
+    "asar": true,
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json",
+      "LICENSE"
+    ],
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "build/icon.icns",
+      "identity": null,
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "sign": false,
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "framer-motion": "^12.0.0",
+    "html-to-image": "^1.11.13",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^39.2.7",
+    "electron-builder": "^26.15.2",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.0",
+    "vitest": "^4.1.8",
+    "wait-on": "^9.0.10"
+  }
+}
