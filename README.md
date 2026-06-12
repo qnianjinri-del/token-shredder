@@ -18,7 +18,7 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 ![Token Shredder demo animation](docs/assets/token-shredder-demo.gif)
 
-Token Shredder is a local-first Electron desktop pet. Configure your provider key, base URL, model ID, and editable sample token prices, then point your OpenAI-compatible client at the local proxy. The pixel pet turns real token spend into shredded TOKEN blocks.
+Token Shredder is a local-first Electron desktop pet. Click the built-in quick demo to try it without an API key, or configure your provider key, base URL, model ID, and editable sample token prices to point an OpenAI-compatible client at the local proxy. The pixel pet turns real token spend into shredded TOKEN blocks.
 
 It started as a small, slightly ridiculous tool for making AI costs feel visible. It is useful today, but still early. I am not a professional developer, so the code, UX, packaging, and integrations will all benefit from sharper eyes.
 
@@ -30,6 +30,7 @@ No cloud backend. No hosted account. No prompt or completion logging. API keys s
 
 - Open the [launch page](https://qnianjinri-del.github.io/token-shredder/) for the quick visual pitch.
 - Download the latest macOS build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest).
+- First launch includes a one-click local demo, so you can see the pet move before setting up any provider key.
 - Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
 - If the idea made you smile or saved you from ignoring token costs again, a Star helps other people find it.
 
@@ -49,10 +50,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 
 - Transparent always-on-top pixel desktop pet.
 - Chinese right-click menu: enter backstage, reset local config, or quit.
-- 5 switchable pixel pet skins.
+- 6 switchable pixel pet skins.
 - Local realtime collector on `127.0.0.1`.
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
-- Beginner setup flow for API Key, upstream Base URL, model / endpoint ID, and pricing.
+- Beginner setup flow with a no-key quick demo, API Key, upstream Base URL, model / endpoint ID, and pricing.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -61,7 +62,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Backstage status, actual local port, connection examples, event log, cost breakdown, and pet size.
 - Codex rate limit percentages when Codex writes them to local token count events.
 - Demo mode: off by default, with auto and always-on options for demos.
-- First-run onboarding card focused on the necessary setup fields.
+- First-run onboarding card with a one-click local demo and the necessary setup fields.
 - Local storage restore.
 - Vitest and ESLint coverage for core cost, usage normalization, proxy helpers, runtime state, and port selection.
 
@@ -86,7 +87,14 @@ npm run dev:desktop
 
 On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again.
 
-On first launch the pet waits quietly. Open backstage, then fill the required setup:
+On first launch the pet waits quietly and the backstage window opens automatically. If you just want to see what it does, click `先不填 Key，试玩一下`. This writes one local simulated usage event, makes the pet shred once, then stops on the resulting progress. It does not call any provider and does not represent real billing.
+
+For real usage, choose one of two paths:
+
+- Local proxy path: fill the required setup below, then point your client at Token Shredder's local `/v1` base URL.
+- Direct usage path: leave API Key empty and make your script or agent `POST /usage` token counts to the local collector.
+
+Local proxy setup fields:
 
 1. API Key from your provider.
 2. Upstream Base URL, for example your OpenAI-compatible provider endpoint.
@@ -133,7 +141,7 @@ console.log(response.choices[0]?.message?.content);
 
 `token-shredder-local` is a placeholder key. The desktop app injects the provider key you configured locally. If your client sends a real `Authorization` header instead, Token Shredder passes that through.
 
-Streaming requests are passed through, but v0.1.0 does not guarantee usage extraction from streaming responses.
+Streaming requests are passed through, but v0.1.x does not guarantee usage extraction from streaming responses.
 
 ### Option 2: POST /usage
 
@@ -207,7 +215,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
@@ -332,7 +340,7 @@ npm run dist:mac
 
 `package:mac` creates an unpacked `.app` for local QA. `dist:mac` creates `.dmg` and `.zip` artifacts in `release/`.
 
-The v0.1.0 local build is unsigned and not notarized. Code signing and notarization are release operations for a later public distribution step.
+The v0.1.x local build is unsigned and not notarized. Code signing and notarization are release operations for a later public distribution step.
 
 ## Release Checklist
 

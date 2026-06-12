@@ -6,7 +6,7 @@ import { formatCurrency, formatPercent, formatTokens } from '../lib/formatting';
 interface SpriteSkinPetProps {
   result: CalculationResult;
   scenarioName: string;
-  skinId: Extract<PetSkinId, 'agent-bot' | 'token-furnace'>;
+  skinId: Extract<PetSkinId, 'agent-bot' | 'token-furnace' | 'budget-black-hole'>;
   ariaLabel: string;
   compact?: boolean;
   demoLoop?: boolean;

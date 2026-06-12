@@ -1,4 +1,4 @@
-import { Clipboard, FlaskConical, Trash2 } from 'lucide-react';
+import { Clipboard, FlaskConical, Sparkles, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import type { AppState, CalculationResult, MonitorInfo, PetRuntimeState } from '../types';
 import { formatCurrency, formatPercent, formatTokens } from '../lib/formatting';
@@ -11,6 +11,7 @@ interface StatusPanelProps {
   monitorInfo: MonitorInfo;
   onClearMonitoring: () => void;
   onSendTestUsageEvent: () => Promise<void>;
+  onRunQuickStartDemo: () => void;
 }
 
 const serviceLabel = (monitorInfo: MonitorInfo) => {
@@ -34,6 +35,7 @@ export function StatusPanel({
   monitorInfo,
   onClearMonitoring,
   onSendTestUsageEvent,
+  onRunQuickStartDemo,
 }: StatusPanelProps) {
   const [copyStatus, setCopyStatus] = useState('');
   const [testStatus, setTestStatus] = useState('');
@@ -104,7 +106,11 @@ export function StatusPanel({
         </div>
       </div>
 
-      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+      <div className="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+        <button type="button" onClick={onRunQuickStartDemo} className="action-button">
+          <Sparkles size={16} />
+          <span>一键试玩</span>
+        </button>
         <button type="button" onClick={() => void copyAddress()} className="action-button">
           <Clipboard size={16} />
           <span>{copyStatus || '复制接入地址'}</span>

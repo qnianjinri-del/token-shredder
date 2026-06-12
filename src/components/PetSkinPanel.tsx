@@ -17,11 +17,15 @@ const agentBotSpriteUrl = () => `${import.meta.env.BASE_URL}assets/skins/agent-b
 
 const tokenFurnaceSpriteUrl = () => `${import.meta.env.BASE_URL}assets/skins/token-furnace-spritesheet.png`;
 
+const budgetBlackHoleSpriteUrl = () =>
+  `${import.meta.env.BASE_URL}assets/skins/budget-black-hole-spritesheet.png`;
+
 const spriteUrlBySkin: Partial<Record<PetSkinId, () => string>> = {
   'doh-dad': dohDadSpriteUrl,
   'codex-chomp': codexChompSpriteUrl,
   'agent-bot': agentBotSpriteUrl,
   'token-furnace': tokenFurnaceSpriteUrl,
+  'budget-black-hole': budgetBlackHoleSpriteUrl,
 };
 
 const conceptIconMap = {

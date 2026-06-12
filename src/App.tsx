@@ -12,6 +12,7 @@ import {
   loadProviderConfig,
   saveProviderConfig,
 } from './lib/providerConfig';
+import { createQuickStartUsageEvent } from './lib/quickStart';
 import { clearStoredState, loadStoredState, saveStoredState } from './lib/storage';
 import { readStateFromUrl } from './lib/urlState';
 import { clampPetScale } from './lib/pet';
@@ -330,6 +331,25 @@ function App() {
     }
   };
 
+  const runQuickStartDemo = () => {
+    const event = createQuickStartUsageEvent();
+    setActiveUntil(Date.now() + 1_400);
+    setMonitorInfo((current) => ({
+      ...current,
+      receivedUsageEvents: current.receivedUsageEvents + 1,
+    }));
+    setState((current) =>
+      appendUsageEvent(
+        {
+          ...current,
+          onboardingComplete: true,
+          demoMode: 'auto',
+        },
+        event,
+      ),
+    );
+  };
+
   const toggleTheme = () => {
     setState((current) => ({ ...current, theme: current.theme === 'dark' ? 'light' : 'dark' }));
   };
@@ -397,6 +417,7 @@ function App() {
     onRandomDemo: () => setState((current) => createRandomDemo({ ...current, visualMode: 'money-shredder' })),
     onClearMonitoring: clearMonitoring,
     onSendTestUsageEvent: sendTestUsageEvent,
+    onRunQuickStartDemo: runQuickStartDemo,
     onDemoModeChange: setDemoMode,
     onCompleteOnboarding: completeOnboarding,
     onReopenOnboarding: reopenOnboarding,

@@ -1,4 +1,4 @@
-import { CheckCircle2, Clipboard, KeyRound, PlugZap, Send, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Clipboard, KeyRound, PlugZap, Send, ShieldCheck, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type {
   ConfigureProviderResult,
@@ -14,6 +14,7 @@ interface ProviderSetupPanelProps {
   onProviderConfigChange: (config: ProviderConfig) => void;
   onConfigureProvider: (config: ProviderConfig) => Promise<ConfigureProviderResult>;
   onTestProvider: (config: ProviderConfig, prompt: string) => Promise<ProviderTestResult>;
+  onRunQuickStartDemo: () => void;
 }
 
 const providerOptions: Array<{
@@ -65,6 +66,7 @@ export function ProviderSetupPanel({
   onProviderConfigChange,
   onConfigureProvider,
   onTestProvider,
+  onRunQuickStartDemo,
 }: ProviderSetupPanelProps) {
   const [saveState, setSaveState] = useState<'idle' | 'saved' | 'failed'>('idle');
   const [testResult, setTestResult] = useState<ProviderTestResult | null>(null);
@@ -124,11 +126,21 @@ export function ProviderSetupPanel({
             <h2 className="text-base font-black text-slate-950 dark:text-white">新手接入</h2>
           </div>
           <p className="mt-1 text-sm font-bold text-slate-700 dark:text-slate-300">
-            必要信息只有 4 个：API Key、上游 Base URL、模型/接入点 ID、价格。填好后，把你的 AI 客户端 baseURL 改成本机地址。
+            最快路径：先试玩；正式使用时，选择本机代理接入，或让你的脚本直接 POST usage 到本机接口。
           </p>
         </div>
         <div className="border-4 border-slate-950 bg-lime-200 px-3 py-2 text-xs font-black text-slate-950 dark:border-lime-100 dark:bg-lime-300">
           {providerConfig.enabled ? '代理已配置' : '等待配置'}
+        </div>
+      </div>
+
+      <div className="mt-4 rounded-lg border border-lime-500/50 bg-lime-100 p-3 text-xs font-bold text-lime-950 dark:border-lime-300/30 dark:bg-lime-300/15 dark:text-lime-100">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <span>还没有 Key 或不确定怎么接？先用本地模拟 usage 看宠物效果。</span>
+          <button type="button" onClick={onRunQuickStartDemo} className="action-button bg-white dark:bg-[#111827]">
+            <Sparkles size={16} />
+            <span>一键试玩</span>
+          </button>
         </div>
       </div>
 

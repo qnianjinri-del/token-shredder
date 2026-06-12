@@ -106,6 +106,21 @@ export function MoneyShredder({
     );
   }
 
+  if (petSkin === 'budget-black-hole') {
+    return (
+      <SpriteSkinPet
+        result={result}
+        scenarioName={scenarioName}
+        compact={compact}
+        demoLoop={demoLoop}
+        skinId="budget-black-hole"
+        ariaLabel="像素风预算黑洞宠物"
+        compactWidth={226}
+        compactHeight={302}
+      />
+    );
+  }
+
   return (
     <ShredderPet
       result={result}

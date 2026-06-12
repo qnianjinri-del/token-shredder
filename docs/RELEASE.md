@@ -1,8 +1,8 @@
 # Release Guide
 
-## v0.1.0 Release Checklist
+## v0.1.x Release Checklist
 
-- Confirm `package.json` version is `0.1.0`.
+- Confirm `package.json` version matches the release tag.
 - Confirm the app name is `Token Shredder`.
 - Confirm macOS bundle id is `com.tokenshredder.app`.
 - Confirm pricing copy says editable sample values.
@@ -35,7 +35,8 @@ npm run dist:mac
 - Backstage window opens.
 - Backstage UI is Chinese and usable.
 - Backstage shows the actual collector port.
-- Beginner setup accepts API Key, Base URL, model / endpoint ID, and pricing.
+- Beginner setup includes the no-key quick demo.
+- Beginner setup accepts API Key, Base URL, model / endpoint ID, and pricing for the local proxy path.
 - Saving and enabling the local proxy returns a local `/v1` Base URL.
 - Codex local monitor shows watching / missing / error state.
 - `GET /health` returns JSON with `ok: true`.
@@ -72,7 +73,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.0
+Token Shredder v0.1.2
 ```
 
 Body:
@@ -85,16 +86,18 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 ### Highlights
 
 - Pixel-art desktop shredder pet for macOS.
+- One-click local quick demo for first-time users.
 - Local usage collector, basic `/v1` proxy, and Codex token_count watcher on 127.0.0.1 / local files.
 - Custom and OpenAI-style usage payloads.
 - Editable sample pricing.
+- 6 switchable desktop pet skins.
 - Demo mode and real monitoring mode.
 - Local-first privacy model: no cloud backend, no prompt logging, no analytics.
 - Codex local watcher reads only token_count events.
 
 ### Downloads
 
-- macOS .dmg: unsigned v0.1.0 build.
+- macOS .dmg: unsigned v0.1.x build.
 - macOS .zip: unsigned fallback artifact.
 
 macOS may warn that the app is from an unidentified developer because this build is unsigned and not notarized.
@@ -124,8 +127,8 @@ Local-first. No cloud. No prompt logging. Point your OpenAI-compatible client at
 
 ## Known Limitations
 
-- macOS is the v0.1.0 primary target.
-- The v0.1.0 local build is unsigned and not notarized.
+- macOS is the v0.1.x primary target.
+- The v0.1.x local build is unsigned and not notarized.
 - Basic OpenAI-compatible proxy is available for non-streaming usage extraction; full streaming usage extraction is not implemented.
 - Codex monitor is based on local token_count events, not official billing.
 - JS SDK wrapper is not implemented.

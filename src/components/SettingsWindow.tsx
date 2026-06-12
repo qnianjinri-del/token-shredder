@@ -39,6 +39,7 @@ interface SettingsWindowProps {
   onReset: () => void;
   onClearMonitoring: () => void;
   onSendTestUsageEvent: () => Promise<void>;
+  onRunQuickStartDemo: () => void;
   onDemoModeChange: (mode: DemoMode) => void;
   onCompleteOnboarding: () => void;
   onReopenOnboarding: () => void;
@@ -61,6 +62,7 @@ export function SettingsWindow({
   onReset,
   onClearMonitoring,
   onSendTestUsageEvent,
+  onRunQuickStartDemo,
   onDemoModeChange,
   onCompleteOnboarding,
   onReopenOnboarding,
@@ -105,6 +107,7 @@ export function SettingsWindow({
               monitorInfo={monitorInfo}
               providerConfig={providerConfig}
               onSendTestUsageEvent={onSendTestUsageEvent}
+              onRunQuickStartDemo={onRunQuickStartDemo}
               onComplete={onCompleteOnboarding}
             />
           ) : null}
@@ -115,6 +118,7 @@ export function SettingsWindow({
             onProviderConfigChange={onProviderConfigChange}
             onConfigureProvider={onConfigureProvider}
             onTestProvider={onTestProvider}
+            onRunQuickStartDemo={onRunQuickStartDemo}
           />
 
           <StatusPanel
@@ -124,6 +128,7 @@ export function SettingsWindow({
             monitorInfo={monitorInfo}
             onClearMonitoring={onClearMonitoring}
             onSendTestUsageEvent={onSendTestUsageEvent}
+            onRunQuickStartDemo={onRunQuickStartDemo}
           />
 
           <MonitorPanel

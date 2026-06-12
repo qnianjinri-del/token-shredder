@@ -11,6 +11,7 @@ export const PET_SKIN_IDS = [
   'codex-chomp',
   'agent-bot',
   'token-furnace',
+  'budget-black-hole',
 ] as const satisfies readonly PetSkinId[];
 
 export const PET_SKINS: Array<{ id: PetSkinId; label: string }> = [
@@ -19,6 +20,7 @@ export const PET_SKINS: Array<{ id: PetSkinId; label: string }> = [
   { id: 'codex-chomp', label: 'Codex 吞钞' },
   { id: 'agent-bot', label: 'Agent 小机器人' },
   { id: 'token-furnace', label: 'Token 小火炉' },
+  { id: 'budget-black-hole', label: '预算黑洞' },
 ];
 
 export const PET_SKIN_CONCEPTS = [
@@ -32,8 +34,8 @@ export const PET_SKIN_CONCEPTS = [
   {
     id: 'token-black-hole',
     label: 'Token 黑洞',
-    status: '构思中',
-    description: '美元被像素旋涡卷走，吐出 token 碎片。',
+    status: '已上线',
+    description: '美元被像素旋涡卷走，吐出 TOKEN 字块。',
     accent: '#22d3ee',
   },
   {
