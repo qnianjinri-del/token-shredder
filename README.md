@@ -8,8 +8,8 @@ A tiny desktop pet that shreds your AI token spending in real time.
   <a href="https://github.com/qnianjinri-del/token-shredder/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/qnianjinri-del/token-shredder?style=social">
   </a>
-  <a href="https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0">
-    <img alt="v0.1.0 release" src="https://img.shields.io/badge/release-v0.1.0-5eead4?style=flat">
+  <a href="https://github.com/qnianjinri-del/token-shredder/releases/latest">
+    <img alt="latest release" src="https://img.shields.io/github/v/release/qnianjinri-del/token-shredder?color=5eead4">
   </a>
   <a href="https://qnianjinri-del.github.io/token-shredder/">
     <img alt="Launch page" src="https://img.shields.io/badge/launch-page-bef264?style=flat">
@@ -29,7 +29,7 @@ No cloud backend. No hosted account. No prompt or completion logging. API keys s
 ## Try It
 
 - Open the [launch page](https://qnianjinri-del.github.io/token-shredder/) for the quick visual pitch.
-- Download the macOS v0.1.0 build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0).
+- Download the latest macOS build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest).
 - Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
 - If the idea made you smile or saved you from ignoring token costs again, a Star helps other people find it.
 
@@ -67,9 +67,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 
 ## Download / Install
 
-v0.1.0 targets macOS first.
+v0.1.x targets macOS first.
 
-Download from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0). The first public build is an unsigned macOS `.dmg` plus `.zip`, so macOS may show a warning when opening it. Build from source if you prefer to inspect and run the app locally.
+Download from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest). The current public build is an unsigned macOS `.dmg` plus `.zip`, so macOS may show a warning when opening it. Build from source if you prefer to inspect and run the app locally.
 
 Platform status:
 
