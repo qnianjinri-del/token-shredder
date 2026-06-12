@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qnianjinri-del.github.io/token-shredder/sitemap.xml
