@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Token Shredder</title>
+    <meta
+      name="description"
+      content="A tiny local desktop pet that shreds your AI token spending in real time."
+    />
+    <meta property="og:title" content="Token Shredder" />
+    <meta
+      property="og:description"
+      content="A tiny local desktop pet that shreds your AI token spending in real time."
+    />
+    <meta property="og:image" content="assets/token-shredder-social-preview.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #070a16;
+        --panel: rgba(15, 23, 42, 0.82);
+        --ink: #f8fafc;
+        --muted: #cbd5e1;
+        --line: rgba(148, 163, 184, 0.34);
+        --cyan: #5eead4;
+        --lime: #bef264;
+        --amber: #fbbf24;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 16% 10%, rgba(20, 184, 166, 0.24), transparent 34rem),
+          radial-gradient(circle at 88% 4%, rgba(251, 191, 36, 0.18), transparent 30rem),
+          linear-gradient(180deg, #080b18, #10172a 58%, #080b18);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        content: "";
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 40px 40px;
+        opacity: 0.42;
+        mask-image: linear-gradient(to bottom, black, transparent 88%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        position: relative;
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 48px 0 64px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.02fr 0.98fr;
+        gap: 32px;
+        align-items: center;
+        min-height: 78vh;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(94, 234, 212, 0.42);
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.74);
+        padding: 8px 12px;
+        color: var(--lime);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 22px 0 0;
+        max-width: 680px;
+        font-size: clamp(48px, 8vw, 92px);
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 650px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: clamp(19px, 2.2vw, 25px);
+        line-height: 1.45;
+      }
+
+      .note {
+        margin-top: 18px;
+        max-width: 620px;
+        color: #94a3b8;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        border: 2px solid var(--cyan);
+        border-radius: 10px;
+        padding: 0 18px;
+        background: var(--cyan);
+        color: #020617;
+        font-weight: 900;
+        text-decoration: none;
+        box-shadow: 6px 6px 0 rgba(94, 234, 212, 0.2);
+      }
+
+      .button.secondary {
+        border-color: rgba(203, 213, 225, 0.44);
+        background: rgba(15, 23, 42, 0.78);
+        color: var(--ink);
+      }
+
+      .demo-card {
+        border: 1px solid rgba(94, 234, 212, 0.34);
+        border-radius: 24px;
+        background: var(--panel);
+        padding: 14px;
+        box-shadow: 0 28px 80px rgba(2, 6, 23, 0.48);
+      }
+
+      .demo-card img {
+        display: block;
+        width: 100%;
+        border-radius: 16px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .stat {
+        border: 1px solid rgba(148, 163, 184, 0.32);
+        border-radius: 16px;
+        background: rgba(15, 23, 42, 0.66);
+        padding: 16px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 26px;
+      }
+
+      .stat span {
+        color: #94a3b8;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .section {
+        margin-top: 52px;
+      }
+
+      .section h2 {
+        margin: 0 0 16px;
+        font-size: 34px;
+      }
+
+      .skin-image {
+        display: block;
+        width: 100%;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: 24px;
+        box-shadow: 0 24px 70px rgba(2, 6, 23, 0.42);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .feature {
+        border: 1px solid rgba(148, 163, 184, 0.26);
+        border-radius: 18px;
+        background: rgba(15, 23, 42, 0.7);
+        padding: 18px;
+      }
+
+      .feature h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .feature p {
+        margin: 10px 0 0;
+        color: #cbd5e1;
+        line-height: 1.55;
+      }
+
+      pre {
+        overflow: auto;
+        border: 1px solid rgba(94, 234, 212, 0.3);
+        border-radius: 16px;
+        background: #020617;
+        padding: 18px;
+        color: #bef264;
+      }
+
+      footer {
+        margin-top: 56px;
+        color: #94a3b8;
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .features,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .shell {
+          padding-top: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <div class="eyebrow">local-first · no prompt logging · macOS v0.1.0</div>
+          <h1>Token Shredder</h1>
+          <p class="lede">
+            A tiny desktop pet that shreds your AI token spending in real time.
+            Point your agent at a local collector, then watch estimated cost turn
+            into TOKEN blocks.
+          </p>
+          <p class="note">
+            This is an early open-source project made by a non-professional
+            developer with AI assistance. It works, but rough edges are expected.
+            Feedback, privacy review, packaging help, and new skins are welcome.
+          </p>
+          <div class="actions">
+            <a class="button" href="https://github.com/qnianjinri-del/token-shredder">Star on GitHub</a>
+            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0">Download macOS build</a>
+            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/issues">Help wanted</a>
+          </div>
+          <div class="stats" aria-label="Project highlights">
+            <div class="stat"><strong>5</strong><span>built-in skins</span></div>
+            <div class="stat"><strong>127.0.0.1</strong><span>local collector</span></div>
+            <div class="stat"><strong>0</strong><span>cloud accounts</span></div>
+            <div class="stat"><strong>MIT</strong><span>open source</span></div>
+          </div>
+        </div>
+        <div class="demo-card">
+          <img src="assets/token-shredder-demo.gif" alt="Token Shredder animated demo" />
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Five tiny ways to feel token spend</h2>
+        <img class="skin-image" src="assets/token-shredder-skins.png" alt="Token Shredder installed skins" />
+      </section>
+
+      <section class="section">
+        <h2>Why people might actually use it</h2>
+        <div class="features">
+          <article class="feature">
+            <h3>Real usage events</h3>
+            <p>Send custom token usage or OpenAI-style usage to the local collector and the pet reacts to estimated cost.</p>
+          </article>
+          <article class="feature">
+            <h3>Local privacy boundary</h3>
+            <p>The app listens on 127.0.0.1, records usage numbers, and does not need to log prompts, completions, or API keys.</p>
+          </article>
+          <article class="feature">
+            <h3>Funny enough to share</h3>
+            <p>The joke is simple: stop pretending tokens are free. The useful part is that it works beyond the joke.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Try the local API</h2>
+        <pre><code>curl -X POST http://127.0.0.1:17391/usage \\
+  -H "Content-Type: application/json" \\
+  -d '{"source":"my-agent","inputTokens":120000,"outputTokens":45000}'</code></pre>
+      </section>
+
+      <footer>
+        Token Shredder is not affiliated with any AI provider. Pricing is user-configured and not official live pricing.
+      </footer>
+    </main>
+  </body>
+</html>

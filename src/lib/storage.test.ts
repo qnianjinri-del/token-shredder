@@ -6,6 +6,8 @@ describe('mergeState', () => {
   it('keeps a valid pet skin from persisted state', () => {
     expect(mergeState({ petSkin: 'doh-dad' }).petSkin).toBe('doh-dad');
     expect(mergeState({ petSkin: 'codex-chomp' }).petSkin).toBe('codex-chomp');
+    expect(mergeState({ petSkin: 'agent-bot' }).petSkin).toBe('agent-bot');
+    expect(mergeState({ petSkin: 'token-furnace' }).petSkin).toBe('token-furnace');
   });
 
   it('falls back when persisted pet skin is invalid', () => {

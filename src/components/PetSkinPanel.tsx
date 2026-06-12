@@ -13,12 +13,23 @@ const dohDadSpriteUrl = () => `${import.meta.env.BASE_URL}assets/skins/doh-dad-b
 
 const codexChompSpriteUrl = () => `${import.meta.env.BASE_URL}assets/skins/codex-chomp-spritesheet.png`;
 
+const agentBotSpriteUrl = () => `${import.meta.env.BASE_URL}assets/skins/agent-bot-spritesheet.png`;
+
+const tokenFurnaceSpriteUrl = () => `${import.meta.env.BASE_URL}assets/skins/token-furnace-spritesheet.png`;
+
+const spriteUrlBySkin: Partial<Record<PetSkinId, () => string>> = {
+  'doh-dad': dohDadSpriteUrl,
+  'codex-chomp': codexChompSpriteUrl,
+  'agent-bot': agentBotSpriteUrl,
+  'token-furnace': tokenFurnaceSpriteUrl,
+};
+
 const conceptIconMap = {
-  'claude-code-bite': Code2,
+  'coding-agent-bite': Code2,
   'token-black-hole': CircleDotDashed,
   'ide-monster': Code2,
   'rate-limit-siren': Siren,
-  'agent-bot': Bot,
+  'receipt-cannon': Bot,
 } as const;
 
 export function PetSkinPanel({ petSkin, onPetSkinChange }: PetSkinPanelProps) {
@@ -40,46 +51,40 @@ export function PetSkinPanel({ petSkin, onPetSkinChange }: PetSkinPanelProps) {
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-2">
-        {PET_SKINS.map((skin) => (
-          <button
-            key={skin.id}
-            type="button"
-            onClick={() => onPetSkinChange(skin.id)}
-            className={`mode-button min-h-[116px] flex-col px-2 py-3 text-xs ${petSkin === skin.id ? 'mode-button-active' : ''}`}
-          >
-            <span className="grid h-16 w-full place-items-center overflow-hidden">
-              {skin.id === 'doh-dad' ? (
-                <span
-                  className="h-16 w-12 bg-no-repeat"
-                  style={{
-                    backgroundImage: `url(${dohDadSpriteUrl()})`,
-                    backgroundPosition: '0 0',
-                    backgroundSize: '600% 100%',
-                    imageRendering: 'pixelated',
-                  }}
-                />
-              ) : skin.id === 'codex-chomp' ? (
-                <span
-                  className="h-16 w-12 bg-no-repeat"
-                  style={{
-                    backgroundImage: `url(${codexChompSpriteUrl()})`,
-                    backgroundPosition: '0 0',
-                    backgroundSize: '600% 100%',
-                    imageRendering: 'pixelated',
-                  }}
-                />
-              ) : (
-                <img
-                  src={machineUrl()}
-                  alt=""
-                  className="h-16 w-14 object-contain [image-rendering:pixelated]"
-                  draggable={false}
-                />
-              )}
-            </span>
-            <span>{skin.label}</span>
-          </button>
-        ))}
+        {PET_SKINS.map((skin) => {
+          const spriteUrl = spriteUrlBySkin[skin.id];
+
+          return (
+            <button
+              key={skin.id}
+              type="button"
+              onClick={() => onPetSkinChange(skin.id)}
+              className={`mode-button min-h-[116px] flex-col px-2 py-3 text-xs ${petSkin === skin.id ? 'mode-button-active' : ''}`}
+            >
+              <span className="grid h-16 w-full place-items-center overflow-hidden">
+                {spriteUrl ? (
+                  <span
+                    className="h-16 w-12 bg-no-repeat"
+                    style={{
+                      backgroundImage: `url(${spriteUrl()})`,
+                      backgroundPosition: '0 0',
+                      backgroundSize: '600% 100%',
+                      imageRendering: 'pixelated',
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={machineUrl()}
+                    alt=""
+                    className="h-16 w-14 object-contain [image-rendering:pixelated]"
+                    draggable={false}
+                  />
+                )}
+              </span>
+              <span>{skin.label}</span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="mt-5 flex items-center justify-between gap-2">

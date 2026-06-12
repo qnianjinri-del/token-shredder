@@ -568,6 +568,112 @@
     animation: pet-shredder-jitter 0.2s steps(2, end) infinite;
   }
 
+  .sprite-skin-stage {
+    position: relative;
+    display: flex;
+    width: min(92vw, 720px);
+    height: min(72vh, 560px);
+    min-height: 460px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 6px solid #0f172a;
+    background:
+      radial-gradient(circle at 50% 52%, rgba(221, 214, 254, 0.36), rgba(240, 253, 250, 0.76) 58%, transparent 74%),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.16) 0 12px, rgba(15, 23, 42, 0.04) 12px 14px);
+    box-shadow:
+      10px 10px 0 rgba(15, 23, 42, 0.9),
+      inset 0 0 0 6px rgba(255, 255, 255, 0.45);
+  }
+
+  .dark .sprite-skin-stage {
+    border-color: #a7f3d0;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(94, 234, 212, 0.16), rgba(17, 24, 39, 0.58) 58%, transparent 76%),
+      repeating-linear-gradient(0deg, rgba(94, 234, 212, 0.04) 0 12px, rgba(255, 255, 255, 0.03) 12px 14px);
+    box-shadow:
+      10px 10px 0 rgba(45, 212, 191, 0.22),
+      inset 0 0 0 6px rgba(255, 255, 255, 0.06);
+  }
+
+  .sprite-skin-stage-compact {
+    width: 0;
+    height: 0;
+    min-height: 0;
+    display: block;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .dark .sprite-skin-stage-compact {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .sprite-skin-compact-anchor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .sprite-skin-compact-anchor-inner {
+    width: 0;
+    height: 0;
+  }
+
+  .sprite-skin-sprite-window {
+    width: 384px;
+    height: 512px;
+    overflow: hidden;
+    transform-origin: center bottom;
+    filter: drop-shadow(0 22px 18px rgba(15, 23, 42, 0.32));
+  }
+
+  .sprite-skin-stage-compact .sprite-skin-sprite-window {
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    width: var(--sprite-compact-width, 226px);
+    height: var(--sprite-compact-height, 302px);
+    transform: translate(-50%, -50%) scale(var(--pet-scale, 0.72));
+    transform-origin: center;
+    filter: drop-shadow(0 9px 8px rgba(15, 23, 42, 0.34));
+  }
+
+  .sprite-skin-frame-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    image-rendering: pixelated;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .sprite-skin-stage.is-acting .sprite-skin-sprite-window,
+  .sprite-skin-stage.is-demo-loop .sprite-skin-sprite-window {
+    animation: pet-shredder-jitter 0.2s steps(2, end) infinite;
+  }
+
+  .sprite-skin-stage-compact.is-acting .sprite-skin-sprite-window,
+  .sprite-skin-stage-compact.is-demo-loop .sprite-skin-sprite-window {
+    animation: none;
+  }
+
+  .sprite-skin-stage-compact.is-acting .sprite-skin-frame-image,
+  .sprite-skin-stage-compact.is-demo-loop .sprite-skin-frame-image {
+    animation: pet-shredder-jitter 0.2s steps(2, end) infinite;
+  }
+
   .generated-pet-readout {
     position: absolute;
     right: 18px;

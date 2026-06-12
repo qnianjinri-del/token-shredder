@@ -4,6 +4,7 @@ import type { CalculationResult, PetSkinId } from '../types';
 import { formatCurrency, formatPercent, formatTokens } from '../lib/formatting';
 import { CodexChompPet } from './CodexChompPet';
 import { DohDadPet } from './DohDadPet';
+import { SpriteSkinPet } from './SpriteSkinPet';
 
 interface MoneyShredderProps {
   result: CalculationResult;
@@ -71,6 +72,36 @@ export function MoneyShredder({
         scenarioName={scenarioName}
         compact={compact}
         demoLoop={demoLoop}
+      />
+    );
+  }
+
+  if (petSkin === 'agent-bot') {
+    return (
+      <SpriteSkinPet
+        result={result}
+        scenarioName={scenarioName}
+        compact={compact}
+        demoLoop={demoLoop}
+        skinId="agent-bot"
+        ariaLabel="像素风 Agent 小机器人宠物"
+        compactWidth={220}
+        compactHeight={293}
+      />
+    );
+  }
+
+  if (petSkin === 'token-furnace') {
+    return (
+      <SpriteSkinPet
+        result={result}
+        scenarioName={scenarioName}
+        compact={compact}
+        demoLoop={demoLoop}
+        skinId="token-furnace"
+        ariaLabel="像素风 Token 小火炉宠物"
+        compactWidth={226}
+        compactHeight={302}
       />
     );
   }

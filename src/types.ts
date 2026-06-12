@@ -1,6 +1,6 @@
 export type VisualMode = 'money-shredder';
 
-export type PetSkinId = 'shredder' | 'doh-dad' | 'codex-chomp';
+export type PetSkinId = 'shredder' | 'doh-dad' | 'codex-chomp' | 'agent-bot' | 'token-furnace';
 
 export type CostMode = 'token-usage' | 'direct-cost';
 

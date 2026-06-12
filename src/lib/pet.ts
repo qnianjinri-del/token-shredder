@@ -5,18 +5,28 @@ export const PET_SCALE_MAX = 1.25;
 export const PET_SCALE_STEP = 0.05;
 export const PET_SCALE_DEFAULT = 0.72;
 
+export const PET_SKIN_IDS = [
+  'shredder',
+  'doh-dad',
+  'codex-chomp',
+  'agent-bot',
+  'token-furnace',
+] as const satisfies readonly PetSkinId[];
+
 export const PET_SKINS: Array<{ id: PetSkinId; label: string }> = [
   { id: 'shredder', label: '碎钞机' },
   { id: 'doh-dad', label: '刀～爸爸' },
   { id: 'codex-chomp', label: 'Codex 吞钞' },
+  { id: 'agent-bot', label: 'Agent 小机器人' },
+  { id: 'token-furnace', label: 'Token 小火炉' },
 ];
 
 export const PET_SKIN_CONCEPTS = [
   {
-    id: 'claude-code-bite',
-    label: 'Claude Code 咬钞',
+    id: 'coding-agent-bite',
+    label: 'Coding Agent 咬钞',
     status: '构思中',
-    description: '橙白标志折成小嘴，逐口咬掉美元。',
+    description: '原创终端小嘴逐口咬掉 TOKEN BILL。',
     accent: '#f97316',
   },
   {
@@ -41,10 +51,10 @@ export const PET_SKIN_CONCEPTS = [
     accent: '#f43f5e',
   },
   {
-    id: 'agent-bot',
-    label: 'Agent 小机器人',
+    id: 'receipt-cannon',
+    label: '小票加农炮',
     status: '构思中',
-    description: '原创机器人啃美元，肚子屏幕显示余额。',
+    description: '账单小票被打成 TOKEN 纸带。',
     accent: '#facc15',
   },
 ] as const;
@@ -52,7 +62,7 @@ export const PET_SKIN_CONCEPTS = [
 export const PET_SKIN_DEFAULT: PetSkinId = 'shredder';
 
 export const isPetSkinId = (value: unknown): value is PetSkinId =>
-  value === 'shredder' || value === 'doh-dad' || value === 'codex-chomp';
+  typeof value === 'string' && (PET_SKIN_IDS as readonly string[]).includes(value);
 
 export const clampPetScale = (value: number): number => {
   if (!Number.isFinite(value) || Number.isNaN(value)) {

@@ -19,6 +19,7 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - README demo GIF: `docs/assets/token-shredder-demo.gif`
 - Installed skins image: `docs/assets/token-shredder-skins.png`
 - Social preview image: `docs/assets/token-shredder-social-preview.jpg`
+- Landing page: `docs/index.html`
 - Release notes: `docs/releases/v0.1.0.md`
 
 For the first launch push, lead with the GIF. The project makes sense much faster when people see the tiny pet react to usage.
@@ -103,11 +104,12 @@ Repo: https://github.com/qnianjinri-del/token-shredder
 Prioritize places where the audience already understands AI agent token usage:
 
 1. GitHub README + Release page.
-2. X / Twitter with the GIF.
-3. Hacker News `Show HN`.
-4. Reddit communities focused on local-first tools, AI agents, and developer tools.
-5. Discord / Slack groups where people already discuss AI coding agents.
-6. Product Hunt later, after a recorded GIF and signed macOS build.
+2. GitHub Pages launch page.
+3. X / Twitter with the GIF.
+4. Hacker News `Show HN`.
+5. Reddit communities focused on local-first tools, AI agents, and developer tools.
+6. Discord / Slack groups where people already discuss AI coding agents.
+7. Product Hunt later, after a recorded GIF and signed macOS build.
 
 Avoid spammy cross-posting. A smaller number of honest posts with a GIF, clear privacy boundary, and a humble request for feedback is more likely to bring real stars.
 

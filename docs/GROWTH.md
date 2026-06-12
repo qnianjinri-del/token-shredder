@@ -43,6 +43,7 @@ P0:
 - One 10-15 second GIF: done in `docs/assets/token-shredder-demo.gif`.
 - Skin showcase image: done in `docs/assets/token-shredder-skins.png`.
 - GitHub social preview image candidate: done in `docs/assets/token-shredder-social-preview.jpg`.
+- GitHub Pages landing page: done in `docs/index.html`.
 - One 30-45 second demo video: setup, local proxy, usage event, pet moves.
 - One screenshot of backstage with the skin picker visible.
 - One screenshot of the desktop pet only.

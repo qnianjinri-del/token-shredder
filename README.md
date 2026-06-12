@@ -4,6 +4,18 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 > Stop pretending tokens are free. Watch your AI agent shred dollars in real time.
 
+<p>
+  <a href="https://github.com/qnianjinri-del/token-shredder/stargazers">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/qnianjinri-del/token-shredder?style=social">
+  </a>
+  <a href="https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0">
+    <img alt="v0.1.0 release" src="https://img.shields.io/badge/release-v0.1.0-5eead4?style=flat">
+  </a>
+  <a href="https://qnianjinri-del.github.io/token-shredder/">
+    <img alt="Launch page" src="https://img.shields.io/badge/launch-page-bef264?style=flat">
+  </a>
+</p>
+
 ![Token Shredder demo animation](docs/assets/token-shredder-demo.gif)
 
 Token Shredder is a local-first Electron desktop pet. Configure your provider key, base URL, model ID, and editable sample token prices, then point your OpenAI-compatible client at the local proxy. The pixel pet turns real token spend into shredded TOKEN blocks.
@@ -16,6 +28,7 @@ No cloud backend. No hosted account. No prompt or completion logging. API keys s
 
 ## Try It
 
+- Open the [launch page](https://qnianjinri-del.github.io/token-shredder/) for the quick visual pitch.
 - Download the macOS v0.1.0 build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0).
 - Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
 - If the idea made you smile or saved you from ignoring token costs again, a Star helps other people find it.
@@ -36,7 +49,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 
 - Transparent always-on-top pixel desktop pet.
 - Chinese right-click menu: enter backstage, reset local config, or quit.
-- Switchable pixel pet skins.
+- 5 switchable pixel pet skins.
 - Local realtime collector on `127.0.0.1`.
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
 - Beginner setup flow for API Key, upstream Base URL, model / endpoint ID, and pricing.
