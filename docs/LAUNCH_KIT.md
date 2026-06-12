@@ -14,6 +14,15 @@ https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0
 
 Token Shredder is a tiny local desktop pet that shreds your AI token spending in real time.
 
+## Best Assets
+
+- README demo GIF: `docs/assets/token-shredder-demo.gif`
+- Installed skins image: `docs/assets/token-shredder-skins.png`
+- Social preview image: `docs/assets/token-shredder-social-preview.jpg`
+- Release notes: `docs/releases/v0.1.0.md`
+
+For the first launch push, lead with the GIF. The project makes sense much faster when people see the tiny pet react to usage.
+
 ## Humble Pitch
 
 I am not a professional developer, and this started as a small AI-assisted learning project. It is rough in places, but the core idea works: a local desktop pet receives token usage and turns AI spend into a cute little shredder animation. Feedback, issues, and PRs are very welcome.
@@ -79,6 +88,29 @@ I’m not a professional developer, so I’m mostly looking for feedback and con
 
 GitHub: https://github.com/qnianjinri-del/token-shredder
 
+## GitHub Repo Share Text
+
+If you post inside GitHub Discussions or reply to related open-source threads:
+
+I built a small local-first desktop app called Token Shredder. It shows a tiny pixel pet on your desktop, receives token usage locally, and visualizes estimated AI spend as shredded TOKEN blocks.
+
+It is macOS-first and early. I am not a professional developer, so there are definitely rough edges. I would especially appreciate help with packaging, privacy review, more skins, and integration examples.
+
+Repo: https://github.com/qnianjinri-del/token-shredder
+
+## Where To Launch First
+
+Prioritize places where the audience already understands AI agent token usage:
+
+1. GitHub README + Release page.
+2. X / Twitter with the GIF.
+3. Hacker News `Show HN`.
+4. Reddit communities focused on local-first tools, AI agents, and developer tools.
+5. Discord / Slack groups where people already discuss AI coding agents.
+6. Product Hunt later, after a recorded GIF and signed macOS build.
+
+Avoid spammy cross-posting. A smaller number of honest posts with a GIF, clear privacy boundary, and a humble request for feedback is more likely to bring real stars.
+
 ## Product Hunt Draft
 
 Name:
@@ -123,4 +155,3 @@ Thanks for checking it out. This is still early, so rough edges are expected. I�
 Thanks for the idea. I’m keeping the first version local-first and small, but this sounds like a good candidate for the roadmap.
 
 Thanks for the PR. I’ll review it with the privacy boundary in mind: no prompt/completion logging, no API key logging, no cloud analytics.
-

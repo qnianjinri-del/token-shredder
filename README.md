@@ -4,23 +4,33 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 > Stop pretending tokens are free. Watch your AI agent shred dollars in real time.
 
-![Token Shredder generated project cover](docs/assets/token-shredder-cover.png)
+![Token Shredder demo animation](docs/assets/token-shredder-demo.gif)
 
-Generated project cover. Real screenshots/GIFs are still coming soon.
+Token Shredder is a local-first Electron desktop pet. Configure your provider key, base URL, model ID, and editable sample token prices, then point your OpenAI-compatible client at the local proxy. The pixel pet turns real token spend into shredded TOKEN blocks.
 
-Token Shredder is a local-first Electron desktop pet. Configure your provider key, base URL, model ID, and editable sample token prices, then point your OpenAI-compatible client at the local proxy. The pixel shredder pet turns real token spend into shredded TOKEN blocks.
+It started as a small, slightly ridiculous tool for making AI costs feel visible. It is useful today, but still early. I am not a professional developer, so the code, UX, packaging, and integrations will all benefit from sharper eyes.
 
 No cloud backend. No hosted account. No prompt or completion logging. API keys stay on your machine.
+
+![Token Shredder installed skins](docs/assets/token-shredder-skins.png)
 
 ## Try It
 
 - Download the macOS v0.1.0 build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/tag/v0.1.0).
 - Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
-- Want to help? See [CONTRIBUTING.md](CONTRIBUTING.md) and open a small issue or PR.
+- If the idea made you smile or saved you from ignoring token costs again, a Star helps other people find it.
 
-## A Small Note
+## Help Wanted
 
-I am not a professional developer and I built this as a small learning project with AI assistance. Many parts are still rough, and some engineering decisions may not be ideal yet. If you find bugs, rough edges, better UX ideas, safer integration patterns, or cleaner code structure, contributions and suggestions are very welcome.
+Contributions, bug reports, skin ideas, privacy reviews, and small cleanup PRs are very welcome. Good first places to help:
+
+- Record a real demo GIF on macOS.
+- Add more original pet skins.
+- Test Windows / Linux behavior.
+- Improve provider setup docs.
+- Review the local-first privacy model.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianjinri-del/token-shredder/issues), and [Discussions](https://github.com/qnianjinri-del/token-shredder/discussions).
 
 ## Features
 

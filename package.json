@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "main": "dist-electron/main.js",
-  "description": "A funny, brutally honest token cost visualizer for AI budgets.",
+  "description": "A tiny local desktop pet that shreds your AI token spending in real time.",
   "author": "Token Shredder contributors",
   "license": "MIT",
   "scripts": {

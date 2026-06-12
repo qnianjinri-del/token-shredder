@@ -40,7 +40,9 @@ Why people share it:
 P0:
 
 - README cover image: done.
-- One 10-15 second GIF: pet idle, usage arrives, bill shreds, TOKEN blocks fall.
+- One 10-15 second GIF: done in `docs/assets/token-shredder-demo.gif`.
+- Skin showcase image: done in `docs/assets/token-shredder-skins.png`.
+- GitHub social preview image candidate: done in `docs/assets/token-shredder-social-preview.jpg`.
 - One 30-45 second demo video: setup, local proxy, usage event, pet moves.
 - One screenshot of backstage with the skin picker visible.
 - One screenshot of the desktop pet only.
@@ -172,6 +174,41 @@ Target pacing for 10,000 stars:
 
 If Day 1 is below 100 stars, do not panic. Improve the GIF, README, and install path before broader posting.
 
+## 100-Star Sprint
+
+This is the practical next target. It depends on real people seeing the project, not repository edits alone.
+
+### Before Posting
+
+- Put the GIF at the top of README.
+- Make the first paragraph explain the product in one sentence.
+- Keep the privacy promise visible: local-first, no prompt logging, no API key logging.
+- Keep the humble maintainer note visible, but not apologetic.
+- Make good-first issues available for people who want to help.
+- Link Releases from the README first screen.
+
+### First 24 Hours
+
+1. Post one short GIF-first update on X / Twitter, Bluesky, Mastodon, or the user's strongest social channel.
+2. Post one honest `Show HN` with the technical angle: local collector, OpenAI-style usage, no prompt logging.
+3. Share in one or two relevant AI/developer communities where project sharing is allowed.
+4. Reply quickly to every comment and issue.
+5. If install friction appears, ship `v0.1.1` quickly instead of defending the rough edge.
+
+### Message To Lead With
+
+> I built a tiny local desktop pet that shreds a fictional dollar bill whenever my AI agent spends tokens.
+>
+> It is early and rough, and I am not a professional developer, but it works: local collector, OpenAI-style usage support, editable pricing, no prompt/completion logging.
+
+### Avoid
+
+- Buying or trading stars.
+- Posting the same message everywhere.
+- Claiming official provider pricing.
+- Claiming cross-platform support before it is tested.
+- Hiding that the first macOS build is unsigned.
+
 ## What Not To Do
 
 - Do not buy stars.
@@ -180,4 +217,3 @@ If Day 1 is below 100 stars, do not panic. Improve the GIF, README, and install 
 - Do not claim official support for providers.
 - Do not imply prompts/completions are logged.
 - Do not hide the unsigned macOS limitation.
-
