@@ -1,26 +1,26 @@
-name: Feature request
-description: Suggest an improvement for Token Shredder.
+name: Feature request / 功能建议
+description: Suggest an improvement for Token Shredder. / 给 Token Shredder 提建议。
 title: "[Feature]: "
 labels: ["enhancement"]
 body:
   - type: textarea
     id: problem
     attributes:
-      label: What problem would this solve?
-      description: Explain the real workflow or pain point.
+      label: 它要解决什么问题？ / What problem would this solve?
+      description: 请描述真实 workflow 或痛点。 / Explain the real workflow or pain point.
     validations:
       required: true
   - type: textarea
     id: idea
     attributes:
-      label: Proposed solution
-      description: Describe the feature or improvement.
+      label: 你的想法 / Proposed solution
+      description: 请描述你希望增加或改进什么。 / Describe the feature or improvement.
     validations:
       required: true
   - type: dropdown
     id: area
     attributes:
-      label: Area
+      label: 相关区域 / Area
       options:
         - Desktop pet
         - Local usage collector
@@ -35,8 +35,7 @@ body:
   - type: textarea
     id: privacy
     attributes:
-      label: Privacy notes
-      description: Would this require storing or transmitting any new data?
+      label: 隐私说明 / Privacy notes
+      description: 这个功能是否需要存储或传输新的数据？ / Would this require storing or transmitting any new data?
     validations:
       required: false
-

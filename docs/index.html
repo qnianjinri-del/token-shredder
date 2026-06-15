@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,18 +7,18 @@
     <link rel="canonical" href="https://qnianjinri-del.github.io/token-shredder/" />
     <meta
       name="description"
-      content="A tiny local desktop pet that shreds your AI token spending in real time."
+      content="一个本机运行的 AI token 成本桌面宠物，把你的 AI 消耗实时碎成 TOKEN。"
     />
     <meta
       name="keywords"
-      content="AI token cost, desktop pet, Electron app, local-first, OpenAI compatible, token usage, pixel art, developer tools"
+      content="AI token 成本, 桌面宠物, Electron app, local-first, OpenAI compatible, token usage, pixel art, developer tools"
     />
     <meta property="og:title" content="Token Shredder" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://qnianjinri-del.github.io/token-shredder/" />
     <meta
       property="og:description"
-      content="A tiny local desktop pet that shreds your AI token spending in real time."
+      content="一个本机运行的 AI token 成本桌面宠物，把你的 AI 消耗实时碎成 TOKEN。"
     />
     <meta
       property="og:image"
@@ -30,7 +30,7 @@
     <meta name="twitter:title" content="Token Shredder" />
     <meta
       name="twitter:description"
-      content="A tiny local desktop pet that shreds your AI token spending in real time."
+      content="一个本机运行的 AI token 成本桌面宠物，把你的 AI 消耗实时碎成 TOKEN。"
     />
     <meta
       name="twitter:image"
@@ -43,7 +43,7 @@
         "name": "Token Shredder",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "macOS",
-        "description": "A tiny local desktop pet that shreds your AI token spending in real time.",
+        "description": "一个本机运行的 AI token 成本桌面宠物，把你的 AI 消耗实时碎成 TOKEN。",
         "url": "https://qnianjinri-del.github.io/token-shredder/",
         "downloadUrl": "https://github.com/qnianjinri-del/token-shredder/releases/latest",
         "codeRepository": "https://github.com/qnianjinri-del/token-shredder",
@@ -246,7 +246,7 @@
 
       .steps {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 14px;
       }
 
@@ -304,28 +304,26 @@
     <main class="shell">
       <section class="hero">
         <div>
-          <div class="eyebrow">local-first · no prompt logging · macOS v0.1.4</div>
+          <div class="eyebrow">本机运行 · 不记录 prompt · macOS v0.1.4</div>
           <h1>Token Shredder</h1>
           <p class="lede">
-            A tiny desktop pet that shreds your AI token spending in real time.
-            Point your agent at a local collector, then watch estimated cost turn
-            into TOKEN blocks. Try the first-run demo without an API key.
+            一个本机运行的 AI token 成本桌面宠物。把 Agent、脚本或 SDK 的 usage 发到本机，
+            它会把 AI 消耗实时碎成 TOKEN 字块。第一次体验不需要 API Key。
           </p>
           <p class="note">
-            This is an early open-source project made by a non-professional
-            developer with AI assistance. It works, but rough edges are expected.
-            Feedback, privacy review, packaging help, and new skins are welcome.
+            这是一个早期开源项目，由非专业开发者在 AI 辅助下完成。能用，但肯定还有粗糙的地方。
+            欢迎反馈、隐私 review、打包帮助和新的原创皮肤。
           </p>
           <div class="actions">
-            <a class="button" href="https://github.com/qnianjinri-del/token-shredder">Star on GitHub</a>
-            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/releases/latest">Download macOS build</a>
-            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/issues">Help wanted</a>
+            <a class="button" href="https://github.com/qnianjinri-del/token-shredder">去 GitHub 点 Star</a>
+            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/releases/latest">下载 macOS 版本</a>
+            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/blob/main/docs/README.zh-CN.md">中文说明</a>
           </div>
           <div class="stats" aria-label="Project highlights">
-            <div class="stat"><strong>6</strong><span>built-in skins</span></div>
-            <div class="stat"><strong>127.0.0.1</strong><span>local collector</span></div>
-            <div class="stat"><strong>0</strong><span>cloud accounts</span></div>
-            <div class="stat"><strong>MIT</strong><span>open source</span></div>
+            <div class="stat"><strong>6</strong><span>内置皮肤</span></div>
+            <div class="stat"><strong>127.0.0.1</strong><span>本机 collector</span></div>
+            <div class="stat"><strong>0</strong><span>云账号</span></div>
+            <div class="stat"><strong>MIT</strong><span>开源协议</span></div>
           </div>
         </div>
         <div class="demo-card">
@@ -334,63 +332,63 @@
       </section>
 
       <section class="section">
-        <h2>Try it in 30 seconds</h2>
+        <h2>30 秒试用</h2>
         <div class="steps">
           <article class="step">
-            <h3>1. Open the app</h3>
-            <p>Download the macOS build, open Token Shredder, then right-click the pet and choose backstage.</p>
+            <h3>1. 打开 App</h3>
+            <p>下载 macOS 版本，打开 Token Shredder，右键桌面宠物进入后台。</p>
           </article>
           <article class="step">
-            <h3>2. Click quick demo</h3>
-            <p>No API key needed. The pet shreds once, stops on the result, and makes the core idea obvious.</p>
+            <h3>2. 一键试玩</h3>
+            <p>不需要 API Key。宠物会碎一次钱，然后停在结果上。</p>
           </article>
           <article class="step">
-            <h3>3. Send real usage</h3>
-            <p>Copy the backstage curl smoke test, or run examples from the cloned repository.</p>
+            <h3>3. 发送真实 usage</h3>
+            <p>复制后台 curl，或在克隆仓库后运行 examples。</p>
           </article>
           <article class="step">
-            <h3>4. Share the shred</h3>
-            <p>Copy a Chinese or English launch post, or export a PNG card from the share panel.</p>
+            <h3>4. 分享碎钞结果</h3>
+            <p>复制中文/英文传播帖，或从分享面板导出 PNG 卡片。</p>
           </article>
         </div>
       </section>
 
       <section class="section">
-        <h2>Six tiny ways to feel token spend</h2>
+        <h2>6 个小宠物，让 token 消耗变得可见</h2>
         <img class="skin-image" src="assets/token-shredder-skins.png" alt="Token Shredder installed skins" />
       </section>
 
       <section class="section">
-        <h2>Why people might actually use it</h2>
+        <h2>为什么它不只是玩具</h2>
         <div class="features">
           <article class="feature">
-            <h3>Real usage events</h3>
-            <p>Send custom token usage or OpenAI-style usage to the local collector and the pet reacts to estimated cost.</p>
+            <h3>真实 usage 事件</h3>
+            <p>发送自定义 usage 或 OpenAI-style usage 到本机 collector，宠物会按估算成本反应。</p>
           </article>
           <article class="feature">
-            <h3>No-key first run</h3>
-            <p>Click the local quick demo to see the desktop pet shred once before connecting any provider key.</p>
+            <h3>首次体验不用 Key</h3>
+            <p>先点击本机试玩，看懂核心体验后再接真实 provider。</p>
           </article>
           <article class="feature">
-            <h3>Local privacy boundary</h3>
-            <p>The app listens on 127.0.0.1, records usage numbers, and does not need to log prompts, completions, or API keys.</p>
+            <h3>本机隐私边界</h3>
+            <p>应用监听 127.0.0.1，只需要 usage 数字，不需要记录 prompt、completion 或 API key。</p>
           </article>
           <article class="feature">
-            <h3>Funny enough to share</h3>
-            <p>The joke is simple: stop pretending tokens are free. The useful part is that it works beyond the joke.</p>
+            <h3>好笑，但真的有用</h3>
+            <p>笑点很简单：别再假装 tokens 不花钱。有用的部分是它真的能接 usage。</p>
           </article>
         </div>
       </section>
 
       <section class="section">
-        <h2>Try the local API</h2>
+        <h2>试一下本机 API</h2>
         <pre><code>curl -X POST http://127.0.0.1:17391/usage \\
   -H "Content-Type: application/json" \\
   -d '{"source":"my-agent","inputTokens":120000,"outputTokens":45000}'</code></pre>
       </section>
 
       <footer>
-        Token Shredder is not affiliated with any AI provider. Pricing is user-configured and not official live pricing.
+        Token Shredder 不隶属于任何 AI provider。价格由用户配置，不是官方实时价格。
       </footer>
     </main>
   </body>

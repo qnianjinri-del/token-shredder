@@ -26,6 +26,20 @@ Token Shredder 是一个 local-first 的 Electron 桌面宠物。你可以先用
 
 Token Shredder is a local-first Electron desktop pet. Click the built-in quick demo to try it without an API key, or configure your provider key, base URL, model ID, and editable sample token prices to point an OpenAI-compatible client at the local proxy.
 
+## 中文快速开始
+
+完整中文说明见：[docs/README.zh-CN.md](docs/README.zh-CN.md)
+
+最快体验：
+
+1. 从 [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest) 下载 macOS 版本。
+2. 打开 Token Shredder，桌面会出现一个像素风计费宠物。
+3. 右键宠物，点击 `进入后台`。
+4. 在 `30 秒验证` 里点 `一键试玩`，不需要 API Key。
+5. 想接真实 usage 时，可以复制后台 curl，或让你的脚本 POST 到 `http://127.0.0.1:17391/usage`。
+
+如果本机端口不是 `17391`，后台会显示实际端口。Token Shredder 默认只记录 usage 数字，不需要记录 prompt、completion 或 API key。
+
 It started as a small, slightly ridiculous tool for making AI costs feel visible. It is useful today, but still early. I am not a professional developer, so the code, UX, packaging, and integrations will all benefit from sharper eyes.
 
 No cloud backend. No hosted account. No prompt or completion logging. API keys stay on your machine.

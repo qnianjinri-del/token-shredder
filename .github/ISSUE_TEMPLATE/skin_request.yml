@@ -1,27 +1,26 @@
-name: Skin idea
-description: Suggest or contribute a new desktop pet skin.
+name: Skin idea / 皮肤想法
+description: Suggest or contribute a new desktop pet skin. / 建议或贡献新的桌面宠物皮肤。
 title: "[Skin]: "
 labels: ["skin", "good first issue"]
 body:
   - type: input
     id: name
     attributes:
-      label: Skin name
-      placeholder: "Example: Budget Black Hole"
+      label: 皮肤名称 / Skin name
+      placeholder: "例如：预算黑洞 / Example: Budget Black Hole"
     validations:
       required: true
   - type: textarea
     id: concept
     attributes:
-      label: Concept
-      description: What should the pet look like and how should it consume token spend?
+      label: 概念 / Concept
+      description: 这个宠物长什么样？它应该怎么消耗 token 花费？ / What should the pet look like and how should it consume token spend?
     validations:
       required: true
   - type: textarea
     id: assets
     attributes:
-      label: Asset notes
-      description: If you are contributing art, confirm that you own it or have permission to contribute it.
+      label: 素材说明 / Asset notes
+      description: 如果你贡献图片素材，请确认你拥有版权或有权贡献。 / If you are contributing art, confirm that you own it or have permission to contribute it.
     validations:
       required: false
-

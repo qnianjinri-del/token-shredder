@@ -1,37 +1,36 @@
-name: Bug report
-description: Report something broken in Token Shredder.
+name: Bug report / 问题反馈
+description: Report something broken in Token Shredder. / 反馈 Token Shredder 的问题。
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: textarea
     id: what-happened
     attributes:
-      label: What happened?
-      description: Describe the bug and what you expected instead.
+      label: 发生了什么？ / What happened?
+      description: 请描述问题，以及你原本期待它怎么工作。 / Describe the bug and what you expected instead.
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Steps to reproduce
+      label: 复现步骤 / Steps to reproduce
       placeholder: |
-        1. Open the app
-        2. Right-click the pet
+        1. 打开 App / Open the app
+        2. 右键桌面宠物 / Right-click the pet
         3. ...
     validations:
       required: true
   - type: input
     id: platform
     attributes:
-      label: Platform
-      placeholder: "macOS version, chip, install method"
+      label: 平台 / Platform
+      placeholder: "macOS 版本、芯片、安装方式 / macOS version, chip, install method"
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Relevant logs or screenshots
-      description: Please do not paste API keys, prompts, completions, or private data.
+      label: 相关日志或截图 / Relevant logs or screenshots
+      description: 请不要粘贴 API key、prompt、completion 或隐私数据。 / Please do not paste API keys, prompts, completions, or private data.
     validations:
       required: false
-
