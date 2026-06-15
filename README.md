@@ -1,7 +1,11 @@
 # Token Shredder
 
+一个本机运行的 AI token 成本桌面宠物。把 Agent、脚本、SDK 或本地代理产生的 usage 发到本机，它会把 AI token 花费实时碎成 TOKEN 字块。
+
 A tiny desktop pet that shreds your AI token spending in real time.
 
+> 别再假装 tokens 不花钱。看着你的 AI Agent 实时碎钞。
+>
 > Stop pretending tokens are free. Watch your AI agent shred dollars in real time.
 
 <p>
@@ -18,7 +22,9 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 ![Token Shredder demo animation](docs/assets/token-shredder-demo.gif)
 
-Token Shredder is a local-first Electron desktop pet. Click the built-in quick demo to try it without an API key, or configure your provider key, base URL, model ID, and editable sample token prices to point an OpenAI-compatible client at the local proxy. The pixel pet turns real token spend into shredded TOKEN blocks.
+Token Shredder 是一个 local-first 的 Electron 桌面宠物。你可以先用内置一键试玩，不需要 API Key；也可以配置 provider key、Base URL、模型 ID 和可编辑示例价格，把 OpenAI-compatible 客户端指向本机代理。像素宠物会把真实 token 消耗变成碎掉的 TOKEN 字块。
+
+Token Shredder is a local-first Electron desktop pet. Click the built-in quick demo to try it without an API key, or configure your provider key, base URL, model ID, and editable sample token prices to point an OpenAI-compatible client at the local proxy.
 
 It started as a small, slightly ridiculous tool for making AI costs feel visible. It is useful today, but still early. I am not a professional developer, so the code, UX, packaging, and integrations will all benefit from sharper eyes.
 
