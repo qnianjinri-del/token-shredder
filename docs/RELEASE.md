@@ -36,10 +36,13 @@ npm run dist:mac
 - Backstage UI is Chinese and usable.
 - Backstage shows the actual collector port.
 - Beginner setup includes the no-key quick demo.
+- Backstage `30 秒验证` can drive a quick demo and a collector smoke test.
 - Beginner setup accepts API Key, Base URL, model / endpoint ID, and pricing for the local proxy path.
 - Saving and enabling the local proxy returns a local `/v1` Base URL.
 - Codex local monitor shows watching / missing / error state.
 - `GET /health` returns JSON with `ok: true`.
+- `node examples/post-usage-node.mjs` can drive a local usage event.
+- `python3 examples/post-usage-python.py` can drive a local usage event.
 - Custom `POST /usage` is accepted.
 - OpenAI-style `POST /usage` is accepted.
 - Basic non-streaming `/v1/chat/completions` proxy request works with a valid configured provider.
@@ -73,7 +76,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.2
+Token Shredder v0.1.3
 ```
 
 Body:
@@ -87,6 +90,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 
 - Pixel-art desktop shredder pet for macOS.
 - One-click local quick demo for first-time users.
+- Backstage 30-second verification panel and copy-paste examples.
 - Local usage collector, basic `/v1` proxy, and Codex token_count watcher on 127.0.0.1 / local files.
 - Custom and OpenAI-style usage payloads.
 - Editable sample pricing.

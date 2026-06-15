@@ -19,6 +19,7 @@ import { PetSkinPanel } from './PetSkinPanel';
 import { PetSizePanel } from './PetSizePanel';
 import { PricingPanel } from './PricingPanel';
 import { ProviderSetupPanel } from './ProviderSetupPanel';
+import { QuickVerifyPanel } from './QuickVerifyPanel';
 import { SharePanel } from './SharePanel';
 import { StatusPanel } from './StatusPanel';
 import { ThemeToggle } from './ThemeToggle';
@@ -94,6 +95,12 @@ export function SettingsWindow({
               重新查看接入指南
             </button>
           </div>
+
+          <QuickVerifyPanel
+            monitorInfo={monitorInfo}
+            onRunQuickStartDemo={onRunQuickStartDemo}
+            onSendTestUsageEvent={onSendTestUsageEvent}
+          />
 
           <PetSkinPanel petSkin={state.petSkin} onPetSkinChange={onPetSkinChange} />
 

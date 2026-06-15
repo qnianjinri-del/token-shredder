@@ -31,6 +31,7 @@ No cloud backend. No hosted account. No prompt or completion logging. API keys s
 - Open the [launch page](https://qnianjinri-del.github.io/token-shredder/) for the quick visual pitch.
 - Download the latest macOS build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest).
 - First launch includes a one-click local demo, so you can see the pet move before setting up any provider key.
+- Run the copy-paste examples in [`examples/`](examples/) to verify real `POST /usage` events in under a minute.
 - Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
 - If the idea made you smile or saved you from ignoring token costs again, a Star helps other people find it.
 
@@ -54,6 +55,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Local realtime collector on `127.0.0.1`.
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
 - Beginner setup flow with a no-key quick demo, API Key, upstream Base URL, model / endpoint ID, and pricing.
+- Backstage 30-second verification panel with one-click demo, collector test, and example commands.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -108,6 +110,30 @@ To run the built app locally:
 ```bash
 npm run start:desktop
 ```
+
+## 30-Second Verification
+
+After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage card is `30 秒验证`.
+
+Fast paths:
+
+- Downloaded app: click `一键试玩`, then `发送测试`, or copy the curl smoke test from backstage.
+- Cloned repository: run the example scripts below.
+
+```bash
+node examples/post-usage-node.mjs
+python3 examples/post-usage-python.py
+node examples/post-openai-style-usage.mjs
+```
+
+If Token Shredder switched away from port `17391`, copy the actual backstage endpoint and run:
+
+```bash
+export TOKEN_SHREDDER_URL="http://127.0.0.1:17392/usage"
+node examples/post-usage-node.mjs
+```
+
+These examples send only usage numbers. They do not send prompts, completions, messages, or API keys.
 
 ## Connect Your Agent
 
@@ -215,7 +241,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
