@@ -1,8 +1,12 @@
 import { toPng } from 'html-to-image';
-import { Copy, Download, Link } from 'lucide-react';
+import { Copy, Download, Link, MessageSquareText } from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { AppState, CalculationResult } from '../types';
-import { formatCurrency, formatPercent } from '../lib/formatting';
+import {
+  buildChineseLaunchPost,
+  buildEnglishLaunchPost,
+  buildSummaryText,
+} from '../lib/shareText';
 import { createShareUrl } from '../lib/urlState';
 import { SummaryCard } from './SummaryCard';
 
@@ -10,17 +14,6 @@ interface SharePanelProps {
   state: AppState;
   result: CalculationResult;
 }
-
-const buildSummary = (state: AppState, result: CalculationResult): string => `Token Shredder 摘要:
-场景: ${state.scenarioName || '未命名运行'}
-总消耗: ${formatCurrency(result.totalCost)}
-单次成本: ${formatCurrency(result.costPerRun)}
-完整碎掉的纸币: ${result.destroyedBills}
-当前纸币: 已碎 ${formatPercent(result.currentBillProgress)}
-输入成本: ${formatCurrency(result.inputCost)}
-输出成本: ${formatCurrency(result.outputCost)}
-缓存成本: ${formatCurrency(result.cachedCost)}
-推理成本: ${formatCurrency(result.reasoningCost)}`;
 
 const fileNameFromScenario = (scenarioName: string): string => {
   const slug = scenarioName
@@ -107,17 +100,33 @@ export function SharePanel({ state, result }: SharePanelProps) {
         <div>
           <h2 className="text-lg font-black text-slate-950 dark:text-white">分享</h2>
           <p className="mt-1 text-sm font-medium text-slate-600 dark:text-slate-300">
-            复制摘要，或导出分享卡片。
+            复制摘要、传播帖，或导出分享卡片。
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => void copyText(buildSummary(state, result), '摘要已复制。')}
+            onClick={() => void copyText(buildSummaryText(state, result), '摘要已复制。')}
             className="action-button"
           >
             <Copy size={16} />
             <span>复制摘要</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => void copyText(buildEnglishLaunchPost(state, result), '英文传播帖已复制。')}
+            className="action-button"
+          >
+            <MessageSquareText size={16} />
+            <span>复制英文帖</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => void copyText(buildChineseLaunchPost(state, result), '中文传播帖已复制。')}
+            className="action-button"
+          >
+            <MessageSquareText size={16} />
+            <span>复制中文帖</span>
           </button>
           <button
             type="button"

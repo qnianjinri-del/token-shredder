@@ -32,6 +32,7 @@ No cloud backend. No hosted account. No prompt or completion logging. API keys s
 - Download the latest macOS build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest).
 - First launch includes a one-click local demo, so you can see the pet move before setting up any provider key.
 - Run the copy-paste examples in [`examples/`](examples/) to verify real `POST /usage` events in under a minute.
+- Use the backstage share panel to copy an English or Chinese launch post after your pet shreds a session.
 - Read the launch copy and demo checklist in [docs/LAUNCH_KIT.md](docs/LAUNCH_KIT.md).
 - If the idea made you smile or saved you from ignoring token costs again, a Star helps other people find it.
 
@@ -62,6 +63,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Cached token handling that avoids double-charging OpenAI-style `prompt_tokens`.
 - Editable sample pricing for input, output, cached input, and reasoning tokens.
 - Backstage status, actual local port, connection examples, event log, cost breakdown, and pet size.
+- Share panel with summary text, share URL, PNG card export, and English/Chinese launch-post copy.
 - Codex rate limit percentages when Codex writes them to local token count events.
 - Demo mode: off by default, with auto and always-on options for demos.
 - First-run onboarding card with a one-click local demo and the necessary setup fields.
@@ -241,7 +243,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
