@@ -11,8 +11,10 @@ import type {
   ProviderConfig,
   ProviderTestResult,
 } from '../types';
+import { BackupPanel } from './BackupPanel';
 import { CostBreakdown } from './CostBreakdown';
 import { DemoModePanel } from './DemoModePanel';
+import { DiagnosticsPanel } from './DiagnosticsPanel';
 import { MonitorPanel } from './MonitorPanel';
 import { PetSkinPanel } from './PetSkinPanel';
 import { PetSizePanel } from './PetSizePanel';
@@ -20,6 +22,7 @@ import { PricingPanel } from './PricingPanel';
 import { ProviderSetupPanel } from './ProviderSetupPanel';
 import { QuickVerifyPanel } from './QuickVerifyPanel';
 import { SharePanel } from './SharePanel';
+import { SetupChecklistPanel } from './SetupChecklistPanel';
 import { StatusPanel } from './StatusPanel';
 import { StartHerePanel } from './StartHerePanel';
 import { ThemeToggle } from './ThemeToggle';
@@ -44,6 +47,7 @@ interface SettingsWindowProps {
   onDemoModeChange: (mode: DemoMode) => void;
   onCompleteOnboarding: () => void;
   onReopenOnboarding: () => void;
+  onRestoreConfig: (state: AppState, providerConfig: ProviderConfig) => void;
   onToggleTheme: () => void;
 }
 
@@ -67,6 +71,7 @@ export function SettingsWindow({
   onDemoModeChange,
   onCompleteOnboarding,
   onReopenOnboarding,
+  onRestoreConfig,
   onToggleTheme,
 }: SettingsWindowProps) {
   return (
@@ -106,6 +111,12 @@ export function SettingsWindow({
             onRunQuickStartDemo={onRunQuickStartDemo}
             onSendTestUsageEvent={onSendTestUsageEvent}
             onCompleteOnboarding={onCompleteOnboarding}
+          />
+
+          <SetupChecklistPanel
+            state={state}
+            monitorInfo={monitorInfo}
+            providerConfig={providerConfig}
           />
 
           <QuickVerifyPanel
@@ -165,6 +176,18 @@ export function SettingsWindow({
         <section className="space-y-4">
           <CostBreakdown result={result} />
           <SharePanel state={state} result={result} />
+          <BackupPanel
+            state={state}
+            providerConfig={providerConfig}
+            onRestore={onRestoreConfig}
+          />
+          <DiagnosticsPanel
+            state={state}
+            result={result}
+            runtimeState={runtimeState}
+            monitorInfo={monitorInfo}
+            providerConfig={providerConfig}
+          />
         </section>
       </div>
     </main>

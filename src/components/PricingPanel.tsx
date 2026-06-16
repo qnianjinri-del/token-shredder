@@ -21,7 +21,7 @@ export function PricingPanel({
   };
 
   return (
-    <div className="glass-panel p-4">
+    <div id="pricing" className="glass-panel scroll-mt-4 p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-base font-black text-slate-950 dark:text-white">价格配置</h2>

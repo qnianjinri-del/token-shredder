@@ -88,6 +88,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
 - One-click copy for curl, JavaScript fetch, Python requests, OpenAI SDK proxy setup, and paste-ready Agent instructions.
+- New-user checklist that links directly to pricing, provider setup, skin selection, monitoring, and backup.
+- Config backup / restore that intentionally excludes API keys and session usage logs.
+- Copyable diagnostics for GitHub issues without prompts, completions, messages, or API keys.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -274,7 +277,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

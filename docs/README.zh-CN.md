@@ -116,6 +116,15 @@ Token Shredder 默认：
 4. 点 `复制给 ChatGPT / Codex / Agent 的接入说明`，把说明发给你的工具或脚本，让它把 usage POST 到本机。
 5. 如果你想走本机代理，再去 `新手接入` 填 API Key、Base URL、模型 ID 和价格。
 6. 到 `更换桌面宠物皮肤` 换一个你喜欢的皮肤。
+7. 到 `配置备份 / 恢复` 下载一份不含 API Key 的配置 JSON。
+
+## 配置备份和诊断
+
+后台现在提供：
+
+- 新手任务清单：从本地服务、试玩、价格、接入方式、皮肤到备份一路检查。
+- 配置备份 / 恢复：导出价格、皮肤、宠物大小、Base URL 等配置；不会导出 API Key 或 session usage 日志。
+- 问题诊断：复制一段可贴到 issue 的诊断信息；会隐藏 API Key，也不包含 prompt、completion 或 messages。
 
 ## 当前限制
 

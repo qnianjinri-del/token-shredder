@@ -370,6 +370,12 @@ function App() {
     setState((current) => ({ ...current, onboardingComplete: false }));
   };
 
+  const restoreConfig = (nextState: AppState, nextProviderConfig: ProviderConfig) => {
+    setState({ ...nextState, visualMode: 'money-shredder' });
+    setProviderConfig(nextProviderConfig);
+    setActiveUntil(0);
+  };
+
   const configureProvider = async (config: ProviderConfig) => {
     if (!window.tokenShredderDesktop?.configureProvider) {
       return {
@@ -421,6 +427,7 @@ function App() {
     onDemoModeChange: setDemoMode,
     onCompleteOnboarding: completeOnboarding,
     onReopenOnboarding: reopenOnboarding,
+    onRestoreConfig: restoreConfig,
   };
 
   if (windowMode === 'pet') {

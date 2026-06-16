@@ -2,6 +2,7 @@ import { Activity, Clipboard, FlaskConical, Terminal, Trash2, Wifi } from 'lucid
 import { useMemo, useState } from 'react';
 import type { AppState, MonitorInfo, UsageEvent } from '../types';
 import { formatAdaptiveCurrency, formatTokens } from '../lib/formatting';
+import { createIntegrationExamples } from '../lib/integrationExamples';
 import { calculateUsageEventCost } from '../lib/usage';
 
 interface MonitorPanelProps {
@@ -10,36 +11,6 @@ interface MonitorPanelProps {
   onClearMonitoring: () => void;
   onSendTestUsageEvent: () => Promise<void>;
 }
-
-const makeCurlExample = (usageUrl: string) => `curl -X POST ${usageUrl} \\
-  -H "Content-Type: application/json" \\
-  -d '{"source":"my-agent","scenarioName":"repo cleanup","inputTokens":120000,"outputTokens":45000,"cachedInputTokens":30000,"reasoningTokens":8000}'`;
-
-const makeJavaScriptExample = (usageUrl: string) => `await fetch("${usageUrl}", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    source: "my-agent",
-    scenarioName: "repo cleanup",
-    usage: {
-      prompt_tokens: 120000,
-      completion_tokens: 45000,
-      prompt_tokens_details: { cached_tokens: 30000 },
-      completion_tokens_details: { reasoning_tokens: 8000 }
-    }
-  })
-});`;
-
-const makePythonExample = (usageUrl: string) => `import requests
-
-requests.post("${usageUrl}", json={
-    "source": "my-python-agent",
-    "scenarioName": "repo cleanup",
-    "inputTokens": 120000,
-    "outputTokens": 45000,
-    "cachedInputTokens": 30000,
-    "reasoningTokens": 8000,
-})`;
 
 const makeDeleteExample = (usageUrl: string) => `curl -X DELETE ${usageUrl}`;
 
@@ -67,12 +38,18 @@ export function MonitorPanel({
   const events = state.monitoring.events;
   const codexMonitor = monitorInfo.codexMonitor;
   const usageUrl = monitorInfo.usageUrl || 'http://127.0.0.1:17391/usage';
-  const curlExample = useMemo(() => makeCurlExample(usageUrl), [usageUrl]);
-  const javaScriptExample = useMemo(
-    () => makeJavaScriptExample(usageUrl),
-    [usageUrl],
+  const proxyBaseUrl = monitorInfo.port
+    ? `http://${monitorInfo.host}:${monitorInfo.port}/v1`
+    : 'http://127.0.0.1:17391/v1';
+  const examples = useMemo(
+    () =>
+      createIntegrationExamples({
+        usageUrl,
+        proxyBaseUrl,
+        model: '',
+      }),
+    [proxyBaseUrl, usageUrl],
   );
-  const pythonExample = useMemo(() => makePythonExample(usageUrl), [usageUrl]);
   const deleteExample = useMemo(() => makeDeleteExample(usageUrl), [usageUrl]);
 
   const copy = async (value: string) => {
@@ -93,7 +70,7 @@ export function MonitorPanel({
   };
 
   return (
-    <section className="glass-panel p-4">
+    <section id="monitoring" className="glass-panel scroll-mt-4 p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="flex items-center gap-2 text-cyan-700 dark:text-cyan-200">
@@ -157,13 +134,13 @@ export function MonitorPanel({
               <Terminal size={14} />
               curl
             </span>
-            <button type="button" onClick={() => copy(curlExample)} className="mini-action-button">
+            <button type="button" onClick={() => copy(examples.curlUsage)} className="mini-action-button">
               <Clipboard size={14} />
               <span>{copyState === 'copied' ? '已复制' : '复制'}</span>
             </button>
           </div>
           <pre className="overflow-x-auto whitespace-pre-wrap text-xs font-bold leading-relaxed text-slate-100">
-            {curlExample}
+            {examples.curlUsage}
           </pre>
         </div>
 
@@ -173,13 +150,13 @@ export function MonitorPanel({
               <Activity size={14} />
               JavaScript
             </span>
-            <button type="button" onClick={() => copy(javaScriptExample)} className="mini-action-button">
+            <button type="button" onClick={() => copy(examples.jsUsage)} className="mini-action-button">
               <Clipboard size={14} />
               <span>{copyState === 'copied' ? '已复制' : '复制'}</span>
             </button>
           </div>
           <pre className="overflow-x-auto whitespace-pre-wrap text-xs font-bold leading-relaxed text-slate-100">
-            {javaScriptExample}
+            {examples.jsUsage}
           </pre>
         </div>
 
@@ -189,13 +166,13 @@ export function MonitorPanel({
               <Activity size={14} />
               Python
             </span>
-            <button type="button" onClick={() => copy(pythonExample)} className="mini-action-button">
+            <button type="button" onClick={() => copy(examples.pythonUsage)} className="mini-action-button">
               <Clipboard size={14} />
               <span>{copyState === 'copied' ? '已复制' : '复制'}</span>
             </button>
           </div>
           <pre className="overflow-x-auto whitespace-pre-wrap text-xs font-bold leading-relaxed text-slate-100">
-            {pythonExample}
+            {examples.pythonUsage}
           </pre>
         </div>
 
