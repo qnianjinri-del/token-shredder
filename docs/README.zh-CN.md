@@ -16,7 +16,10 @@ Token Shredder 是一个本机运行的 AI token 成本桌面宠物。它把 Age
 1. 下载最新 macOS 构建：[GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest)。
 2. 打开 `Token Shredder.app`。
 3. 右键桌面宠物，选择 `进入后台`。
-4. 在 `30 秒验证` 面板点击 `一键试玩`。
+4. 在第一屏 `从这里开始` 选择一种路径：
+   - 先看效果：点 `一键试玩`。
+   - 有 API Key：填 API Key、上游 Base URL、模型 ID 和价格。
+   - 已有 usage 数字：复制 curl / JS / Python / Agent 接入说明。
 5. 宠物会碎一次钱，然后停在结果上。
 
 这一步不需要 API Key，不会请求任何模型，也不代表真实账单。
@@ -102,6 +105,17 @@ Token Shredder 默认：
 - 复制中文传播帖。
 - 复制分享链接。
 - 导出 PNG 分享卡片。
+
+## 新人最短路径
+
+如果你完全没接触过这个项目，建议按这个顺序：
+
+1. 打开 App，右键宠物进入后台。
+2. 看第一屏 `从这里开始`。
+3. 点 `一键试玩`，确认桌面宠物能动。
+4. 点 `复制给 ChatGPT / Codex / Agent 的接入说明`，把说明发给你的工具或脚本，让它把 usage POST 到本机。
+5. 如果你想走本机代理，再去 `新手接入` 填 API Key、Base URL、模型 ID 和价格。
+6. 到 `更换桌面宠物皮肤` 换一个你喜欢的皮肤。
 
 ## 当前限制
 

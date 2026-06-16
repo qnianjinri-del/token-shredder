@@ -14,7 +14,6 @@ import type {
 import { CostBreakdown } from './CostBreakdown';
 import { DemoModePanel } from './DemoModePanel';
 import { MonitorPanel } from './MonitorPanel';
-import { OnboardingCard } from './OnboardingCard';
 import { PetSkinPanel } from './PetSkinPanel';
 import { PetSizePanel } from './PetSizePanel';
 import { PricingPanel } from './PricingPanel';
@@ -22,6 +21,7 @@ import { ProviderSetupPanel } from './ProviderSetupPanel';
 import { QuickVerifyPanel } from './QuickVerifyPanel';
 import { SharePanel } from './SharePanel';
 import { StatusPanel } from './StatusPanel';
+import { StartHerePanel } from './StartHerePanel';
 import { ThemeToggle } from './ThemeToggle';
 
 interface SettingsWindowProps {
@@ -87,14 +87,26 @@ export function SettingsWindow({
             <p className="mt-3 text-sm font-bold text-slate-700 dark:text-slate-300">
               配好价格，把你的 Agent usage 自动发到本机；桌面只保留小宠物。
             </p>
-            <button
-              type="button"
+            <a
+              href="#start-here"
               onClick={onReopenOnboarding}
-              className="mt-3 text-xs font-black text-cyan-700 underline decoration-4 underline-offset-4 dark:text-cyan-200"
+              className="mt-3 inline-block text-xs font-black text-cyan-700 underline decoration-4 underline-offset-4 dark:text-cyan-200"
             >
               重新查看接入指南
-            </button>
+            </a>
           </div>
+
+          <StartHerePanel
+            monitorInfo={monitorInfo}
+            providerConfig={providerConfig}
+            runtimeState={runtimeState}
+            petSkin={state.petSkin}
+            usageEventCount={state.monitoring.events.length}
+            onboardingComplete={state.onboardingComplete}
+            onRunQuickStartDemo={onRunQuickStartDemo}
+            onSendTestUsageEvent={onSendTestUsageEvent}
+            onCompleteOnboarding={onCompleteOnboarding}
+          />
 
           <QuickVerifyPanel
             monitorInfo={monitorInfo}
@@ -108,16 +120,6 @@ export function SettingsWindow({
             <PetSizePanel petScale={state.petScale} onPetScaleChange={onPetScaleChange} />
             <DemoModePanel demoMode={state.demoMode} onDemoModeChange={onDemoModeChange} />
           </div>
-
-          {!state.onboardingComplete ? (
-            <OnboardingCard
-              monitorInfo={monitorInfo}
-              providerConfig={providerConfig}
-              onSendTestUsageEvent={onSendTestUsageEvent}
-              onRunQuickStartDemo={onRunQuickStartDemo}
-              onComplete={onCompleteOnboarding}
-            />
-          ) : null}
 
           <ProviderSetupPanel
             providerConfig={providerConfig}

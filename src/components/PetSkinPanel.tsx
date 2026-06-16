@@ -38,7 +38,7 @@ const conceptIconMap = {
 
 export function PetSkinPanel({ petSkin, onPetSkinChange }: PetSkinPanelProps) {
   return (
-    <section className="glass-panel p-4">
+    <section id="pet-skins" className="glass-panel scroll-mt-4 p-4">
       <div className="flex items-center gap-2">
         <Palette size={16} className="text-slate-600 dark:text-cyan-200" />
         <h2 className="text-base font-black text-slate-950 dark:text-white">更换桌面宠物皮肤</h2>

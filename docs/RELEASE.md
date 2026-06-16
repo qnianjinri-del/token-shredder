@@ -77,7 +77,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.4
+Token Shredder v0.1.5
 ```
 
 Body:
@@ -90,8 +90,9 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 ### Highlights
 
 - Pixel-art desktop shredder pet for macOS.
+- First-screen `从这里开始` guide for new users.
 - One-click local quick demo for first-time users.
-- Backstage 30-second verification panel and copy-paste examples.
+- Backstage 30-second verification panel and curl / JS / Python / Agent copy-paste examples.
 - English and Chinese launch-post copy buttons in the share panel.
 - Local usage collector, basic `/v1` proxy, and Codex token_count watcher on 127.0.0.1 / local files.
 - Custom and OpenAI-style usage payloads.

@@ -1,5 +1,6 @@
 import { CheckCircle2, Clipboard, KeyRound, PlugZap, Send, ShieldCheck, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { createAgentInstructionExample, createOpenAiSdkProxyExample } from '../lib/integrationExamples';
 import type {
   ConfigureProviderResult,
   MonitorInfo,
@@ -46,20 +47,6 @@ const providerOptions: Array<{
 const proxyBaseUrlFrom = (monitorInfo: MonitorInfo) =>
   monitorInfo.port ? `http://${monitorInfo.host}:${monitorInfo.port}/v1` : '本地服务启动中';
 
-const makeOpenAiSdkExample = (proxyBaseUrl: string, model: string) => `import OpenAI from "openai";
-
-const client = new OpenAI({
-  apiKey: "token-shredder-local",
-  baseURL: "${proxyBaseUrl}"
-});
-
-const response = await client.chat.completions.create({
-  model: "${model || '你的模型或接入点 ID'}",
-  messages: [{ role: "user", content: "hello" }]
-});
-
-console.log(response.choices[0]?.message?.content);`;
-
 export function ProviderSetupPanel({
   providerConfig,
   monitorInfo,
@@ -73,8 +60,17 @@ export function ProviderSetupPanel({
   const [copyState, setCopyState] = useState('');
   const proxyBaseUrl = proxyBaseUrlFrom(monitorInfo);
   const sdkExample = useMemo(
-    () => makeOpenAiSdkExample(proxyBaseUrl, providerConfig.model),
+    () => createOpenAiSdkProxyExample({ proxyBaseUrl, model: providerConfig.model }),
     [providerConfig.model, proxyBaseUrl],
+  );
+  const agentInstruction = useMemo(
+    () =>
+      createAgentInstructionExample({
+        usageUrl: monitorInfo.usageUrl || 'http://127.0.0.1:17391/usage',
+        proxyBaseUrl,
+        model: providerConfig.model,
+      }),
+    [monitorInfo.usageUrl, providerConfig.model, proxyBaseUrl],
   );
   const selectedProvider = providerOptions.find((option) => option.id === providerConfig.providerId) ?? providerOptions[0];
   const missingFields = [
@@ -118,7 +114,7 @@ export function ProviderSetupPanel({
   };
 
   return (
-    <section className="glass-panel p-4">
+    <section id="provider-setup" className="glass-panel scroll-mt-4 p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="flex items-center gap-2 text-cyan-700 dark:text-cyan-200">
@@ -229,7 +225,11 @@ export function ProviderSetupPanel({
         </button>
         <button type="button" onClick={() => void copy(proxyBaseUrl, 'Base URL 已复制')} className="action-button">
           <Clipboard size={16} />
-          <span>{copyState || '复制 Base URL'}</span>
+          <span>{copyState === 'Base URL 已复制' ? copyState : '复制 Base URL'}</span>
+        </button>
+        <button type="button" onClick={() => void copy(agentInstruction, '接入说明已复制')} className="action-button">
+          <Clipboard size={16} />
+          <span>{copyState === '接入说明已复制' ? copyState : '复制给 Agent'}</span>
         </button>
       </div>
 
@@ -269,7 +269,7 @@ export function ProviderSetupPanel({
           </span>
           <button type="button" onClick={() => void copy(sdkExample, '示例已复制')} className="mini-action-button">
             <Clipboard size={14} />
-            <span>{copyState || '复制'}</span>
+            <span>{copyState === '示例已复制' ? '已复制' : '复制'}</span>
           </button>
         </div>
         <pre className="overflow-x-auto whitespace-pre-wrap text-xs font-bold leading-relaxed text-slate-100">

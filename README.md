@@ -35,8 +35,8 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 1. 从 [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest) 下载 macOS 版本。
 2. 打开 Token Shredder，桌面会出现一个像素风计费宠物。
 3. 右键宠物，点击 `进入后台`。
-4. 在 `30 秒验证` 里点 `一键试玩`，不需要 API Key。
-5. 想接真实 usage 时，可以复制后台 curl，或让你的脚本 POST 到 `http://127.0.0.1:17391/usage`。
+4. 在第一屏 `从这里开始` 选择 `一键试玩`，不需要 API Key。
+5. 想接真实 usage 时，可以复制 curl / JS / Python / Agent 接入说明，或让你的脚本 POST 到 `http://127.0.0.1:17391/usage`。
 
 如果本机端口不是 `17391`，后台会显示实际端口。Token Shredder 默认只记录 usage 数字，不需要记录 prompt、completion 或 API key。
 
@@ -85,7 +85,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Local realtime collector on `127.0.0.1`.
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
 - Beginner setup flow with a no-key quick demo, API Key, upstream Base URL, model / endpoint ID, and pricing.
+- First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
+- One-click copy for curl, JavaScript fetch, Python requests, OpenAI SDK proxy setup, and paste-ready Agent instructions.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -95,7 +97,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Share panel with summary text, share URL, PNG card export, and English/Chinese launch-post copy.
 - Codex rate limit percentages when Codex writes them to local token count events.
 - Demo mode: off by default, with auto and always-on options for demos.
-- First-run onboarding card with a one-click local demo and the necessary setup fields.
+- First-screen onboarding guide with a one-click local demo and the necessary setup fields.
 - Local storage restore.
 - Vitest and ESLint coverage for core cost, usage normalization, proxy helpers, runtime state, and port selection.
 
@@ -142,13 +144,13 @@ To run the built app locally:
 npm run start:desktop
 ```
 
-## 30-Second Verification
+## First-Run Flow
 
-After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage card is `30 秒验证`.
+After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage card is `从这里开始`.
 
 Fast paths:
 
-- Downloaded app: click `一键试玩`, then `发送测试`, or copy the curl smoke test from backstage.
+- Downloaded app: click `一键试玩`, then `发送测试 usage`, or copy curl / JS / Python / Agent instructions from backstage.
 - Cloned repository: run the example scripts below.
 
 ```bash
@@ -272,7 +274,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

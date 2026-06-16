@@ -1,5 +1,6 @@
 import { Clipboard, FlaskConical, Play, Terminal } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { createIntegrationExamples } from '../lib/integrationExamples';
 import type { MonitorInfo } from '../types';
 
 interface QuickVerifyPanelProps {
@@ -7,10 +8,6 @@ interface QuickVerifyPanelProps {
   onRunQuickStartDemo: () => void;
   onSendTestUsageEvent: () => Promise<void>;
 }
-
-const makeCurlSmokeTest = (usageUrl: string) => `curl -X POST ${usageUrl} \\
-  -H "Content-Type: application/json" \\
-  -d '{"source":"smoke-test","scenarioName":"30 second check","inputTokens":120000,"outputTokens":45000}'`;
 
 const nodeCommand = 'node examples/post-usage-node.mjs';
 const pythonCommand = 'python3 examples/post-usage-python.py';
@@ -23,7 +20,18 @@ export function QuickVerifyPanel({
   const [copyState, setCopyState] = useState('');
   const [testState, setTestState] = useState<'idle' | 'sent' | 'failed'>('idle');
   const usageUrl = monitorInfo.usageUrl || 'http://127.0.0.1:17391/usage';
-  const curlSmokeTest = useMemo(() => makeCurlSmokeTest(usageUrl), [usageUrl]);
+  const proxyBaseUrl = monitorInfo.port
+    ? `http://${monitorInfo.host}:${monitorInfo.port}/v1`
+    : 'http://127.0.0.1:17391/v1';
+  const examples = useMemo(
+    () =>
+      createIntegrationExamples({
+        usageUrl,
+        proxyBaseUrl,
+        model: '',
+      }),
+    [proxyBaseUrl, usageUrl],
+  );
   const exampleCommands = `${nodeCommand}\n${pythonCommand}`;
 
   const copy = async (value: string, label: string) => {
@@ -87,12 +95,47 @@ export function QuickVerifyPanel({
                 <FlaskConical size={16} />
                 <span>{testState === 'sent' ? '已发送' : testState === 'failed' ? '失败' : '发送测试'}</span>
               </button>
-              <button type="button" onClick={() => void copy(curlSmokeTest, 'curl 已复制')} className="action-button">
+              <button type="button" onClick={() => void copy(examples.curlUsage, 'curl 已复制')} className="action-button">
                 <Clipboard size={16} />
                 <span>{copyState === 'curl 已复制' ? copyState : '复制 curl'}</span>
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="rounded-lg border border-slate-300/70 bg-white/70 p-3 dark:border-white/10 dark:bg-white/[0.05]">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <span className="inline-flex items-center gap-2 text-xs font-black uppercase text-slate-600 dark:text-cyan-200">
+              <Terminal size={14} />
+              直接接入代码
+            </span>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            <button type="button" onClick={() => void copy(examples.curlUsage, 'curl 已复制')} className="action-button">
+              <Clipboard size={16} />
+              <span>复制 curl</span>
+            </button>
+            <button type="button" onClick={() => void copy(examples.jsUsage, 'JS 已复制')} className="action-button">
+              <Clipboard size={16} />
+              <span>复制 JS fetch</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => void copy(examples.pythonUsage, 'Python 已复制')}
+              className="action-button"
+            >
+              <Clipboard size={16} />
+              <span>复制 Python</span>
+            </button>
+          </div>
+          <button
+            type="button"
+            onClick={() => void copy(examples.agentInstruction, 'Agent 接入说明已复制')}
+            className="mt-2 action-button w-full"
+          >
+            <Clipboard size={16} />
+            <span>复制给 ChatGPT / Codex / Agent 的接入说明</span>
+          </button>
         </div>
 
         <div className="rounded-lg border border-slate-300/70 bg-slate-950 p-3 text-white dark:border-white/10">
