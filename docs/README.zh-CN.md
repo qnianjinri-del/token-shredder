@@ -126,6 +126,16 @@ Token Shredder 默认：
 - 配置备份 / 恢复：导出价格、皮肤、宠物大小、Base URL 等配置；不会导出 API Key 或 session usage 日志。
 - 问题诊断：复制一段可贴到 issue 的诊断信息；会隐藏 API Key，也不包含 prompt、completion 或 messages。
 
+## Session 导出
+
+真实跑过 usage 后，可以在后台 `Session 导出` 里导出：
+
+- JSON：保留结构化成本摘要和 usage 事件。
+- CSV：适合丢进表格看。
+- Markdown：适合贴到 issue、笔记或分享里。
+
+导出只包含 usage 数字和本地成本估算，不包含 prompt、completion、messages 或 API Key。
+
 ## 当前限制
 
 - macOS 是优先目标。

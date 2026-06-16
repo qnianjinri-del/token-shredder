@@ -52,9 +52,9 @@ export function SetupChecklistPanel({
       label: '选择接入方式',
       description: hasProviderBasics(providerConfig)
         ? '本机代理必要字段已填写。'
-        : '可走本机代理，也可直接 POST usage。',
+        : '可走本机代理，也可直接 POST usage，接入配方可直接复制。',
       done: hasProviderBasics(providerConfig) || monitorInfo.status === 'running',
-      href: hasProviderBasics(providerConfig) ? '#provider-setup' : '#monitoring',
+      href: hasProviderBasics(providerConfig) ? '#provider-setup' : '#recipes',
     },
     {
       label: '桌面皮肤已选择',

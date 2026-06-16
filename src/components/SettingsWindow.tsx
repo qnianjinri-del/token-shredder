@@ -15,6 +15,7 @@ import { BackupPanel } from './BackupPanel';
 import { CostBreakdown } from './CostBreakdown';
 import { DemoModePanel } from './DemoModePanel';
 import { DiagnosticsPanel } from './DiagnosticsPanel';
+import { IntegrationRecipesPanel } from './IntegrationRecipesPanel';
 import { MonitorPanel } from './MonitorPanel';
 import { PetSkinPanel } from './PetSkinPanel';
 import { PetSizePanel } from './PetSizePanel';
@@ -22,6 +23,7 @@ import { PricingPanel } from './PricingPanel';
 import { ProviderSetupPanel } from './ProviderSetupPanel';
 import { QuickVerifyPanel } from './QuickVerifyPanel';
 import { SharePanel } from './SharePanel';
+import { SessionExportPanel } from './SessionExportPanel';
 import { SetupChecklistPanel } from './SetupChecklistPanel';
 import { StatusPanel } from './StatusPanel';
 import { StartHerePanel } from './StartHerePanel';
@@ -125,6 +127,11 @@ export function SettingsWindow({
             onSendTestUsageEvent={onSendTestUsageEvent}
           />
 
+          <IntegrationRecipesPanel
+            monitorInfo={monitorInfo}
+            providerConfig={providerConfig}
+          />
+
           <PetSkinPanel petSkin={state.petSkin} onPetSkinChange={onPetSkinChange} />
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
@@ -176,6 +183,7 @@ export function SettingsWindow({
         <section className="space-y-4">
           <CostBreakdown result={result} />
           <SharePanel state={state} result={result} />
+          <SessionExportPanel state={state} result={result} />
           <BackupPanel
             state={state}
             providerConfig={providerConfig}
