@@ -136,6 +136,24 @@ Token Shredder 默认：
 
 导出只包含 usage 数字和本地成本估算，不包含 prompt、completion、messages 或 API Key。
 
+## 自动验证
+
+如果你没空手动打开 App，可以跑：
+
+```bash
+npm run release:check:full
+```
+
+它会先执行测试、lint、build，然后启动生产 Electron，自动验证：
+
+- `GET /health`
+- 原生 `POST /usage`
+- OpenAI-style usage，并检查 cached tokens 不重复计费
+- 未配置 provider 时本机代理返回保护性错误
+- `DELETE /usage`
+
+验证使用临时本机端口和临时 userData，不会污染你的真实配置。
+
 ## 当前限制
 
 - macOS 是优先目标。

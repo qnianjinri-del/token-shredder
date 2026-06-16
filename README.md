@@ -94,6 +94,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Session export as JSON, CSV, or Markdown for keeping local cost records.
 - Dedicated integration recipes for curl, JavaScript fetch, Python requests, OpenAI SDK proxy, and Agent instructions.
 - Scripted GitHub Release publishing with `npm run release:github`.
+- Automated desktop smoke test for production Electron startup, local collector, `/usage`, OpenAI-style usage, proxy guard, and `DELETE /usage`.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -280,7 +281,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
@@ -390,11 +391,15 @@ npm test
 npm run lint
 npm run build
 npm run release:check
+npm run smoke:desktop
+npm run release:check:full
 npm run dist:mac
 npm run release:github
 ```
 
 The renderer output is written to `dist/` and the Electron main/preload output is written to `dist-electron/`.
+
+`smoke:desktop` launches the production Electron app with an isolated temporary profile and a high test port. It verifies `GET /health`, native `POST /usage`, OpenAI-style usage cached-token handling, disabled-proxy guard behavior, and `DELETE /usage`, then closes the app automatically.
 
 ## Package For macOS
 
@@ -413,9 +418,10 @@ The v0.1.x local build is unsigned and not notarized. Code signing and notarizat
 
 ```bash
 npm install
-npm run release:check
+npm run release:check:full
 npm run package:mac
 npm run dist:mac
+npm run release:github
 ```
 
 Manual checks before publishing:

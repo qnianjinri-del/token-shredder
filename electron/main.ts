@@ -24,6 +24,12 @@ import { normalizeUsagePayload, type UsageEvent } from './server/usageNormalizer
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isDev = Boolean(process.env.VITE_DEV_SERVER_URL);
+const isSmokeTest = process.env.TOKEN_SHREDDER_SMOKE_TEST === '1';
+
+const userDataDir = process.env.TOKEN_SHREDDER_USER_DATA_DIR;
+if (userDataDir) {
+  app.setPath('userData', userDataDir);
+}
 
 let petWindow: BrowserWindow | null = null;
 let settingsWindow: BrowserWindow | null = null;
@@ -55,6 +61,29 @@ let usageServerInfo = {
     status: 'missing',
     sessionsPath: '',
   } as CodexMonitorInfo,
+};
+
+const numberFromEnv = (name: string, fallback: number) => {
+  const value = Number(process.env[name]);
+  if (!Number.isInteger(value) || value <= 0) {
+    return fallback;
+  }
+
+  return value;
+};
+
+const getUsagePortConfig = () => {
+  const preferredPort = numberFromEnv('TOKEN_SHREDDER_USAGE_PORT', DEFAULT_USAGE_PORT);
+  const maxPort = Math.max(
+    preferredPort,
+    numberFromEnv('TOKEN_SHREDDER_MAX_USAGE_PORT', preferredPort + (MAX_USAGE_PORT - DEFAULT_USAGE_PORT)),
+  );
+
+  return {
+    host: DEFAULT_USAGE_HOST,
+    preferredPort,
+    maxPort,
+  };
 };
 
 const clampPetScale = (scale: number) => {
@@ -386,25 +415,30 @@ const startUsageServer = () => {
   }
 
   return (async () => {
-    const port = await findAvailablePort(DEFAULT_USAGE_HOST, DEFAULT_USAGE_PORT, MAX_USAGE_PORT);
+    const portConfig = getUsagePortConfig();
+    const port = await findAvailablePort(
+      portConfig.host,
+      portConfig.preferredPort,
+      portConfig.maxPort,
+    );
 
     if (port === null) {
       usageServerInfo = {
         ...usageServerInfo,
         status: 'error',
-        error: `端口 ${DEFAULT_USAGE_PORT}-${MAX_USAGE_PORT} 都不可用。`,
+        error: `端口 ${portConfig.preferredPort}-${portConfig.maxPort} 都不可用。`,
       };
       return;
     }
 
-    const usageUrl = `http://${DEFAULT_USAGE_HOST}:${port}/usage`;
-    const healthUrl = `http://${DEFAULT_USAGE_HOST}:${port}/health`;
+    const usageUrl = `http://${portConfig.host}:${port}/usage`;
+    const healthUrl = `http://${portConfig.host}:${port}/health`;
 
     usageServerInfo = {
-      host: DEFAULT_USAGE_HOST,
+      host: portConfig.host,
       port,
-      preferredPort: DEFAULT_USAGE_PORT,
-      preferredPortAvailable: port === DEFAULT_USAGE_PORT,
+      preferredPort: portConfig.preferredPort,
+      preferredPortAvailable: port === portConfig.preferredPort,
       usageUrl,
       healthUrl,
       status: 'running',
@@ -419,7 +453,7 @@ const startUsageServer = () => {
         return;
       }
 
-      const url = new URL(request.url ?? '/', `http://${DEFAULT_USAGE_HOST}:${port}`);
+      const url = new URL(request.url ?? '/', `http://${portConfig.host}:${port}`);
 
       if (request.method === 'GET' && url.pathname === '/health') {
         sendJson(response, 200, {
@@ -483,7 +517,7 @@ const startUsageServer = () => {
     await new Promise<void>((resolve, reject) => {
       usageServer?.once('error', reject);
       usageServer?.once('listening', resolve);
-      usageServer?.listen(port, DEFAULT_USAGE_HOST);
+      usageServer?.listen(port, portConfig.host);
     }).catch((error: unknown) => {
       console.error('Token Shredder usage server failed:', error);
       usageServerInfo = {
@@ -554,6 +588,7 @@ const createPetWindow = () => {
     alwaysOnTop: true,
     hasShadow: false,
     skipTaskbar: true,
+    show: !isSmokeTest,
     title: 'Token Shredder Pet',
     trafficLightPosition: { x: 14, y: 14 },
     webPreferences: {
@@ -646,7 +681,9 @@ app.whenReady().then(async () => {
 
   Menu.setApplicationMenu(null);
   await startUsageServer();
-  startCodexMonitoring();
+  if (process.env.TOKEN_SHREDDER_DISABLE_CODEX_MONITOR !== '1') {
+    startCodexMonitoring();
+  }
   createPetWindow();
 
   ipcMain.handle('token-shredder:open-settings', () => {

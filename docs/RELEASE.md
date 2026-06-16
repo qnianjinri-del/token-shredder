@@ -19,8 +19,11 @@ npm run lint
 npm run build
 npm run dev:desktop
 npm run release:check
+npm run smoke:desktop
+npm run release:check:full
 npm run package:mac
 npm run dist:mac
+npm run release:github
 ```
 
 ## Manual QA Checklist
@@ -55,6 +58,7 @@ npm run dist:mac
 - Usage idle state stops fake shredding and stops dropping TOKEN blocks.
 - Port conflict handling switches from `17391` to `17392`-`17400`.
 - macOS package opens on the local machine after the expected unsigned-app warning.
+- `npm run smoke:desktop` passes for production Electron startup and local API behavior.
 
 ## Local API Smoke Test
 
@@ -77,7 +81,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.7
+Token Shredder v0.1.8
 ```
 
 Body:
@@ -94,6 +98,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 - New-user checklist, config backup / restore, and copyable diagnostics.
 - Session export as JSON / CSV / Markdown.
 - Dedicated integration recipes and scripted GitHub Release publishing.
+- Automated desktop smoke test for production Electron startup and local API behavior.
 - One-click local quick demo for first-time users.
 - Backstage 30-second verification panel and curl / JS / Python / Agent copy-paste examples.
 - English and Chinese launch-post copy buttons in the share panel.

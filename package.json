@@ -1,7 +1,7 @@
 {
   "name": "token-shredder",
   "private": false,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "main": "dist-electron/main.js",
   "description": "A tiny local desktop pet that shreds your AI token spending in real time.",
@@ -16,6 +16,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "release:check": "npm test && npm run lint && npm run build",
+    "release:check:full": "npm run release:check && npm run smoke:desktop",
+    "smoke:desktop": "npm run build && node scripts/smoke-desktop.mjs",
     "package:mac": "npm run build && electron-builder --mac --dir",
     "dist:mac": "npm run build && electron-builder --mac dmg zip",
     "release:github": "node scripts/publish-github-release.mjs"
