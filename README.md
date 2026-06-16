@@ -40,6 +40,15 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 
 如果本机端口不是 `17391`，后台会显示实际端口。Token Shredder 默认只记录 usage 数字，不需要记录 prompt、completion 或 API key。
 
+## 中文文档入口
+
+- [中文说明](docs/README.zh-CN.md)：从下载、试玩到接入真实 usage。
+- [安装说明](docs/INSTALL.zh-CN.md)：macOS 下载、打开、源码运行和打包。
+- [隐私说明](docs/PRIVACY.md)：本机运行、记录什么、不记录什么。
+- [安全说明](docs/SECURITY.md)：当前安全边界和不承诺事项。
+- [皮肤贡献指南](docs/SKIN_GUIDE.md)：如何贡献新的原创像素宠物。
+- [路线图](docs/ROADMAP.md)：已经完成、下一步和后续规划。
+
 It started as a small, slightly ridiculous tool for making AI costs feel visible. It is useful today, but still early. I am not a professional developer, so the code, UX, packaging, and integrations will all benefit from sharper eyes.
 
 No cloud backend. No hosted account. No prompt or completion logging. API keys stay on your machine.
