@@ -138,13 +138,15 @@ export const deriveSetupReadiness = ({
     };
   }
 
-  if (providerConfig.enabled && providerBasicsReady) {
+  if (providerBasicsReady) {
     return {
       ...base,
       status: 'proxy-ready',
-      title: '本机代理已准备好',
-      message: '下一步发送一次最小测试请求。如果上游返回 usage，宠物会按真实成本动一下。',
-      primaryLabel: '测试本机代理',
+      title: providerConfig.enabled ? '本机代理已准备好' : '接入信息已填好',
+      message: providerConfig.enabled
+        ? '下一步发送一次最小测试请求。如果上游返回 usage，宠物会按真实成本动一下。'
+        : '下一步测试本机代理。测试会在本机启用代理配置，并用你的上游服务发一次最小请求。',
+      primaryLabel: providerConfig.enabled ? '测试本机代理' : '保存并测试代理',
       primaryAction: 'provider-test',
       primaryHref: '#provider-setup',
       tone: 'ok',
@@ -156,12 +158,10 @@ export const deriveSetupReadiness = ({
       ...base,
       status: 'choose-integration',
       title: '试玩成功，接下来接真实 usage',
-      message: providerBasicsReady
-        ? '必要字段已经填好，可以启用本机代理；也可以直接把 usage POST 到本机接口。'
-        : '如果你有 API Key，就补齐本机代理字段；如果你的脚本已有 usage 数字，直接复制 POST 示例即可。',
-      primaryLabel: providerBasicsReady ? '去启用本机代理' : '填写接入信息',
-      primaryAction: 'none',
-      primaryHref: providerBasicsReady ? '#provider-setup' : '#start-here',
+      message: '如果你有 API Key，就补齐本机代理字段；如果你的脚本已有 usage 数字，直接复制 POST 示例即可。',
+      primaryLabel: '发送 collector 测试',
+      primaryAction: 'collector-test',
+      primaryHref: '#monitoring',
       tone: 'info',
     };
   }

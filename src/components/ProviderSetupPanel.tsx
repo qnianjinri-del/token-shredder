@@ -1,6 +1,16 @@
-import { CheckCircle2, Clipboard, KeyRound, PlugZap, Send, ShieldCheck, Sparkles } from 'lucide-react';
+import {
+  AlertCircle,
+  CheckCircle2,
+  Clipboard,
+  KeyRound,
+  PlugZap,
+  Send,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { createAgentInstructionExample, createOpenAiSdkProxyExample } from '../lib/integrationExamples';
+import { providerMissingFields } from '../lib/setupReadiness';
 import type {
   ConfigureProviderResult,
   MonitorInfo,
@@ -23,24 +33,28 @@ const providerOptions: Array<{
   label: string;
   baseUrl: string;
   helper: string;
+  modelHint: string;
 }> = [
   {
     id: 'volcengine-ark',
     label: '火山方舟 / OpenAI-compatible',
     baseUrl: 'https://ark.cn-beijing.volces.com/api/v3',
     helper: '适合已有火山引擎方舟 API Key 的用户，Base URL 仍可手动修改。',
+    modelHint: '模型 / 接入点 ID 请以火山控制台为准，例如你创建的 endpoint ID。',
   },
   {
     id: 'openai-compatible',
     label: '通用 OpenAI-compatible',
     baseUrl: 'https://api.openai.com/v1',
     helper: '适合任何兼容 OpenAI SDK 的服务商。',
+    modelHint: '填写你的服务商模型名或路由 ID。这里不是官方实时模型列表。',
   },
   {
     id: 'custom',
     label: '自定义服务商',
     baseUrl: '',
     helper: '手动填写你的上游 Base URL。',
+    modelHint: '填写你的上游服务实际要求的 model / deployment / endpoint 字段。',
   },
 ];
 
@@ -58,6 +72,7 @@ export function ProviderSetupPanel({
   const [saveState, setSaveState] = useState<'idle' | 'saved' | 'failed'>('idle');
   const [testResult, setTestResult] = useState<ProviderTestResult | null>(null);
   const [copyState, setCopyState] = useState('');
+  const [validationMessage, setValidationMessage] = useState('');
   const proxyBaseUrl = proxyBaseUrlFrom(monitorInfo);
   const sdkExample = useMemo(
     () => createOpenAiSdkProxyExample({ proxyBaseUrl, model: providerConfig.model }),
@@ -73,11 +88,7 @@ export function ProviderSetupPanel({
     [monitorInfo.usageUrl, providerConfig.model, proxyBaseUrl],
   );
   const selectedProvider = providerOptions.find((option) => option.id === providerConfig.providerId) ?? providerOptions[0];
-  const missingFields = [
-    providerConfig.apiKey.trim() ? '' : 'API Key',
-    providerConfig.upstreamBaseUrl.trim() ? '' : 'Base URL',
-    providerConfig.model.trim() ? '' : '模型/接入点 ID',
-  ].filter(Boolean);
+  const missingFields = providerMissingFields(providerConfig);
 
   const update = (patch: Partial<ProviderConfig>) => {
     onProviderConfigChange({ ...providerConfig, ...patch });
@@ -93,6 +104,14 @@ export function ProviderSetupPanel({
   };
 
   const saveAndEnable = async () => {
+    if (missingFields.length > 0) {
+      setValidationMessage(`请先填写：${missingFields.join('、')}`);
+      setSaveState('failed');
+      window.setTimeout(() => setSaveState('idle'), 1_800);
+      return;
+    }
+
+    setValidationMessage('');
     const nextConfig = { ...providerConfig, enabled: true };
     onProviderConfigChange(nextConfig);
     const result = await onConfigureProvider(nextConfig);
@@ -101,6 +120,16 @@ export function ProviderSetupPanel({
   };
 
   const sendTest = async () => {
+    if (missingFields.length > 0) {
+      setValidationMessage(`测试前还差：${missingFields.join('、')}`);
+      setTestResult({
+        ok: false,
+        error: `请先填写：${missingFields.join('、')}`,
+      });
+      return;
+    }
+
+    setValidationMessage('');
     const nextConfig = { ...providerConfig, enabled: true };
     onProviderConfigChange(nextConfig);
     const result = await onTestProvider(nextConfig, providerConfig.testPrompt);
@@ -155,6 +184,7 @@ export function ProviderSetupPanel({
             ))}
           </select>
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{selectedProvider.helper}</span>
+          <span className="text-xs font-bold text-cyan-700 dark:text-cyan-200">{selectedProvider.modelHint}</span>
         </label>
 
         <label className="grid gap-1">
@@ -204,6 +234,13 @@ export function ProviderSetupPanel({
       {missingFields.length > 0 ? (
         <div className="mt-3 rounded-lg border border-amber-400/50 bg-amber-100 px-3 py-2 text-xs font-black text-amber-900 dark:bg-amber-300/20 dark:text-amber-100">
           还差：{missingFields.join('、')}
+        </div>
+      ) : null}
+
+      {validationMessage ? (
+        <div className="mt-3 flex items-start gap-2 rounded-lg border border-amber-400/50 bg-amber-100 px-3 py-2 text-xs font-black text-amber-900 dark:bg-amber-300/20 dark:text-amber-100">
+          <AlertCircle className="mt-0.5 shrink-0" size={15} />
+          <span>{validationMessage}</span>
         </div>
       ) : null}
 

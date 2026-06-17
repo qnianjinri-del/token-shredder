@@ -77,18 +77,20 @@ describe('deriveSetupReadiness', () => {
     expect(readiness.status).toBe('choose-integration');
     expect(readiness.hasAnyUsage).toBe(true);
     expect(readiness.hasRealUsage).toBe(false);
+    expect(readiness.primaryAction).toBe('collector-test');
   });
 
-  it('offers provider testing when the local proxy has the required fields', () => {
+  it('offers provider testing when provider fields are ready, even before enabling proxy', () => {
     const readiness = deriveSetupReadiness({
       state: DEFAULT_STATE,
       runtimeState: 'empty',
       monitorInfo: runningMonitor,
-      providerConfig: readyProvider,
+      providerConfig: { ...readyProvider, enabled: false },
     });
 
     expect(readiness.status).toBe('proxy-ready');
     expect(readiness.primaryAction).toBe('provider-test');
+    expect(readiness.primaryLabel).toBe('保存并测试代理');
   });
 
   it('detects real usage after a non-demo event arrives', () => {

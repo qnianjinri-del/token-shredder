@@ -92,3 +92,35 @@ export const createIntegrationExamples = (options: IntegrationExampleOptions) =>
   openAiSdkProxy: createOpenAiSdkProxyExample(options),
   agentInstruction: createAgentInstructionExample(options),
 });
+
+export const createSetupPackageText = ({
+  usageUrl,
+  proxyBaseUrl,
+  model,
+  readinessSummary,
+}: IntegrationExampleOptions & { readinessSummary: string }) => `Token Shredder 当前接入包
+
+${readinessSummary}
+
+本机地址：
+- Usage endpoint: ${normalizeUrl(usageUrl, fallbackUsageUrl)}
+- OpenAI-compatible proxy baseURL: ${normalizeUrl(proxyBaseUrl, fallbackProxyBaseUrl)}
+- Model / endpoint ID: ${normalizeModel(model)}
+
+推荐接入顺序：
+1. 如果你的工具已经能拿到 token usage，优先用 POST /usage。
+2. 如果你的工具使用 OpenAI-compatible SDK，把 baseURL 改成本机 proxy。
+3. 不要把 prompt、completion、messages 或 API key 写入 usage 日志。
+
+curl:
+${createCurlUsageExample(usageUrl)}
+
+JavaScript fetch:
+${createJsUsageExample(usageUrl)}
+
+Python requests:
+${createPythonUsageExample(usageUrl)}
+
+OpenAI SDK proxy:
+${createOpenAiSdkProxyExample({ proxyBaseUrl, model })}
+`;

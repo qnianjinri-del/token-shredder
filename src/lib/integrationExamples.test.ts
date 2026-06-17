@@ -6,6 +6,7 @@ import {
   createJsUsageExample,
   createOpenAiSdkProxyExample,
   createPythonUsageExample,
+  createSetupPackageText,
 } from './integrationExamples';
 
 describe('integration example builders', () => {
@@ -52,5 +53,21 @@ describe('integration example builders', () => {
     expect(examples.pythonUsage).toContain('requests.post');
     expect(examples.openAiSdkProxy).toContain('OpenAI');
     expect(examples.agentInstruction).toContain('Token Shredder');
+  });
+
+  it('builds a copyable setup package with status, endpoints, and privacy boundaries', () => {
+    const text = createSetupPackageText({
+      usageUrl: 'http://127.0.0.1:17394/usage',
+      proxyBaseUrl: 'http://127.0.0.1:17394/v1',
+      model: 'demo-model',
+      readinessSummary: 'Setup readiness: ready',
+    });
+
+    expect(text).toContain('Token Shredder 当前接入包');
+    expect(text).toContain('Setup readiness: ready');
+    expect(text).toContain('http://127.0.0.1:17394/usage');
+    expect(text).toContain('http://127.0.0.1:17394/v1');
+    expect(text).toContain('demo-model');
+    expect(text).toContain('不要把 prompt、completion、messages 或 API key');
   });
 });

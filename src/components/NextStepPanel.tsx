@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   CheckCircle2,
+  Clipboard,
   ClipboardCheck,
   Compass,
   FlaskConical,
@@ -8,7 +9,8 @@ import {
   Send,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { deriveSetupReadiness } from '../lib/setupReadiness';
+import { createSetupPackageText } from '../lib/integrationExamples';
+import { deriveSetupReadiness, setupReadinessSummary } from '../lib/setupReadiness';
 import type {
   AppState,
   MonitorInfo,
@@ -43,6 +45,7 @@ export function NextStepPanel({
   onTestProvider,
 }: NextStepPanelProps) {
   const [actionStatus, setActionStatus] = useState('');
+  const [copyStatus, setCopyStatus] = useState('');
   const readiness = useMemo(
     () =>
       deriveSetupReadiness({
@@ -52,6 +55,20 @@ export function NextStepPanel({
         providerConfig,
       }),
     [monitorInfo, providerConfig, runtimeState, state],
+  );
+  const usageUrl = monitorInfo.usageUrl || 'http://127.0.0.1:17391/usage';
+  const proxyBaseUrl = monitorInfo.port
+    ? `http://${monitorInfo.host}:${monitorInfo.port}/v1`
+    : 'http://127.0.0.1:17391/v1';
+  const setupPackageText = useMemo(
+    () =>
+      createSetupPackageText({
+        usageUrl,
+        proxyBaseUrl,
+        model: providerConfig.model,
+        readinessSummary: setupReadinessSummary(readiness),
+      }),
+    [providerConfig.model, proxyBaseUrl, readiness, usageUrl],
   );
 
   const runPrimaryAction = async () => {
@@ -84,6 +101,12 @@ export function NextStepPanel({
       );
       window.setTimeout(() => setActionStatus(''), 3_200);
     }
+  };
+
+  const copySetupPackage = async () => {
+    await navigator.clipboard.writeText(setupPackageText);
+    setCopyStatus('当前接入包已复制');
+    window.setTimeout(() => setCopyStatus(''), 1_600);
   };
 
   const primaryButton = readiness.primaryAction === 'none' ? (
@@ -119,6 +142,10 @@ export function NextStepPanel({
             <ClipboardCheck size={16} />
             <span>复制接入示例</span>
           </a>
+          <button type="button" onClick={() => void copySetupPackage()} className="action-button">
+            <Clipboard size={16} />
+            <span>{copyStatus || '复制当前接入包'}</span>
+          </button>
         </div>
       </div>
 

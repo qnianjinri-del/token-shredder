@@ -86,6 +86,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
 - Beginner setup flow with a no-key quick demo, API Key, upstream Base URL, model / endpoint ID, and pricing.
 - Smart `下一步建议` card that tells new users what to click next based on collector, pricing, provider, and usage state.
+- Copyable `当前接入包` with the actual port, setup status, curl, JavaScript, Python, and OpenAI SDK proxy snippets.
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
 - One-click copy for curl, JavaScript fetch, Python requests, OpenAI SDK proxy setup, and paste-ready Agent instructions.
@@ -131,7 +132,7 @@ npm install
 npm run dev:desktop
 ```
 
-On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The first useful card is `下一步建议`; it tells you whether to try the no-key demo, fill provider fields, test the local proxy, or wait for real usage.
+On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The first useful card is `下一步建议`; it tells you whether to try the no-key demo, fill provider fields, test the local proxy, copy the current integration package, or wait for real usage.
 
 On first launch the pet waits quietly and the backstage window opens automatically. If you just want to see what it does, click `先不填 Key，试玩一下`. This writes one local simulated usage event, makes the pet shred once, then stops on the resulting progress. It does not call any provider and does not represent real billing.
 
@@ -147,7 +148,7 @@ Local proxy setup fields:
 3. Model / endpoint ID.
 4. Token prices in the pricing panel.
 
-Click `保存并启用`, then `发送测试请求`. If your provider returns usage, the pet will briefly shred a bill and the session log will update.
+Click `保存并启用`, then `发送测试请求`. The backstage validates required fields before testing. If your provider returns usage, the pet will briefly shred a bill and the session log will update.
 
 To run the built app locally:
 
@@ -285,7 +286,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
