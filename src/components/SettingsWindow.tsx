@@ -24,6 +24,7 @@ import { PricingPanel } from './PricingPanel';
 import { ProviderSetupPanel } from './ProviderSetupPanel';
 import { QuickVerifyPanel } from './QuickVerifyPanel';
 import { SharePanel } from './SharePanel';
+import { SelfCheckPanel } from './SelfCheckPanel';
 import { SessionExportPanel } from './SessionExportPanel';
 import { SetupChecklistPanel } from './SetupChecklistPanel';
 import { StatusPanel } from './StatusPanel';
@@ -112,6 +113,14 @@ export function SettingsWindow({
             onRunQuickStartDemo={onRunQuickStartDemo}
             onSendTestUsageEvent={onSendTestUsageEvent}
             onTestProvider={onTestProvider}
+          />
+
+          <SelfCheckPanel
+            state={state}
+            runtimeState={runtimeState}
+            monitorInfo={monitorInfo}
+            providerConfig={providerConfig}
+            onSendTestUsageEvent={onSendTestUsageEvent}
           />
 
           <StartHerePanel

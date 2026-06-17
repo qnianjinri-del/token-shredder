@@ -112,11 +112,12 @@ Token Shredder 默认：
 
 1. 打开 App，右键宠物进入后台。
 2. 先看第一屏 `下一步建议`，它会告诉你当前该点哪个按钮。
-3. 点 `一键试玩`，确认桌面宠物能动。
-4. 点 `复制当前接入包` 或 `复制给 ChatGPT / Codex / Agent 的接入说明`，把说明发给你的工具或脚本。
-5. 如果你想走本机代理，再去 `新手接入` 填 API Key、Base URL、模型 ID 和价格；填好后可直接点 `测试本机代理`。
-6. 到 `更换桌面宠物皮肤` 换一个你喜欢的皮肤。
-7. 到 `配置备份 / 恢复` 下载一份不含 API Key 的配置 JSON。
+3. 点 `自动体检`，让它检查本地服务、health、collector、价格、provider 字段和真实 usage 状态。
+4. 点 `一键试玩`，确认桌面宠物能动。
+5. 点 `复制当前接入包` 或 `复制给 ChatGPT / Codex / Agent 的接入说明`，把说明发给你的工具或脚本。
+6. 如果你想走本机代理，再去 `新手接入` 填 API Key、Base URL、模型 ID 和价格；填好后可直接点 `测试本机代理`。
+7. 到 `更换桌面宠物皮肤` 换一个你喜欢的皮肤。
+8. 到 `配置备份 / 恢复` 下载一份不含 API Key 的配置 JSON。
 
 ## 配置备份和诊断
 
@@ -124,6 +125,7 @@ Token Shredder 默认：
 
 - 新手任务清单：从本地服务、试玩、价格、接入方式、皮肤到备份一路检查。
 - 下一步建议：根据本地服务、价格、provider、usage 状态自动提示下一步。
+- 自动体检：一键检查本地服务、health、collector、价格、provider 字段和真实 usage 状态。
 - 当前接入包：一键复制实际端口、状态摘要、curl、JS、Python 和 OpenAI SDK proxy 示例。
 - 配置备份 / 恢复：导出价格、皮肤、宠物大小、Base URL 等配置；不会导出 API Key 或 session usage 日志。
 - 问题诊断：复制一段可贴到 issue 的诊断信息；会隐藏 API Key，也不包含 prompt、completion 或 messages。

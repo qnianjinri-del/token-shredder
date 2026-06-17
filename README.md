@@ -86,6 +86,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
 - Beginner setup flow with a no-key quick demo, API Key, upstream Base URL, model / endpoint ID, and pricing.
 - Smart `下一步建议` card that tells new users what to click next based on collector, pricing, provider, and usage state.
+- One-click `自动体检` for local service, health endpoint, collector test, pricing, provider fields, and real usage state.
 - Copyable `当前接入包` with the actual port, setup status, curl, JavaScript, Python, and OpenAI SDK proxy snippets.
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
@@ -132,7 +133,7 @@ npm install
 npm run dev:desktop
 ```
 
-On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The first useful card is `下一步建议`; it tells you whether to try the no-key demo, fill provider fields, test the local proxy, copy the current integration package, or wait for real usage.
+On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The first useful cards are `下一步建议` and `自动体检`; they tell you whether to try the no-key demo, test localhost, fill provider fields, copy the current integration package, or wait for real usage.
 
 On first launch the pet waits quietly and the backstage window opens automatically. If you just want to see what it does, click `先不填 Key，试玩一下`. This writes one local simulated usage event, makes the pet shred once, then stops on the resulting progress. It does not call any provider and does not represent real billing.
 
@@ -158,7 +159,7 @@ npm run start:desktop
 
 ## First-Run Flow
 
-After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage card is `下一步建议`, followed by `从这里开始`.
+After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage cards are `下一步建议`, `自动体检`, and `从这里开始`.
 
 Fast paths:
 
@@ -286,7 +287,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
