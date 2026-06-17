@@ -95,6 +95,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Dedicated integration recipes for curl, JavaScript fetch, Python requests, OpenAI SDK proxy, and Agent instructions.
 - Scripted GitHub Release publishing with `npm run release:github`.
 - Automated desktop smoke test for production Electron startup, local collector, `/usage`, OpenAI-style usage, proxy guard, and `DELETE /usage`.
+- Packaged `.app` smoke test and GitHub Release asset verification.
+- One-command macOS release pipeline with `npm run release:ship:mac`.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -281,7 +283,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
@@ -392,14 +394,22 @@ npm run lint
 npm run build
 npm run release:check
 npm run smoke:desktop
+npm run smoke:package
 npm run release:check:full
 npm run dist:mac
 npm run release:github
+npm run release:verify
 ```
 
 The renderer output is written to `dist/` and the Electron main/preload output is written to `dist-electron/`.
 
 `smoke:desktop` launches the production Electron app with an isolated temporary profile and a high test port. It verifies `GET /health`, native `POST /usage`, OpenAI-style usage cached-token handling, disabled-proxy guard behavior, and `DELETE /usage`, then closes the app automatically.
+
+After `npm run dist:mac`, `smoke:package` runs the same local API smoke checks against the packaged `.app`. `release:verify` checks the GitHub Release page and uploaded download assets. For the full local macOS release flow:
+
+```bash
+npm run release:ship:mac
+```
 
 ## Package For macOS
 
@@ -419,9 +429,10 @@ The v0.1.x local build is unsigned and not notarized. Code signing and notarizat
 ```bash
 npm install
 npm run release:check:full
-npm run package:mac
 npm run dist:mac
+npm run smoke:package
 npm run release:github
+npm run release:verify
 ```
 
 Manual checks before publishing:

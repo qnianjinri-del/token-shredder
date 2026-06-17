@@ -154,6 +154,21 @@ npm run release:check:full
 
 验证使用临时本机端口和临时 userData，不会污染你的真实配置。
 
+打包后还可以继续验证 `.app` 本身：
+
+```bash
+npm run dist:mac
+npm run smoke:package
+```
+
+完整 macOS 发版流水线：
+
+```bash
+npm run release:ship:mac
+```
+
+这会依次执行完整检查、打包、验证打包后的 `.app`、发布 GitHub Release、校验下载资产。
+
 ## 当前限制
 
 - macOS 是优先目标。

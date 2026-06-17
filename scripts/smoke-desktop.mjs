@@ -6,6 +6,18 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const electronCli = path.join(rootDir, 'node_modules', 'electron', 'cli.js');
+const packagedAppBinary = path.join(
+  rootDir,
+  'release',
+  'mac-arm64',
+  'Token Shredder.app',
+  'Contents',
+  'MacOS',
+  'Token Shredder',
+);
+const isPackagedSmoke = process.argv.includes('--packaged');
+const command = isPackagedSmoke ? packagedAppBinary : process.execPath;
+const commandArgs = isPackagedSmoke ? [] : [electronCli, '.'];
 const startPort = Number(process.env.TOKEN_SHREDDER_SMOKE_PORT || 19691);
 const endPort = startPort + 8;
 const userDataDir = mkdtempSync(path.join(tmpdir(), 'token-shredder-smoke-'));
@@ -13,7 +25,7 @@ const timeoutMs = 25_000;
 const startedAt = Date.now();
 const logs = [];
 
-const child = spawn(process.execPath, [electronCli, '.'], {
+const child = spawn(command, commandArgs, {
   cwd: rootDir,
   env: {
     ...process.env,
@@ -156,6 +168,7 @@ try {
     JSON.stringify(
       {
         ok: true,
+        target: isPackagedSmoke ? 'packaged-app' : 'electron-source',
         port,
         checks: [
           'GET /health',

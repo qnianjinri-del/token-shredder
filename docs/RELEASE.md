@@ -20,10 +20,13 @@ npm run build
 npm run dev:desktop
 npm run release:check
 npm run smoke:desktop
+npm run smoke:package
 npm run release:check:full
 npm run package:mac
 npm run dist:mac
 npm run release:github
+npm run release:verify
+npm run release:ship:mac
 ```
 
 ## Manual QA Checklist
@@ -59,6 +62,8 @@ npm run release:github
 - Port conflict handling switches from `17391` to `17392`-`17400`.
 - macOS package opens on the local machine after the expected unsigned-app warning.
 - `npm run smoke:desktop` passes for production Electron startup and local API behavior.
+- `npm run smoke:package` passes after `npm run dist:mac`.
+- `npm run release:verify` confirms the GitHub Release page and download assets.
 
 ## Local API Smoke Test
 
@@ -81,7 +86,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.8
+Token Shredder v0.1.9
 ```
 
 Body:
@@ -99,6 +104,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 - Session export as JSON / CSV / Markdown.
 - Dedicated integration recipes and scripted GitHub Release publishing.
 - Automated desktop smoke test for production Electron startup and local API behavior.
+- Packaged `.app` smoke test, release asset verifier, and one-command macOS release pipeline.
 - One-click local quick demo for first-time users.
 - Backstage 30-second verification panel and curl / JS / Python / Agent copy-paste examples.
 - English and Chinese launch-post copy buttons in the share panel.
