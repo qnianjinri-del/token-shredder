@@ -88,7 +88,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.13
+Token Shredder v0.1.14
 ```
 
 Body:
@@ -101,8 +101,9 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 ### Highlights
 
 - Pixel-art desktop shredder pet for macOS.
+- Backstage tabs organized as `开始 / 接入 / 成本 / 宠物 / 诊断`.
 - Smart `下一步建议` card that tells new users what to do next.
-- One-click `自动体检` with a copyable local health report.
+- One-click `自动体检` with a copyable local health report and plain-language next action.
 - Copyable current integration package with real local endpoints and snippets.
 - Provider setup validates required fields before enabling or testing proxy requests.
 - First-screen `从这里开始` guide for new users.

@@ -5,6 +5,7 @@ import { DEFAULT_STATE } from './presets';
 import {
   buildSelfCheckReport,
   createStaticSelfCheckItems,
+  getSelfCheckNextAction,
   summarizeSelfCheckStatus,
   type SelfCheckItem,
 } from './selfCheck';
@@ -67,8 +68,42 @@ describe('self check helpers', () => {
 
     expect(text).toContain('Token Shredder 自动体检报告');
     expect(text).toContain('Generated: 2026-06-17T00:00:00.000Z');
+    expect(text).toContain('Next action:');
     expect(text).toContain('Provider missing fields: none');
     expect(text).toContain('Privacy note');
     expect(text).not.toContain('secret-key');
+  });
+
+  it('suggests the collector first when health fails', () => {
+    const items: SelfCheckItem[] = [
+      { id: 'health-request', label: 'GET /health', status: 'fail', detail: 'ECONNREFUSED' },
+      { id: 'provider-fields', label: 'provider', status: 'warn', detail: 'missing' },
+    ];
+
+    expect(getSelfCheckNextAction(items)).toContain('重启 Token Shredder');
+  });
+
+  it('suggests provider setup only after the collector is usable', () => {
+    const items: SelfCheckItem[] = [
+      { id: 'collector-state', label: 'collector', status: 'pass', detail: 'ok' },
+      { id: 'health-request', label: 'GET /health', status: 'pass', detail: 'ok' },
+      { id: 'provider-fields', label: 'provider', status: 'warn', detail: 'missing' },
+      { id: 'real-usage', label: 'real usage', status: 'warn', detail: 'none' },
+    ];
+
+    expect(getSelfCheckNextAction(items)).toContain('补齐 API Key');
+  });
+
+  it('suggests normal usage when everything is connected', () => {
+    const items: SelfCheckItem[] = [
+      { id: 'collector-state', label: 'collector', status: 'pass', detail: 'ok' },
+      { id: 'health-request', label: 'GET /health', status: 'pass', detail: 'ok' },
+      { id: 'collector-post', label: 'POST /usage', status: 'pass', detail: 'ok' },
+      { id: 'provider-fields', label: 'provider', status: 'pass', detail: 'ok' },
+      { id: 'real-usage', label: 'real usage', status: 'pass', detail: 'ok' },
+      { id: 'runtime-state', label: 'runtime', status: 'pass', detail: 'ok' },
+    ];
+
+    expect(getSelfCheckNextAction(items)).toContain('继续正常使用');
   });
 });

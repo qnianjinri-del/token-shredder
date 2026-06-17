@@ -1,0 +1,38 @@
+name: Privacy / security review
+description: Review a privacy boundary, local data behavior, or security concern.
+title: "[Privacy]: "
+labels: ["privacy", "security"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep Token Shredder local-first and boring in the right places.
+  - type: textarea
+    id: concern
+    attributes:
+      label: What should be reviewed?
+      description: Describe the behavior, file, feature, or boundary that worries you.
+      placeholder: The local proxy seems to...
+    validations:
+      required: true
+  - type: checkboxes
+    id: data_types
+    attributes:
+      label: Does this touch sensitive data?
+      options:
+        - label: Prompt text
+        - label: Completion text
+        - label: Messages / request body
+        - label: API key or Authorization header
+        - label: Local usage logs
+        - label: Local config / localStorage
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected local-first behavior
+      placeholder: I expected this to stay on 127.0.0.1 and not be written to logs.
+  - type: textarea
+    id: details
+    attributes:
+      label: Reproduction details
+      description: Include app version, macOS version, commands, or relevant screenshots if useful. Please do not paste API keys or private prompts.

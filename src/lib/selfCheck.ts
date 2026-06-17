@@ -46,6 +46,34 @@ export const summarizeSelfCheckStatus = (items: SelfCheckItem[]): SelfCheckStatu
   return 'pass';
 };
 
+export const getSelfCheckNextAction = (items: SelfCheckItem[]): string => {
+  const byId = new Map(items.map((item) => [item.id, item]));
+  const hasFailedCollector =
+    byId.get('collector-state')?.status === 'fail' || byId.get('health-request')?.status === 'fail';
+
+  if (hasFailedCollector) {
+    return '先重启 Token Shredder，或检查本地端口是否被占用；然后重新运行自动体检。';
+  }
+
+  if (byId.get('collector-post')?.status === 'fail') {
+    return '本地服务能响应 health，但测试 usage 没有被接受。请复制体检报告到 issue，方便定位 collector。';
+  }
+
+  if (byId.get('provider-fields')?.status === 'warn') {
+    return '如果想让 Token Shredder 帮你代理请求，请补齐 API Key、Base URL、模型 / 接入点 ID；如果已有 usage 数字，可以先直接 POST /usage。';
+  }
+
+  if (byId.get('real-usage')?.status !== 'pass') {
+    return '基础链路已经准备好。下一步把真实 Agent、脚本或 SDK 接到 POST /usage，或先点“发送测试 usage”确认宠物会动。';
+  }
+
+  if (byId.get('runtime-state')?.status === 'warn') {
+    return '当前没有演示动画也没有真实 usage。可以开启自动演示，或发送第一条真实 usage。';
+  }
+
+  return '基础链路已经可用。继续正常使用，或导出 session / 分享结果；如果遇到问题，复制体检报告发 issue。';
+};
+
 export const createStaticSelfCheckItems = ({
   state,
   runtimeState,
@@ -126,11 +154,13 @@ export const buildSelfCheckReport = ({
 }): string => {
   const readiness = deriveSetupReadiness(input);
   const overall = summarizeSelfCheckStatus(items);
+  const nextAction = getSelfCheckNextAction(items);
 
   return [
     'Token Shredder 自动体检报告',
     `Generated: ${generatedAt.toISOString()}`,
     `Overall: ${selfCheckStatusLabel[overall]}`,
+    `Next action: ${nextAction}`,
     '',
     setupReadinessSummary(readiness),
     '',

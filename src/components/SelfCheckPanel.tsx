@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import {
   buildSelfCheckReport,
   createStaticSelfCheckItems,
+  getSelfCheckNextAction,
   selfCheckStatusLabel,
   summarizeSelfCheckStatus,
   type SelfCheckItem,
@@ -45,6 +46,7 @@ export function SelfCheckPanel({
   );
   const items = useMemo(() => [...dynamicItems, ...staticItems], [dynamicItems, staticItems]);
   const overall = summarizeSelfCheckStatus(items);
+  const nextAction = useMemo(() => getSelfCheckNextAction(items), [items]);
   const report = useMemo(
     () =>
       buildSelfCheckReport({
@@ -146,6 +148,11 @@ export function SelfCheckPanel({
           <Clipboard size={16} />
           <span>{copyStatus || '复制体检报告'}</span>
         </button>
+      </div>
+
+      <div className="mt-4 rounded-lg border border-cyan-500/30 bg-cyan-100/80 px-3 py-2 text-xs font-bold text-cyan-950 dark:bg-cyan-300/10 dark:text-cyan-100">
+        <p className="text-[10px] font-black uppercase tracking-wide opacity-70">下一步建议</p>
+        <p className="mt-1 leading-relaxed">{nextAction}</p>
       </div>
 
       <div className="mt-4 grid gap-2">

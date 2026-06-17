@@ -16,11 +16,12 @@ Token Shredder 是一个本机运行的 AI token 成本桌面宠物。它把 Age
 1. 下载最新 macOS 构建：[GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest)。
 2. 打开 `Token Shredder.app`。
 3. 右键桌面宠物，选择 `进入后台`。
-4. 在第一屏 `从这里开始` 选择一种路径：
+4. 后台现在按 `开始 / 接入 / 成本 / 宠物 / 诊断` 分区，先停在 `开始`。
+5. 在 `开始` 分区选择一种路径：
    - 先看效果：点 `一键试玩`。
    - 有 API Key：填 API Key、上游 Base URL、模型 ID 和价格。
    - 已有 usage 数字：复制 curl / JS / Python / Agent 接入说明。
-5. 宠物会碎一次钱，然后停在结果上。
+6. 宠物会碎一次钱，然后停在结果上。
 
 这一步不需要 API Key，不会请求任何模型，也不代表真实账单。
 
@@ -111,8 +112,8 @@ Token Shredder 默认：
 如果你完全没接触过这个项目，建议按这个顺序：
 
 1. 打开 App，右键宠物进入后台。
-2. 先看第一屏 `下一步建议`，它会告诉你当前该点哪个按钮。
-3. 点 `自动体检`，让它检查本地服务、health、collector、价格、provider 字段和真实 usage 状态。
+2. 先停在后台 `开始` 分区，看 `下一步建议`，它会告诉你当前该点哪个按钮。
+3. 点 `自动体检`，让它检查本地服务、health、collector、价格、provider 字段和真实 usage 状态；体检卡片会直接给出下一步行动。
 4. 点 `一键试玩`，确认桌面宠物能动。
 5. 点 `复制当前接入包` 或 `复制给 ChatGPT / Codex / Agent 的接入说明`，把说明发给你的工具或脚本。
 6. 如果你想走本机代理，再去 `新手接入` 填 API Key、Base URL、模型 ID 和价格；填好后可直接点 `测试本机代理`。
@@ -124,8 +125,9 @@ Token Shredder 默认：
 后台现在提供：
 
 - 新手任务清单：从本地服务、试玩、价格、接入方式、皮肤到备份一路检查。
+- 后台分区：`开始 / 接入 / 成本 / 宠物 / 诊断`，把首次接入、usage 配方、价格、皮肤和排错分开。
 - 下一步建议：根据本地服务、价格、provider、usage 状态自动提示下一步。
-- 自动体检：一键检查本地服务、health、collector、价格、provider 字段和真实 usage 状态。
+- 自动体检：一键检查本地服务、health、collector、价格、provider 字段和真实 usage 状态，并给出下一步建议。
 - 当前接入包：一键复制实际端口、状态摘要、curl、JS、Python 和 OpenAI SDK proxy 示例。
 - 配置备份 / 恢复：导出价格、皮肤、宠物大小、Base URL 等配置；不会导出 API Key 或 session usage 日志。
 - 问题诊断：复制一段可贴到 issue 的诊断信息；会隐藏 API Key，也不包含 prompt、completion 或 messages。
