@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFileSync, statSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -23,18 +24,29 @@ const head = async (url, attempts = 5) => {
 
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      const response = await fetch(url, {
-        method: 'HEAD',
-        headers: {
-          'User-Agent': 'token-shredder-release-verify',
-        },
-      });
+      const output = execFileSync(
+        'curl',
+        ['--head', '--location', '--silent', '--show-error', '--max-time', '20', url],
+        { encoding: 'utf8' },
+      );
+      const headerBlocks = output.trim().split(/\r?\n\r?\n/);
+      const finalHeaders = headerBlocks[headerBlocks.length - 1] ?? '';
+      const statusMatch = finalHeaders.match(/^HTTP\/\S+\s+(\d+)/m);
+      const status = statusMatch ? Number(statusMatch[1]) : 0;
 
-      if (response.ok) {
-        return response;
+      if (status >= 200 && status < 400) {
+        const lengthMatch = finalHeaders.match(/^content-length:\s*(\d+)/im);
+
+        return {
+          status,
+          headers: {
+            get: (name) =>
+              name.toLowerCase() === 'content-length' && lengthMatch ? lengthMatch[1] : null,
+          },
+        };
       }
 
-      lastError = new Error(`${url} returned ${response.status}`);
+      lastError = new Error(`${url} returned ${status || 'unknown status'}`);
     } catch (error) {
       lastError = error;
     }
