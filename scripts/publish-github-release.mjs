@@ -66,26 +66,39 @@ const githubJson = async (method, url, payload) => {
   return [response.status, body];
 };
 
-const uploadAsset = async (uploadUrl, filePath) => {
-  const bytes = readFileSync(filePath);
+const uploadAsset = (uploadUrl, filePath) => {
   const name = releaseAssetName(filePath);
   const url = `${uploadUrl}?${new URLSearchParams({ name })}`;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      ...apiHeaders,
-      'Content-Type': 'application/octet-stream',
-      'Content-Length': String(bytes.length),
+  const output = execFileSync(
+    'curl',
+    [
+      '--silent',
+      '--show-error',
+      '--fail-with-body',
+      '--location',
+      '--request',
+      'POST',
+      '--header',
+      `Accept: ${apiHeaders.Accept}`,
+      '--header',
+      `X-GitHub-Api-Version: ${apiHeaders['X-GitHub-Api-Version']}`,
+      '--header',
+      `User-Agent: ${apiHeaders['User-Agent']}`,
+      '--header',
+      `Authorization: ${apiHeaders.Authorization}`,
+      '--header',
+      'Content-Type: application/octet-stream',
+      '--data-binary',
+      `@${filePath}`,
+      url,
+    ],
+    {
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
     },
-    body: bytes,
-  });
-  const text = await response.text();
+  );
 
-  if (!response.ok) {
-    throw new Error(`Upload failed for ${name}: ${response.status} ${text}`);
-  }
-
-  return JSON.parse(text);
+  return JSON.parse(output);
 };
 
 const main = async () => {
