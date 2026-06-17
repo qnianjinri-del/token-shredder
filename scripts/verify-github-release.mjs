@@ -1,21 +1,14 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, statSync } from 'node:fs';
-import { basename, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {
+  releaseAssetName,
+  releaseManifestPath,
+  releaseUploadPaths,
+  repo,
+  tag,
+} from './release-assets.mjs';
 
-const repo = process.env.GITHUB_REPOSITORY || 'qnianjinri-del/token-shredder';
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
-const version = packageJson.version;
-const tag = `v${version}`;
 const releaseUrl = `https://github.com/${repo}/releases/tag/${tag}`;
-const localAssets = [
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.dmg`),
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.zip`),
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.dmg.blockmap`),
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.zip.blockmap`),
-  resolve(root, 'release/latest-mac.yml'),
-];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,13 +50,14 @@ const head = async (url, attempts = 5) => {
   throw lastError;
 };
 
-const releaseAssetName = (filePath) => basename(filePath).replaceAll(' ', '.');
-
 const main = async () => {
   const releaseResponse = await head(releaseUrl);
   console.log(`verified release page ${releaseResponse.status} ${releaseUrl}`);
 
-  for (const asset of localAssets) {
+  const manifest = JSON.parse(readFileSync(releaseManifestPath, 'utf8'));
+  const manifestAssets = new Set(manifest.assets.map((asset) => asset.name));
+
+  for (const asset of releaseUploadPaths) {
     const expectedSize = statSync(asset).size;
     const assetName = releaseAssetName(asset);
     const url = `https://github.com/${repo}/releases/download/${tag}/${assetName}`;
@@ -76,6 +70,14 @@ const main = async () => {
 
     console.log(`verified asset ${assetName} ${remoteSize || 'unknown-size'}`);
   }
+
+  for (const asset of releaseUploadPaths.slice(0, -1)) {
+    const assetName = releaseAssetName(asset);
+    if (!manifestAssets.has(assetName)) {
+      throw new Error(`manifest missing ${assetName}`);
+    }
+  }
+  console.log(`verified manifest ${releaseAssetName(releaseManifestPath)}`);
 };
 
 await main();

@@ -1,22 +1,14 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { basename, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {
+  releaseAssetName,
+  releaseNotesPath,
+  releaseUploadPaths,
+  repo,
+  tag,
+} from './release-assets.mjs';
 
-const repo = process.env.GITHUB_REPOSITORY || 'qnianjinri-del/token-shredder';
-const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
-const version = packageJson.version;
-const tag = `v${version}`;
-const releaseNotesPath = resolve(root, `docs/releases/${tag}.md`);
 const releaseBody = readFileSync(releaseNotesPath, 'utf8');
-const assets = [
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.dmg`),
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.zip`),
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.dmg.blockmap`),
-  resolve(root, `release/Token Shredder-${version}-mac-arm64.zip.blockmap`),
-  resolve(root, 'release/latest-mac.yml'),
-];
 
 const readGitCredentials = () => {
   try {
@@ -76,7 +68,7 @@ const githubJson = async (method, url, payload) => {
 
 const uploadAsset = async (uploadUrl, filePath) => {
   const bytes = readFileSync(filePath);
-  const name = basename(filePath);
+  const name = releaseAssetName(filePath);
   const url = `${uploadUrl}?${new URLSearchParams({ name })}`;
   const response = await fetch(url, {
     method: 'POST',
@@ -121,8 +113,8 @@ const main = async () => {
   const uploadUrl = release.upload_url.split('{', 1)[0];
   const existingAssets = new Set((release.assets ?? []).map((asset) => asset.name));
 
-  for (const asset of assets) {
-    const name = basename(asset);
+  for (const asset of releaseUploadPaths) {
+    const name = releaseAssetName(asset);
     if (existingAssets.has(name)) {
       console.log(`skip existing asset ${name}`);
       continue;

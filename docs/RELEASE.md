@@ -24,6 +24,7 @@ npm run smoke:package
 npm run release:check:full
 npm run package:mac
 npm run dist:mac
+npm run release:manifest
 npm run release:github
 npm run release:verify
 npm run release:ship:mac
@@ -63,6 +64,7 @@ npm run release:ship:mac
 - macOS package opens on the local machine after the expected unsigned-app warning.
 - `npm run smoke:desktop` passes for production Electron startup and local API behavior.
 - `npm run smoke:package` passes after `npm run dist:mac`.
+- `npm run release:manifest` creates SHA256 hashes for release artifacts.
 - `npm run release:verify` confirms the GitHub Release page and download assets.
 
 ## Local API Smoke Test
@@ -86,7 +88,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.9
+Token Shredder v0.1.10
 ```
 
 Body:
@@ -105,6 +107,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 - Dedicated integration recipes and scripted GitHub Release publishing.
 - Automated desktop smoke test for production Electron startup and local API behavior.
 - Packaged `.app` smoke test, release asset verifier, and one-command macOS release pipeline.
+- SHA256 release manifest for downloadable artifacts.
 - One-click local quick demo for first-time users.
 - Backstage 30-second verification panel and curl / JS / Python / Agent copy-paste examples.
 - English and Chinese launch-post copy buttons in the share panel.

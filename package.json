@@ -1,7 +1,7 @@
 {
   "name": "token-shredder",
   "private": false,
-  "version": "0.1.9",
+  "version": "0.1.10",
   "type": "module",
   "main": "dist-electron/main.js",
   "description": "A tiny local desktop pet that shreds your AI token spending in real time.",
@@ -21,9 +21,10 @@
     "smoke:package": "node scripts/smoke-desktop.mjs --packaged",
     "package:mac": "npm run build && electron-builder --mac --dir",
     "dist:mac": "npm run build && electron-builder --mac dmg zip",
+    "release:manifest": "node scripts/generate-release-manifest.mjs",
     "release:github": "node scripts/publish-github-release.mjs",
     "release:verify": "node scripts/verify-github-release.mjs",
-    "release:ship:mac": "npm run release:check:full && npm run dist:mac && npm run smoke:package && npm run release:github && npm run release:verify"
+    "release:ship:mac": "npm run release:check:full && npm run dist:mac && npm run smoke:package && npm run release:manifest && npm run release:github && npm run release:verify"
   },
   "build": {
     "appId": "com.tokenshredder.app",
@@ -40,7 +41,7 @@
       "package.json",
       "LICENSE"
     ],
-    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "artifactName": "Token-Shredder-${version}-${os}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.developer-tools",
       "icon": "build/icon.icns",

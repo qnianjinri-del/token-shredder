@@ -167,7 +167,9 @@ npm run smoke:package
 npm run release:ship:mac
 ```
 
-这会依次执行完整检查、打包、验证打包后的 `.app`、发布 GitHub Release、校验下载资产。
+这会依次执行完整检查、打包、验证打包后的 `.app`、生成 SHA256 manifest、发布 GitHub Release、校验下载资产。
+
+每次 macOS Release 还会上传一个 manifest JSON，里面包含 `.dmg`、`.zip`、blockmap 和 `latest-mac.yml` 的 SHA256，方便下载者校验文件完整性。
 
 ## 当前限制
 

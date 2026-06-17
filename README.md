@@ -97,6 +97,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Automated desktop smoke test for production Electron startup, local collector, `/usage`, OpenAI-style usage, proxy guard, and `DELETE /usage`.
 - Packaged `.app` smoke test and GitHub Release asset verification.
 - One-command macOS release pipeline with `npm run release:ship:mac`.
+- SHA256 release manifest uploaded with every macOS release.
 - Basic OpenAI-compatible local proxy at `/v1`.
 - `GET /health`, `POST /usage`, `DELETE /usage`, and local `/v1/chat/completions`.
 - Native Token Shredder usage JSON and common OpenAI-style `usage` payloads.
@@ -283,7 +284,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
@@ -398,6 +399,7 @@ npm run smoke:package
 npm run release:check:full
 npm run dist:mac
 npm run release:github
+npm run release:manifest
 npm run release:verify
 ```
 
@@ -405,7 +407,7 @@ The renderer output is written to `dist/` and the Electron main/preload output i
 
 `smoke:desktop` launches the production Electron app with an isolated temporary profile and a high test port. It verifies `GET /health`, native `POST /usage`, OpenAI-style usage cached-token handling, disabled-proxy guard behavior, and `DELETE /usage`, then closes the app automatically.
 
-After `npm run dist:mac`, `smoke:package` runs the same local API smoke checks against the packaged `.app`. `release:verify` checks the GitHub Release page and uploaded download assets. For the full local macOS release flow:
+After `npm run dist:mac`, `smoke:package` runs the same local API smoke checks against the packaged `.app`. `release:manifest` writes SHA256 hashes for release artifacts, and `release:verify` checks the GitHub Release page and uploaded download assets. For the full local macOS release flow:
 
 ```bash
 npm run release:ship:mac
@@ -431,6 +433,7 @@ npm install
 npm run release:check:full
 npm run dist:mac
 npm run smoke:package
+npm run release:manifest
 npm run release:github
 npm run release:verify
 ```
