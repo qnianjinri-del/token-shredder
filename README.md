@@ -85,6 +85,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Local realtime collector on `127.0.0.1`.
 - Local Codex session watcher that reads only `token_count` events from `~/.codex/sessions`.
 - Beginner setup flow with a no-key quick demo, API Key, upstream Base URL, model / endpoint ID, and pricing.
+- Smart `下一步建议` card that tells new users what to click next based on collector, pricing, provider, and usage state.
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
 - One-click copy for curl, JavaScript fetch, Python requests, OpenAI SDK proxy setup, and paste-ready Agent instructions.
@@ -130,7 +131,7 @@ npm install
 npm run dev:desktop
 ```
 
-On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again.
+On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The first useful card is `下一步建议`; it tells you whether to try the no-key demo, fill provider fields, test the local proxy, or wait for real usage.
 
 On first launch the pet waits quietly and the backstage window opens automatically. If you just want to see what it does, click `先不填 Key，试玩一下`. This writes one local simulated usage event, makes the pet shred once, then stops on the resulting progress. It does not call any provider and does not represent real billing.
 
@@ -156,7 +157,7 @@ npm run start:desktop
 
 ## First-Run Flow
 
-After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage card is `从这里开始`.
+After Token Shredder is running, right-click the pet and choose `进入后台`. The top backstage card is `下一步建议`, followed by `从这里开始`.
 
 Fast paths:
 
@@ -284,7 +285,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

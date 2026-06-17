@@ -17,6 +17,7 @@ import { DemoModePanel } from './DemoModePanel';
 import { DiagnosticsPanel } from './DiagnosticsPanel';
 import { IntegrationRecipesPanel } from './IntegrationRecipesPanel';
 import { MonitorPanel } from './MonitorPanel';
+import { NextStepPanel } from './NextStepPanel';
 import { PetSkinPanel } from './PetSkinPanel';
 import { PetSizePanel } from './PetSizePanel';
 import { PricingPanel } from './PricingPanel';
@@ -102,6 +103,16 @@ export function SettingsWindow({
               重新查看接入指南
             </a>
           </div>
+
+          <NextStepPanel
+            state={state}
+            runtimeState={runtimeState}
+            monitorInfo={monitorInfo}
+            providerConfig={providerConfig}
+            onRunQuickStartDemo={onRunQuickStartDemo}
+            onSendTestUsageEvent={onSendTestUsageEvent}
+            onTestProvider={onTestProvider}
+          />
 
           <StartHerePanel
             monitorInfo={monitorInfo}

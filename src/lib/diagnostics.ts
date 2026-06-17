@@ -8,6 +8,7 @@ import type {
 import { APP_NAME, APP_VERSION } from './appInfo';
 import { formatAdaptiveCurrency, formatPercent, formatTokens } from './formatting';
 import { runtimeStateLabel } from './runtime';
+import { deriveSetupReadiness, setupReadinessSummary } from './setupReadiness';
 
 export interface DiagnosticsInput {
   state: AppState;
@@ -27,10 +28,17 @@ export const buildDiagnosticsText = ({
   userAgent = 'unknown',
 }: DiagnosticsInput): string => {
   const latestEvent = state.monitoring.events[0];
+  const readiness = deriveSetupReadiness({
+    state,
+    runtimeState,
+    monitorInfo,
+    providerConfig,
+  });
 
   return [
     `${APP_NAME} diagnostics`,
     `Version: ${APP_VERSION}`,
+    setupReadinessSummary(readiness),
     `Runtime state: ${runtimeStateLabel[runtimeState]}`,
     `Theme: ${state.theme}`,
     `Pet skin: ${state.petSkin}`,
