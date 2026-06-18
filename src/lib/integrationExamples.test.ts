@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   createAgentInstructionExample,
+  createAgentImplementationPrompt,
   createCurlUsageExample,
   createIntegrationExamples,
   createJsUsageExample,
@@ -41,6 +42,21 @@ describe('integration example builders', () => {
     expect(text).toContain('你的模型或接入点 ID');
   });
 
+  it('builds a coding-agent implementation prompt with OpenAI-style usage mapping', () => {
+    const text = createAgentImplementationPrompt({
+      usageUrl: 'http://127.0.0.1:17395/usage',
+      proxyBaseUrl: 'http://127.0.0.1:17395/v1',
+      model: 'demo-model',
+    });
+
+    expect(text).toContain('请帮我把当前项目接入 Token Shredder');
+    expect(text).toContain('http://127.0.0.1:17395/usage');
+    expect(text).toContain('prompt_tokens');
+    expect(text).toContain('cached_tokens');
+    expect(text).toContain('避免重复计费');
+    expect(text).toContain('不要把 API key');
+  });
+
   it('returns every integration example from one helper', () => {
     const examples = createIntegrationExamples({
       usageUrl: '',
@@ -53,6 +69,8 @@ describe('integration example builders', () => {
     expect(examples.pythonUsage).toContain('requests.post');
     expect(examples.openAiSdkProxy).toContain('OpenAI');
     expect(examples.agentInstruction).toContain('Token Shredder');
+    expect(examples.agentImplementationPrompt).toContain('当前项目接入 Token Shredder');
+    expect(examples.providerFieldChecklist).toContain('字段清单');
   });
 
   it('builds a copyable setup package with status, endpoints, and privacy boundaries', () => {

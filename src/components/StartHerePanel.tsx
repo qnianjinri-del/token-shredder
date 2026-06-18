@@ -184,11 +184,11 @@ export function StartHerePanel({
             </button>
             <button
               type="button"
-              onClick={() => void copy(examples.agentInstruction, '接入说明已复制')}
+              onClick={() => void copy(examples.agentImplementationPrompt, 'AI 接入提示词已复制')}
               className="action-button"
             >
               <Clipboard size={16} />
-              <span>复制给 Agent</span>
+              <span>复制给 Codex</span>
             </button>
           </div>
         </article>

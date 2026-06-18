@@ -16,7 +16,13 @@ export type DemoMode = 'auto' | 'always' | 'off';
 
 export type PetRuntimeState = 'demo' | 'empty' | 'active-real' | 'idle-real';
 
-export type ProviderId = 'volcengine-ark' | 'openai-compatible' | 'custom';
+export type ProviderId =
+  | 'volcengine-ark'
+  | 'openai-compatible'
+  | 'deepseek-compatible'
+  | 'dashscope-compatible'
+  | 'moonshot-compatible'
+  | 'custom';
 
 export interface Pricing {
   inputPricePerMillion: number;

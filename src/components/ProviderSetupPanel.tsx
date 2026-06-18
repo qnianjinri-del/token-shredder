@@ -9,7 +9,12 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { createAgentInstructionExample, createOpenAiSdkProxyExample } from '../lib/integrationExamples';
+import {
+  createAgentImplementationPrompt,
+  createAgentInstructionExample,
+  createOpenAiSdkProxyExample,
+} from '../lib/integrationExamples';
+import { PROVIDER_TEMPLATES, providerTemplateById } from '../lib/providerTemplates';
 import { providerMissingFields } from '../lib/setupReadiness';
 import type {
   ConfigureProviderResult,
@@ -27,36 +32,6 @@ interface ProviderSetupPanelProps {
   onTestProvider: (config: ProviderConfig, prompt: string) => Promise<ProviderTestResult>;
   onRunQuickStartDemo: () => void;
 }
-
-const providerOptions: Array<{
-  id: ProviderId;
-  label: string;
-  baseUrl: string;
-  helper: string;
-  modelHint: string;
-}> = [
-  {
-    id: 'volcengine-ark',
-    label: '火山方舟 / OpenAI-compatible',
-    baseUrl: 'https://ark.cn-beijing.volces.com/api/v3',
-    helper: '适合已有火山引擎方舟 API Key 的用户，Base URL 仍可手动修改。',
-    modelHint: '模型 / 接入点 ID 请以火山控制台为准，例如你创建的 endpoint ID。',
-  },
-  {
-    id: 'openai-compatible',
-    label: '通用 OpenAI-compatible',
-    baseUrl: 'https://api.openai.com/v1',
-    helper: '适合任何兼容 OpenAI SDK 的服务商。',
-    modelHint: '填写你的服务商模型名或路由 ID。这里不是官方实时模型列表。',
-  },
-  {
-    id: 'custom',
-    label: '自定义服务商',
-    baseUrl: '',
-    helper: '手动填写你的上游 Base URL。',
-    modelHint: '填写你的上游服务实际要求的 model / deployment / endpoint 字段。',
-  },
-];
 
 const proxyBaseUrlFrom = (monitorInfo: MonitorInfo) =>
   monitorInfo.port ? `http://${monitorInfo.host}:${monitorInfo.port}/v1` : '本地服务启动中';
@@ -87,7 +62,16 @@ export function ProviderSetupPanel({
       }),
     [monitorInfo.usageUrl, providerConfig.model, proxyBaseUrl],
   );
-  const selectedProvider = providerOptions.find((option) => option.id === providerConfig.providerId) ?? providerOptions[0];
+  const implementationPrompt = useMemo(
+    () =>
+      createAgentImplementationPrompt({
+        usageUrl: monitorInfo.usageUrl || 'http://127.0.0.1:17391/usage',
+        proxyBaseUrl,
+        model: providerConfig.model,
+      }),
+    [monitorInfo.usageUrl, providerConfig.model, proxyBaseUrl],
+  );
+  const selectedProvider = providerTemplateById(providerConfig.providerId);
   const missingFields = providerMissingFields(providerConfig);
 
   const update = (patch: Partial<ProviderConfig>) => {
@@ -95,7 +79,7 @@ export function ProviderSetupPanel({
   };
 
   const selectProvider = (providerId: ProviderId) => {
-    const nextProvider = providerOptions.find((option) => option.id === providerId) ?? providerOptions[0];
+    const nextProvider = providerTemplateById(providerId);
     onProviderConfigChange({
       ...providerConfig,
       providerId,
@@ -160,8 +144,13 @@ export function ProviderSetupPanel({
       </div>
 
       <div className="mt-4 rounded-lg border border-lime-500/50 bg-lime-100 p-3 text-xs font-bold text-lime-950 dark:border-lime-300/30 dark:bg-lime-300/15 dark:text-lime-100">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <span>还没有 Key 或不确定怎么接？先用本地模拟 usage 看宠物效果。</span>
+        <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div>
+            <p className="text-sm font-black">不知道先填什么？先选接入方式。</p>
+            <p className="mt-1 leading-relaxed">
+              走本机代理需要 API Key、上游 Base URL、模型 / 接入点 ID 和价格；只 POST usage 时不需要 API Key，只需要你的程序能拿到 token 数。
+            </p>
+          </div>
           <button type="button" onClick={onRunQuickStartDemo} className="action-button bg-white dark:bg-[#111827]">
             <Sparkles size={16} />
             <span>一键试玩</span>
@@ -177,15 +166,27 @@ export function ProviderSetupPanel({
             onChange={(event) => selectProvider(event.target.value as ProviderId)}
             className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-950 outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-white/10 dark:text-white"
           >
-            {providerOptions.map((option) => (
+            {PROVIDER_TEMPLATES.map((option) => (
               <option key={option.id} value={option.id}>
                 {option.label}
               </option>
             ))}
           </select>
           <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{selectedProvider.helper}</span>
+          <span className="text-xs font-bold text-amber-700 dark:text-amber-200">{selectedProvider.pricingHint}</span>
           <span className="text-xs font-bold text-cyan-700 dark:text-cyan-200">{selectedProvider.modelHint}</span>
         </label>
+
+        <div className="rounded-lg border border-slate-300/70 bg-white/70 p-3 text-xs font-bold text-slate-600 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-300">
+          <p className="font-black text-slate-950 dark:text-white">{selectedProvider.shortLabel} 接入清单</p>
+          <ol className="mt-2 grid gap-1">
+            {selectedProvider.setupSteps.map((step, index) => (
+              <li key={step}>
+                {index + 1}. {step}
+              </li>
+            ))}
+          </ol>
+        </div>
 
         <label className="grid gap-1">
           <span className="text-xs font-black text-slate-600 dark:text-slate-300">API Key</span>
@@ -193,7 +194,7 @@ export function ProviderSetupPanel({
             type="password"
             value={providerConfig.apiKey}
             onChange={(event) => update({ apiKey: event.target.value })}
-            placeholder="粘贴你的上游服务 API Key"
+            placeholder={selectedProvider.apiKeyHint}
             className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-slate-950 outline-none focus:border-cyan-500 dark:border-white/10 dark:bg-white/10 dark:text-white"
           />
         </label>
@@ -267,6 +268,10 @@ export function ProviderSetupPanel({
         <button type="button" onClick={() => void copy(agentInstruction, '接入说明已复制')} className="action-button">
           <Clipboard size={16} />
           <span>{copyState === '接入说明已复制' ? copyState : '复制给 Agent'}</span>
+        </button>
+        <button type="button" onClick={() => void copy(implementationPrompt, 'AI 提示词已复制')} className="action-button">
+          <Clipboard size={16} />
+          <span>{copyState === 'AI 提示词已复制' ? copyState : '复制给 Codex'}</span>
         </button>
       </div>
 

@@ -20,7 +20,7 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - Installed skins image: `docs/assets/token-shredder-skins.png`
 - Social preview image: `docs/assets/token-shredder-social-preview.jpg`
 - Landing page: `docs/index.html`
-- Release notes: `docs/releases/v0.1.1.md`
+- Release notes: `docs/releases/v0.1.15.md`
 
 For the first launch push, lead with the GIF. The project makes sense much faster when people see the tiny pet react to usage.
 
@@ -33,6 +33,7 @@ I am not a professional developer, and this started as a small AI-assisted learn
 I built Token Shredder, a tiny desktop pet that shreds dollar bills whenever my AI agent spends tokens.
 
 Local-first. No prompt logging. OpenAI-compatible local proxy. Pixel-art TOKEN chunks.
+New in the latest build: copy a Codex / ChatGPT prompt that asks your coding agent to wire usage reporting into your own project safely.
 
 I’m not a professional developer, so a lot of it is still rough. Feedback and PRs welcome.
 
@@ -45,6 +46,8 @@ https://github.com/qnianjinri-del/token-shredder
 它是一个本地运行的桌面宠物：你的 AI Agent 消耗 token 时，它就在桌面上把美元碎成 TOKEN 字母块。
 
 本地优先，不上传数据，不记录 prompt/completion。现在还是很早期，我也不是专业开发者，所以肯定有很多地方做得不够好，欢迎大家提 issue / PR 一起优化。
+
+新版还加了“复制给 Codex/ChatGPT”的提示词，可以让 coding agent 帮你把自己的项目接入 Token Shredder。
 
 https://github.com/qnianjinri-del/token-shredder
 
@@ -83,6 +86,7 @@ What it does:
 - Does not need an account.
 - Does not log prompts or completions.
 - Supports custom usage JSON and OpenAI-style usage.
+- Includes a copyable Codex / ChatGPT prompt for wiring usage reporting into your own project.
 - macOS first for now.
 
 I’m not a professional developer, so I’m mostly looking for feedback and contributors. The idea is silly, but I think seeing token spend as a desktop pet makes AI costs more tangible.

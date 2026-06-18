@@ -27,6 +27,8 @@ Token Shredder 是一个本机运行的 AI token 成本桌面宠物。它把 Age
 
 ## 接入真实 usage
 
+如果你完全不知道怎么开始，先看更短的步骤文档：[GETTING_STARTED.zh-CN.md](GETTING_STARTED.zh-CN.md)。
+
 ### 方式一：直接 POST usage
 
 如果你的脚本能拿到 token 数，直接发到本机接口：
@@ -72,6 +74,17 @@ http://127.0.0.1:17391/v1
 ```
 
 如果上游响应里带 usage，Token Shredder 会提取 usage 并驱动桌面宠物。
+
+后台现在提供多个 OpenAI-compatible provider 模板，都是可编辑示例，不代表官方实时配置或价格。请以你自己的服务商控制台和文档为准。
+
+### 方式四：让 Codex / ChatGPT 帮你接入
+
+进入后台 `接入` 分区，点击 `复制给 Codex/ChatGPT`。复制出来的提示词会要求 coding agent：
+
+- 在项目里提取模型响应 usage。
+- POST 到 Token Shredder。
+- 正确处理 cached tokens，避免重复计费。
+- 不记录 prompt、completion、messages、request body、API Key 或 Authorization header。
 
 ## 价格怎么填
 
@@ -129,6 +142,8 @@ Token Shredder 默认：
 - 下一步建议：根据本地服务、价格、provider、usage 状态自动提示下一步。
 - 自动体检：一键检查本地服务、health、collector、价格、provider 字段和真实 usage 状态，并给出下一步建议。
 - 当前接入包：一键复制实际端口、状态摘要、curl、JS、Python 和 OpenAI SDK proxy 示例。
+- AI 接入提示词：一键复制给 Codex / ChatGPT，让它帮你把当前项目接入 Token Shredder。
+- Provider 模板：常见 OpenAI-compatible 接入路径，全部标注为可编辑示例。
 - 配置备份 / 恢复：导出价格、皮肤、宠物大小、Base URL 等配置；不会导出 API Key 或 session usage 日志。
 - 问题诊断：复制一段可贴到 issue 的诊断信息；会隐藏 API Key，也不包含 prompt、completion 或 messages。
 

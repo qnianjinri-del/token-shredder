@@ -24,6 +24,8 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 Token Shredder 是一个 local-first 的 Electron 桌面宠物。你可以先用内置一键试玩，不需要 API Key；也可以配置 provider key、Base URL、模型 ID 和可编辑示例价格，把 OpenAI-compatible 客户端指向本机代理。像素宠物会把真实 token 消耗变成碎掉的 TOKEN 字块。
 
+第一次使用最短路径：打开 App，右键宠物进入后台，停在 `开始` 分区，先点 `运行自动体检`，再选择 `一键试玩`、`复制给 Codex/ChatGPT` 或 `POST /usage`。
+
 Token Shredder is a local-first Electron desktop pet. Click the built-in quick demo to try it without an API key, or configure your provider key, base URL, model ID, and editable sample token prices to point an OpenAI-compatible client at the local proxy.
 
 ## 中文快速开始
@@ -43,6 +45,8 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 ## 中文文档入口
 
 - [中文说明](docs/README.zh-CN.md)：从下载、试玩到接入真实 usage。
+- [中文新手上手](docs/GETTING_STARTED.zh-CN.md)：第一次打开后该点什么、填什么、怎么验证。
+- [English getting started](docs/GETTING_STARTED.md): the shortest path from first launch to real usage.
 - [安装说明](docs/INSTALL.zh-CN.md)：macOS 下载、打开、源码运行和打包。
 - [隐私说明](docs/PRIVACY.md)：本机运行、记录什么、不记录什么。
 - [安全说明](docs/SECURITY.md)：当前安全边界和不承诺事项。
@@ -88,6 +92,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Backstage tabs organized as `开始 / 接入 / 成本 / 宠物 / 诊断` so new users see the next step first and details later.
 - Smart `下一步建议` card that tells new users what to click next based on collector, pricing, provider, and usage state.
 - One-click `自动体检` for local service, health endpoint, collector test, pricing, provider fields, and real usage state, with a plain-language next action.
+- Provider templates for common OpenAI-compatible setup paths, clearly marked as editable examples.
+- Copyable Codex / ChatGPT implementation prompt that asks a coding agent to wire usage reporting into your project without logging prompts or keys.
 - Copyable `当前接入包` with the actual port, setup status, curl, JavaScript, Python, and OpenAI SDK proxy snippets.
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
@@ -134,7 +140,7 @@ npm install
 npm run dev:desktop
 ```
 
-On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The backstage is split into `开始 / 接入 / 成本 / 宠物 / 诊断`; start with `开始`. The first useful cards are `下一步建议` and `自动体检`; they tell you whether to try the no-key demo, test localhost, fill provider fields, copy the current integration package, or wait for real usage.
+On first launch, the backstage window opens automatically for setup. Later, right-click the desktop pet and choose `进入后台` to open it again. The backstage is split into `开始 / 接入 / 成本 / 宠物 / 诊断`; start with `开始`. The first useful cards are `下一步建议` and `自动体检`; they tell you whether to try the no-key demo, test localhost, fill provider fields, copy the current integration package, ask Codex / ChatGPT to wire your project, or wait for real usage.
 
 On first launch the pet waits quietly and the backstage window opens automatically. If you just want to see what it does, click `先不填 Key，试玩一下`. This writes one local simulated usage event, makes the pet shred once, then stops on the resulting progress. It does not call any provider and does not represent real billing.
 
@@ -288,7 +294,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

@@ -1,4 +1,5 @@
 import type { ProviderConfig, ProviderId } from '../types';
+import { providerIds } from './providerTemplates';
 
 const PROVIDER_CONFIG_KEY = 'token-shredder:provider-config:v1';
 
@@ -9,8 +10,8 @@ const stringFrom = (value: unknown, fallback = '') =>
   typeof value === 'string' && value.trim() ? value.trim() : fallback;
 
 const providerIdFrom = (value: unknown): ProviderId => {
-  if (value === 'volcengine-ark' || value === 'openai-compatible' || value === 'custom') {
-    return value;
+  if (typeof value === 'string' && providerIds.includes(value as ProviderId)) {
+    return value as ProviderId;
   }
 
   return 'volcengine-ark';

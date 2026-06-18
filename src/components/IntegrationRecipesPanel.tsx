@@ -1,4 +1,4 @@
-import { Clipboard, Code2, FileCode2, PlugZap, TerminalSquare } from 'lucide-react';
+import { Bot, Clipboard, Code2, FileCode2, ListChecks, PlugZap, TerminalSquare } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { createIntegrationExamples } from '../lib/integrationExamples';
 import type { MonitorInfo, ProviderConfig } from '../types';
@@ -53,6 +53,18 @@ export function IntegrationRecipesPanel({
       icon: PlugZap,
       code: examples.openAiSdkProxy,
     },
+    {
+      title: '给 Codex / ChatGPT 的接入提示词',
+      description: '把这段发给 coding agent，让它帮你把当前项目接入 Token Shredder。',
+      icon: Bot,
+      code: examples.agentImplementationPrompt,
+    },
+    {
+      title: 'Provider 字段清单',
+      description: '适合你正在填写后台配置，但不知道需要准备哪些信息。',
+      icon: ListChecks,
+      code: examples.providerFieldChecklist,
+    },
   ];
 
   const copy = async (value: string, label: string) => {
@@ -72,11 +84,11 @@ export function IntegrationRecipesPanel({
         </div>
         <button
           type="button"
-          onClick={() => void copy(examples.agentInstruction, 'Agent 接入说明')}
+          onClick={() => void copy(examples.agentImplementationPrompt, 'AI 接入提示词')}
           className="action-button"
         >
           <Clipboard size={16} />
-          <span>复制给 Agent</span>
+          <span>复制给 Codex/ChatGPT</span>
         </button>
       </div>
 
