@@ -47,6 +47,8 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 - [中文说明](docs/README.zh-CN.md)：从下载、试玩到接入真实 usage。
 - [中文新手上手](docs/GETTING_STARTED.zh-CN.md)：第一次打开后该点什么、填什么、怎么验证。
 - [English getting started](docs/GETTING_STARTED.md): the shortest path from first launch to real usage.
+- [中文排障指南](docs/TROUBLESHOOTING.zh-CN.md)：本地服务、POST /usage、本机代理和成本估算问题。
+- [Troubleshooting](docs/TROUBLESHOOTING.md): local collector, proxy, provider, and usage debugging.
 - [安装说明](docs/INSTALL.zh-CN.md)：macOS 下载、打开、源码运行和打包。
 - [隐私说明](docs/PRIVACY.md)：本机运行、记录什么、不记录什么。
 - [安全说明](docs/SECURITY.md)：当前安全边界和不承诺事项。
@@ -94,6 +96,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - One-click `自动体检` for local service, health endpoint, collector test, pricing, provider fields, and real usage state, with a plain-language next action.
 - Provider templates for common OpenAI-compatible setup paths, clearly marked as editable examples.
 - Copyable Codex / ChatGPT implementation prompt that asks a coding agent to wire usage reporting into your project without logging prompts or keys.
+- Provider test troubleshooting cards for auth, model / endpoint, rate limit, request format, network, and missing-usage cases.
 - Copyable `当前接入包` with the actual port, setup status, curl, JavaScript, Python, and OpenAI SDK proxy snippets.
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
@@ -294,7 +297,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

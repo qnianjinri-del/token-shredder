@@ -88,7 +88,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.15
+Token Shredder v0.1.16
 ```
 
 Body:
@@ -106,6 +106,8 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 - One-click `自动体检` with a copyable local health report and plain-language next action.
 - Provider templates for common OpenAI-compatible setup paths, clearly marked as editable examples.
 - Copyable Codex / ChatGPT implementation prompt for safely wiring usage reporting into existing projects.
+- Provider troubleshooting cards for auth, model / endpoint, rate limit, request shape, network, and missing-usage cases.
+- Copyable no-secret provider troubleshooting reports.
 - Chinese and English Getting Started guides for the first real usage event.
 - Copyable current integration package with real local endpoints and snippets.
 - Provider setup validates required fields before enabling or testing proxy requests.

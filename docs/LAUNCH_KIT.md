@@ -20,7 +20,7 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - Installed skins image: `docs/assets/token-shredder-skins.png`
 - Social preview image: `docs/assets/token-shredder-social-preview.jpg`
 - Landing page: `docs/index.html`
-- Release notes: `docs/releases/v0.1.15.md`
+- Release notes: `docs/releases/v0.1.16.md`
 
 For the first launch push, lead with the GIF. The project makes sense much faster when people see the tiny pet react to usage.
 

@@ -29,6 +29,8 @@ Token Shredder 是一个本机运行的 AI token 成本桌面宠物。它把 Age
 
 如果你完全不知道怎么开始，先看更短的步骤文档：[GETTING_STARTED.zh-CN.md](GETTING_STARTED.zh-CN.md)。
 
+如果已经接入但没有动，先看：[TROUBLESHOOTING.zh-CN.md](TROUBLESHOOTING.zh-CN.md)。
+
 ### 方式一：直接 POST usage
 
 如果你的脚本能拿到 token 数，直接发到本机接口：
@@ -144,6 +146,7 @@ Token Shredder 默认：
 - 当前接入包：一键复制实际端口、状态摘要、curl、JS、Python 和 OpenAI SDK proxy 示例。
 - AI 接入提示词：一键复制给 Codex / ChatGPT，让它帮你把当前项目接入 Token Shredder。
 - Provider 模板：常见 OpenAI-compatible 接入路径，全部标注为可编辑示例。
+- Provider 排障卡片：测试失败后提示 API Key、Base URL、模型 ID、限流、请求格式、网络或 usage 缺失等具体方向。
 - 配置备份 / 恢复：导出价格、皮肤、宠物大小、Base URL 等配置；不会导出 API Key 或 session usage 日志。
 - 问题诊断：复制一段可贴到 issue 的诊断信息；会隐藏 API Key，也不包含 prompt、completion 或 messages。
 

@@ -15,6 +15,7 @@ import {
   createOpenAiSdkProxyExample,
 } from '../lib/integrationExamples';
 import { PROVIDER_TEMPLATES, providerTemplateById } from '../lib/providerTemplates';
+import { createProviderTroubleshooting } from '../lib/providerTroubleshooting';
 import { providerMissingFields } from '../lib/setupReadiness';
 import type {
   ConfigureProviderResult,
@@ -35,6 +36,13 @@ interface ProviderSetupPanelProps {
 
 const proxyBaseUrlFrom = (monitorInfo: MonitorInfo) =>
   monitorInfo.port ? `http://${monitorInfo.host}:${monitorInfo.port}/v1` : '本地服务启动中';
+
+const troubleshootingClasses = {
+  ok: 'border-lime-400/60 bg-lime-100 text-lime-950 dark:bg-lime-300/20 dark:text-lime-100',
+  warn: 'border-amber-400/60 bg-amber-100 text-amber-950 dark:bg-amber-300/20 dark:text-amber-100',
+  fail: 'border-rose-400/60 bg-rose-100 text-rose-950 dark:bg-rose-300/20 dark:text-rose-100',
+  info: 'border-cyan-400/60 bg-cyan-100 text-cyan-950 dark:bg-cyan-300/15 dark:text-cyan-100',
+};
 
 export function ProviderSetupPanel({
   providerConfig,
@@ -73,6 +81,15 @@ export function ProviderSetupPanel({
   );
   const selectedProvider = providerTemplateById(providerConfig.providerId);
   const missingFields = providerMissingFields(providerConfig);
+  const troubleshooting = useMemo(
+    () =>
+      createProviderTroubleshooting({
+        result: testResult,
+        providerConfig,
+        proxyBaseUrl,
+      }),
+    [providerConfig, proxyBaseUrl, testResult],
+  );
 
   const update = (patch: Partial<ProviderConfig>) => {
     onProviderConfigChange({ ...providerConfig, ...patch });
@@ -286,20 +303,30 @@ export function ProviderSetupPanel({
       </label>
 
       {testResult ? (
-        <div
-          className={`mt-3 rounded-lg border px-3 py-2 text-xs font-bold ${
-            testResult.ok
-              ? 'border-lime-400/60 bg-lime-100 text-lime-900 dark:bg-lime-300/20 dark:text-lime-100'
-              : 'border-rose-400/60 bg-rose-100 text-rose-900 dark:bg-rose-300/20 dark:text-rose-100'
-          }`}
-        >
-          {testResult.ok ? (
-            <span>
-              连接成功{testResult.content ? `：${testResult.content}` : ''}。如果上游返回 usage，桌面宠物会短暂碎钱。
-            </span>
-          ) : (
-            <span>连接失败：{testResult.error ?? '请检查 API Key、Base URL 和模型 ID。'}</span>
-          )}
+        <div className={`mt-3 rounded-lg border px-3 py-3 text-xs font-bold ${troubleshootingClasses[troubleshooting.tone]}`}>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-sm font-black">{troubleshooting.title}</p>
+              <p className="mt-1 leading-relaxed">{troubleshooting.summary}</p>
+              {testResult.content ? <p className="mt-1 break-words">上游回复：{testResult.content}</p> : null}
+              {testResult.error ? <p className="mt-1 break-words">错误信息：{testResult.error}</p> : null}
+            </div>
+            <button
+              type="button"
+              onClick={() => void copy(troubleshooting.report, '排查报告已复制')}
+              className="mini-action-button shrink-0"
+            >
+              <Clipboard size={14} />
+              <span>{copyState === '排查报告已复制' ? '已复制' : '复制报告'}</span>
+            </button>
+          </div>
+          <ol className="mt-3 grid gap-1">
+            {troubleshooting.steps.map((step, index) => (
+              <li key={step}>
+                {index + 1}. {step}
+              </li>
+            ))}
+          </ol>
         </div>
       ) : null}
 
