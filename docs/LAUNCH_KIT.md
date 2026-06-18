@@ -19,10 +19,20 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - README demo GIF: `docs/assets/token-shredder-demo.gif`
 - Installed skins image: `docs/assets/token-shredder-skins.png`
 - Social preview image: `docs/assets/token-shredder-social-preview.jpg`
+- First-run visual: `docs/assets/token-shredder-getting-started.png`
+- Troubleshooting visual: `docs/assets/token-shredder-troubleshooting.png`
+- Static storyboard: `docs/assets/token-shredder-demo-storyboard.png`
+- Animated SVG fallback: `docs/assets/token-shredder-demo-animated.svg`
 - Landing page: `docs/index.html`
-- Release notes: `docs/releases/v0.1.16.md`
+- Release notes: `docs/releases/v0.1.17.md`
 
-For the first launch push, lead with the GIF. The project makes sense much faster when people see the tiny pet react to usage.
+For the first launch push, lead with the GIF. For follow-up posts, use the first-run and troubleshooting cards to show that the project is more than a joke.
+
+Regenerate launch assets:
+
+```bash
+npm run assets:launch
+```
 
 ## Humble Pitch
 

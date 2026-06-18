@@ -25,6 +25,7 @@ npm run release:check:full
 npm run package:mac
 npm run dist:mac
 npm run release:manifest
+npm run assets:launch
 npm run release:github
 npm run release:verify
 npm run release:ship:mac
@@ -88,7 +89,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.16
+Token Shredder v0.1.17
 ```
 
 Body:
@@ -108,6 +109,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 - Copyable Codex / ChatGPT implementation prompt for safely wiring usage reporting into existing projects.
 - Provider troubleshooting cards for auth, model / endpoint, rate limit, request shape, network, and missing-usage cases.
 - Copyable no-secret provider troubleshooting reports.
+- Regeneratable README / landing-page / social launch assets with `npm run assets:launch`.
 - Chinese and English Getting Started guides for the first real usage event.
 - Copyable current integration package with real local endpoints and snippets.
 - Provider setup validates required fields before enabling or testing proxy requests.

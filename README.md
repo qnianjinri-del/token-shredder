@@ -49,6 +49,7 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 - [English getting started](docs/GETTING_STARTED.md): the shortest path from first launch to real usage.
 - [中文排障指南](docs/TROUBLESHOOTING.zh-CN.md)：本地服务、POST /usage、本机代理和成本估算问题。
 - [Troubleshooting](docs/TROUBLESHOOTING.md): local collector, proxy, provider, and usage debugging.
+- [发布资产说明](docs/ASSETS.md)：README、落地页和社交平台用图，以及如何重生成。
 - [安装说明](docs/INSTALL.zh-CN.md)：macOS 下载、打开、源码运行和打包。
 - [隐私说明](docs/PRIVACY.md)：本机运行、记录什么、不记录什么。
 - [安全说明](docs/SECURITY.md)：当前安全边界和不承诺事项。
@@ -107,6 +108,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - Session export as JSON, CSV, or Markdown for keeping local cost records.
 - Dedicated integration recipes for curl, JavaScript fetch, Python requests, OpenAI SDK proxy, and Agent instructions.
 - Scripted GitHub Release publishing with `npm run release:github`.
+- Scripted launch asset generation with `npm run assets:launch`.
 - Automated desktop smoke test for production Electron startup, local collector, `/usage`, OpenAI-style usage, proxy guard, and `DELETE /usage`.
 - Packaged `.app` smoke test and GitHub Release asset verification.
 - One-command macOS release pipeline with `npm run release:ship:mac`.
@@ -297,7 +299,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
@@ -414,9 +416,12 @@ npm run dist:mac
 npm run release:github
 npm run release:manifest
 npm run release:verify
+npm run assets:launch
 ```
 
 The renderer output is written to `dist/` and the Electron main/preload output is written to `dist-electron/`.
+
+`assets:launch` regenerates the launch-page, README, and social preview assets from local pet artwork. See [docs/ASSETS.md](docs/ASSETS.md).
 
 `smoke:desktop` launches the production Electron app with an isolated temporary profile and a high test port. It verifies `GET /health`, native `POST /usage`, OpenAI-style usage cached-token handling, disabled-proxy guard behavior, and `DELETE /usage`, then closes the app automatically.
 

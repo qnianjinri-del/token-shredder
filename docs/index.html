@@ -238,6 +238,12 @@
         box-shadow: 0 24px 70px rgba(2, 6, 23, 0.42);
       }
 
+      .asset-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
       .features {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -288,6 +294,7 @@
 
       @media (max-width: 860px) {
         .hero,
+        .asset-grid,
         .features,
         .steps,
         .stats {
@@ -304,7 +311,7 @@
     <main class="shell">
       <section class="hero">
         <div>
-          <div class="eyebrow">本机运行 · 不记录 prompt · macOS v0.1.16</div>
+          <div class="eyebrow">本机运行 · 不记录 prompt · macOS v0.1.17</div>
           <h1>Token Shredder</h1>
           <p class="lede">
             一个本机运行的 AI token 成本桌面宠物。把 Agent、脚本或 SDK 的 usage 发到本机，
@@ -356,6 +363,14 @@
       <section class="section">
         <h2>6 个小宠物，让 token 消耗变得可见</h2>
         <img class="skin-image" src="assets/token-shredder-skins.png" alt="Token Shredder installed skins" />
+      </section>
+
+      <section class="section">
+        <h2>新手接入和失败排查都可视化</h2>
+        <div class="asset-grid">
+          <img class="skin-image" src="assets/token-shredder-getting-started.png" alt="Token Shredder first-run getting started paths" />
+          <img class="skin-image" src="assets/token-shredder-troubleshooting.png" alt="Token Shredder provider troubleshooting card" />
+        </div>
       </section>
 
       <section class="section">
