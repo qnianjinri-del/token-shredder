@@ -1,3 +1,3 @@
 export const APP_NAME = 'Token Shredder';
 
-export const APP_VERSION = '0.1.17';
+export const APP_VERSION = '0.1.18';

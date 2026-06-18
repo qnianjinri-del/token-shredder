@@ -36,6 +36,9 @@ The generator uses the real local pixel pet assets from `public/assets`. On macO
 - `docs/assets/token-shredder-demo-animated.svg`  
   Lightweight animated SVG demo using real pet frames. Keep `token-shredder-demo.gif` as the primary README image for compatibility.
 
+- `docs/demo.html`
+  Standalone online demo page that explains the animation, first-run paths, `POST /usage`, and troubleshooting flow without requiring installation.
+
 ## Rules
 
 - Do not use real company logos.

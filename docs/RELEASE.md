@@ -89,7 +89,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.17
+Token Shredder v0.1.18
 ```
 
 Body:

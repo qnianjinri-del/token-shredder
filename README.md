@@ -65,6 +65,7 @@ No cloud backend. No hosted account. No prompt or completion logging. API keys s
 ## Try It
 
 - Open the [launch page](https://qnianjinri-del.github.io/token-shredder/) for the quick visual pitch.
+- Open the [online demo](https://qnianjinri-del.github.io/token-shredder/demo.html) to see the animation and first-run paths without installing.
 - Download the latest macOS build from [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest).
 - First launch includes a one-click local demo, so you can see the pet move before setting up any provider key.
 - Run the copy-paste examples in [`examples/`](examples/) to verify real `POST /usage` events in under a minute.
@@ -299,7 +300,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

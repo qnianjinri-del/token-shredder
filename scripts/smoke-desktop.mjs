@@ -1,21 +1,32 @@
 import { spawn } from 'node:child_process';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { cpSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const electronCli = path.join(rootDir, 'node_modules', 'electron', 'cli.js');
+const isPackagedSmoke = process.argv.includes('--packaged');
+const packagedSourceAppPath = path.join(rootDir, 'release', 'mac-arm64', 'Token Shredder.app');
+const packagedSmokeRoot =
+  isPackagedSmoke && process.platform === 'darwin'
+    ? mkdtempSync(path.join(tmpdir(), 'token-shredder-packaged-smoke-'))
+    : null;
+const packagedAppPath = packagedSmokeRoot
+  ? path.join(packagedSmokeRoot, 'Token Shredder.app')
+  : packagedSourceAppPath;
+
+if (packagedSmokeRoot) {
+  // Launching a packaged macOS app directly from a non-ASCII repo path can be killed before logs flush.
+  cpSync(packagedSourceAppPath, packagedAppPath, { recursive: true });
+}
+
 const packagedAppBinary = path.join(
-  rootDir,
-  'release',
-  'mac-arm64',
-  'Token Shredder.app',
+  packagedAppPath,
   'Contents',
   'MacOS',
   'Token Shredder',
 );
-const isPackagedSmoke = process.argv.includes('--packaged');
 const command = isPackagedSmoke ? packagedAppBinary : process.execPath;
 const commandArgs = isPackagedSmoke ? [] : [electronCli, '.'];
 const startPort = Number(process.env.TOKEN_SHREDDER_SMOKE_PORT || 19691);
@@ -118,6 +129,9 @@ const stopChild = async () => {
   }
 
   rmSync(userDataDir, { recursive: true, force: true });
+  if (packagedSmokeRoot) {
+    rmSync(packagedSmokeRoot, { recursive: true, force: true });
+  }
 };
 
 try {

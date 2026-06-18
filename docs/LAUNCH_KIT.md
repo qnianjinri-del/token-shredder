@@ -19,12 +19,13 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - README demo GIF: `docs/assets/token-shredder-demo.gif`
 - Installed skins image: `docs/assets/token-shredder-skins.png`
 - Social preview image: `docs/assets/token-shredder-social-preview.jpg`
+- Online demo page: `docs/demo.html`
 - First-run visual: `docs/assets/token-shredder-getting-started.png`
 - Troubleshooting visual: `docs/assets/token-shredder-troubleshooting.png`
 - Static storyboard: `docs/assets/token-shredder-demo-storyboard.png`
 - Animated SVG fallback: `docs/assets/token-shredder-demo-animated.svg`
 - Landing page: `docs/index.html`
-- Release notes: `docs/releases/v0.1.17.md`
+- Release notes: `docs/releases/v0.1.18.md`
 
 For the first launch push, lead with the GIF. For follow-up posts, use the first-run and troubleshooting cards to show that the project is more than a joke.
 
@@ -119,11 +120,12 @@ Prioritize places where the audience already understands AI agent token usage:
 
 1. GitHub README + Release page.
 2. GitHub Pages launch page.
-3. X / Twitter with the GIF.
-4. Hacker News `Show HN`.
-5. Reddit communities focused on local-first tools, AI agents, and developer tools.
-6. Discord / Slack groups where people already discuss AI coding agents.
-7. Product Hunt later, after a recorded GIF and signed macOS build.
+3. GitHub Pages demo page.
+4. X / Twitter with the GIF.
+5. Hacker News `Show HN`.
+6. Reddit communities focused on local-first tools, AI agents, and developer tools.
+7. Discord / Slack groups where people already discuss AI coding agents.
+8. Product Hunt later, after a recorded GIF and signed macOS build.
 
 Avoid spammy cross-posting. A smaller number of honest posts with a GIF, clear privacy boundary, and a humble request for feedback is more likely to bring real stars.
 

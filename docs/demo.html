@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Token Shredder Demo</title>
+    <link rel="canonical" href="https://qnianjinri-del.github.io/token-shredder/demo.html" />
+    <meta
+      name="description"
+      content="Token Shredder demo: 一个本机运行的 AI token 成本桌面宠物，把 usage 变成碎掉的 TOKEN。"
+    />
+    <meta property="og:title" content="Token Shredder Demo" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://qnianjinri-del.github.io/token-shredder/demo.html" />
+    <meta
+      property="og:description"
+      content="看一个本机 AI token 成本桌面宠物如何把 usage 变成碎掉的 TOKEN。"
+    />
+    <meta
+      property="og:image"
+      content="https://qnianjinri-del.github.io/token-shredder/assets/token-shredder-social-preview.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #070a16;
+        --panel: rgba(15, 23, 42, 0.82);
+        --ink: #f8fafc;
+        --muted: #cbd5e1;
+        --cyan: #5eead4;
+        --lime: #bef264;
+        --amber: #fbbf24;
+        --line: rgba(148, 163, 184, 0.3);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 16% 8%, rgba(20, 184, 166, 0.24), transparent 34rem),
+          radial-gradient(circle at 86% 0%, rgba(251, 191, 36, 0.16), transparent 32rem),
+          linear-gradient(180deg, #070a16, #10172a 56%, #070a16);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        content: "";
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 40px 40px;
+        opacity: 0.38;
+        mask-image: linear-gradient(to bottom, black, transparent 92%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        position: relative;
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 34px 0 58px;
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 28px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .nav a {
+        text-decoration: none;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 430px;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        border: 1px solid rgba(190, 242, 100, 0.52);
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.74);
+        padding: 8px 12px;
+        color: var(--lime);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      h1 {
+        margin: 20px 0 0;
+        max-width: 760px;
+        font-size: clamp(48px, 8vw, 86px);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 760px;
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: clamp(18px, 2.2vw, 24px);
+        line-height: 1.48;
+        font-weight: 760;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--cyan);
+        border-radius: 10px;
+        padding: 0 17px;
+        background: var(--cyan);
+        color: #020617;
+        font-weight: 950;
+        text-decoration: none;
+        box-shadow: 6px 6px 0 rgba(94, 234, 212, 0.2);
+      }
+
+      .button.secondary {
+        border-color: rgba(203, 213, 225, 0.44);
+        background: rgba(15, 23, 42, 0.78);
+        color: var(--ink);
+      }
+
+      .pet-card,
+      .panel {
+        border: 1px solid rgba(94, 234, 212, 0.34);
+        border-radius: 24px;
+        background: var(--panel);
+        box-shadow: 0 26px 76px rgba(2, 6, 23, 0.44);
+      }
+
+      .pet-card {
+        padding: 14px;
+      }
+
+      .pet-card img {
+        display: block;
+        width: 100%;
+        border-radius: 16px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .two {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .three {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .section {
+        margin-top: 44px;
+      }
+
+      .section h2 {
+        margin: 0 0 16px;
+        font-size: 34px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .panel h3 {
+        margin: 0;
+        font-size: 21px;
+      }
+
+      .panel p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-weight: 740;
+        line-height: 1.56;
+      }
+
+      .panel img {
+        display: block;
+        width: 100%;
+        margin-top: 14px;
+        border: 1px solid rgba(148, 163, 184, 0.26);
+        border-radius: 16px;
+      }
+
+      pre {
+        overflow: auto;
+        border: 1px solid rgba(94, 234, 212, 0.3);
+        border-radius: 16px;
+        background: #020617;
+        padding: 18px;
+        color: var(--lime);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .copy-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 12px;
+      }
+
+      .copy {
+        border: 1px solid rgba(94, 234, 212, 0.52);
+        border-radius: 10px;
+        background: rgba(94, 234, 212, 0.12);
+        color: var(--ink);
+        cursor: pointer;
+        padding: 10px 12px;
+        font-weight: 900;
+      }
+
+      footer {
+        margin-top: 48px;
+        color: #94a3b8;
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .two,
+        .three {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="nav" aria-label="Demo navigation">
+        <a href="./">Token Shredder</a>
+        <span>Local-first · no prompt logging · editable pricing</span>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Demo page · no install needed</div>
+          <h1>Watch token spend become visible</h1>
+          <p class="lede">
+            Token Shredder 是一个本机桌面宠物。真实使用时，你的 Agent、脚本或 OpenAI-compatible 客户端把 usage
+            发到 localhost；宠物只在 usage 到来时碎钱。
+          </p>
+          <div class="actions">
+            <a class="button" href="https://github.com/qnianjinri-del/token-shredder/releases/latest">下载 macOS 版本</a>
+            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder">GitHub repo</a>
+            <a class="button secondary" href="https://github.com/qnianjinri-del/token-shredder/blob/main/docs/GETTING_STARTED.zh-CN.md">新手上手</a>
+          </div>
+        </div>
+        <div class="pet-card">
+          <img src="assets/token-shredder-demo-animated.svg" alt="Animated Token Shredder pet demo" />
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Three ways to make it move</h2>
+        <div class="grid three">
+          <article class="panel">
+            <h3>1. No-key demo</h3>
+            <p>先点一键试玩，不请求模型，只确认桌面宠物、成本计算和动画链路正常。</p>
+          </article>
+          <article class="panel">
+            <h3>2. Copy to Codex</h3>
+            <p>把后台生成的提示词发给 coding agent，让它在你的项目里安全上报 usage。</p>
+          </article>
+          <article class="panel">
+            <h3>3. POST /usage</h3>
+            <p>如果你的脚本已经拿到 token 数，直接 POST 到本机 collector，不需要 API Key。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section grid two">
+        <article class="panel">
+          <h2>First-run visual</h2>
+          <p>后台第一屏只需要帮用户选路径：试玩、让 Codex 接入、或直接 POST usage。</p>
+          <img src="assets/token-shredder-getting-started.png" alt="Token Shredder first-run paths" />
+        </article>
+        <article class="panel">
+          <h2>Failure has a next step</h2>
+          <p>Provider 测试失败后会提示 Key、模型、限流、网络或 usage 缺失等方向，并能复制无密钥报告。</p>
+          <img src="assets/token-shredder-troubleshooting.png" alt="Token Shredder troubleshooting card" />
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>Try the local API</h2>
+        <pre id="curlExample"><code>curl -X POST http://127.0.0.1:17391/usage \
+  -H "Content-Type: application/json" \
+  -d '{"source":"demo-page","scenarioName":"first shred","inputTokens":120000,"outputTokens":45000}'</code></pre>
+        <div class="copy-row">
+          <p>真实 App 运行后，把端口换成后台显示的实际端口即可。</p>
+          <button class="copy" type="button" data-copy="#curlExample">复制 curl</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Built for sharing, still local-first</h2>
+        <div class="grid two">
+          <article class="panel">
+            <h3>What it records</h3>
+            <p>usage 数字、source、scenario、时间戳和本地估算成本。</p>
+          </article>
+          <article class="panel">
+            <h3>What it avoids</h3>
+            <p>prompt、completion、messages、API Key、Authorization header、云端上传和第三方 analytics。</p>
+          </article>
+        </div>
+      </section>
+
+      <footer>
+        Token Shredder 不隶属于任何 AI provider。价格由用户配置，不是官方实时价格。
+      </footer>
+    </main>
+
+    <script>
+      for (const button of document.querySelectorAll('[data-copy]')) {
+        button.addEventListener('click', async () => {
+          const target = document.querySelector(button.getAttribute('data-copy'));
+          await navigator.clipboard.writeText(target?.innerText ?? '');
+          const oldText = button.innerText;
+          button.innerText = '已复制';
+          window.setTimeout(() => {
+            button.innerText = oldText;
+          }, 1400);
+        });
+      }
+    </script>
+  </body>
+</html>
