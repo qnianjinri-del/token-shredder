@@ -59,6 +59,7 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 - [中文排障指南](docs/TROUBLESHOOTING.zh-CN.md)：本地服务、POST /usage、本机代理和成本估算问题。
 - [Troubleshooting](docs/TROUBLESHOOTING.md): local collector, proxy, provider, and usage debugging.
 - [发布资产说明](docs/ASSETS.md)：README、落地页和社交平台用图，以及如何重生成。
+- [社交平台素材](docs/SOCIAL_ASSETS.md)：抖音、小红书、X / Twitter 可用封面图、横图、动图和配文。
 - [安装说明](docs/INSTALL.zh-CN.md)：macOS 下载、打开、源码运行和打包。
 - [隐私说明](docs/PRIVACY.md)：本机运行、记录什么、不记录什么。
 - [安全说明](docs/SECURITY.md)：当前安全边界和不承诺事项。

@@ -23,6 +23,7 @@
     "dist:mac": "npm run build && electron-builder --mac dmg zip",
     "release:manifest": "node scripts/generate-release-manifest.mjs",
     "assets:launch": "node scripts/generate-launch-assets.mjs",
+    "assets:social": "python3 scripts/generate-social-assets.py",
     "release:github": "node scripts/publish-github-release.mjs",
     "release:verify": "node scripts/verify-github-release.mjs",
     "release:ship:mac": "npm run release:check:full && npm run dist:mac && npm run smoke:package && npm run release:manifest && npm run release:github && npm run release:verify"
