@@ -31,6 +31,8 @@ Token Shredder 是一个本机运行的 AI token 成本桌面宠物。它把 Age
 
 如果已经接入但没有动，先看：[TROUBLESHOOTING.zh-CN.md](TROUBLESHOOTING.zh-CN.md)。
 
+更完整的接入手册见：[INTEGRATION_COOKBOOK.md](INTEGRATION_COOKBOOK.md)。
+
 ### 方式一：直接 POST usage
 
 如果你的脚本能拿到 token 数，直接发到本机接口：
@@ -51,6 +53,8 @@ curl -X POST http://127.0.0.1:17391/usage \
 node examples/post-usage-node.mjs
 python3 examples/post-usage-python.py
 node examples/post-openai-style-usage.mjs
+node examples/token-shredder-reporter.mjs
+python3 examples/token_shredder_reporter.py
 ```
 
 如果后台显示的端口不是 `17391`：
@@ -60,7 +64,21 @@ export TOKEN_SHREDDER_URL="http://127.0.0.1:17392/usage"
 node examples/post-usage-node.mjs
 ```
 
-### 方式三：OpenAI-compatible 本机代理
+### 方式三：复制 reporter helper 到你的项目
+
+如果你的 SDK 响应里有 OpenAI-style `usage`，但你不想走本机代理，可以复制：
+
+- `examples/token-shredder-reporter.mjs`
+- `examples/token_shredder_reporter.py`
+
+它们会：
+
+- 从 response 里提取 `usage`。
+- 把 `prompt_tokens_details.cached_tokens` 从普通 input tokens 里扣掉，避免 cached tokens 重复计费。
+- 只把 token 数字、source 和 scenario 发给 Token Shredder。
+- 不发送 prompt、completion、messages 或 API Key。
+
+### 方式四：OpenAI-compatible 本机代理
 
 在后台填：
 
@@ -79,7 +97,7 @@ http://127.0.0.1:17391/v1
 
 后台现在提供多个 OpenAI-compatible provider 模板，都是可编辑示例，不代表官方实时配置或价格。请以你自己的服务商控制台和文档为准。
 
-### 方式四：让 Codex / ChatGPT 帮你接入
+### 方式五：让 Codex / ChatGPT 帮你接入
 
 进入后台 `接入` 分区，点击 `复制给 Codex/ChatGPT`。复制出来的提示词会要求 coding agent：
 
@@ -144,6 +162,7 @@ Token Shredder 默认：
 - 下一步建议：根据本地服务、价格、provider、usage 状态自动提示下一步。
 - 自动体检：一键检查本地服务、health、collector、价格、provider 字段和真实 usage 状态，并给出下一步建议。
 - 当前接入包：一键复制实际端口、状态摘要、curl、JS、Python 和 OpenAI SDK proxy 示例。
+- Reporter helper：复制 JS / Python 小工具到自己的项目，自动从 OpenAI-style response 上报 usage。
 - AI 接入提示词：一键复制给 Codex / ChatGPT，让它帮你把当前项目接入 Token Shredder。
 - Provider 模板：常见 OpenAI-compatible 接入路径，全部标注为可编辑示例。
 - Provider 排障卡片：测试失败后提示 API Key、Base URL、模型 ID、限流、请求格式、网络或 usage 缺失等具体方向。

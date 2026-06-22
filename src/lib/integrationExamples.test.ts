@@ -4,8 +4,10 @@ import {
   createAgentImplementationPrompt,
   createCurlUsageExample,
   createIntegrationExamples,
+  createJsReporterHelperExample,
   createJsUsageExample,
   createOpenAiSdkProxyExample,
+  createPythonReporterHelperExample,
   createPythonUsageExample,
   createSetupPackageText,
 } from './integrationExamples';
@@ -57,6 +59,18 @@ describe('integration example builders', () => {
     expect(text).toContain('不要把 API key');
   });
 
+  it('builds reporter helpers with the actual endpoint and cached-token subtraction', () => {
+    const js = createJsReporterHelperExample('http://127.0.0.1:17397/usage');
+    const python = createPythonReporterHelperExample('http://127.0.0.1:17398/usage');
+
+    expect(js).toContain('http://127.0.0.1:17397/usage');
+    expect(js).toContain('promptTokens - cachedInputTokens');
+    expect(js).toContain('reportOpenAIUsage');
+    expect(python).toContain('http://127.0.0.1:17398/usage');
+    expect(python).toContain('prompt_tokens - cached_input_tokens');
+    expect(python).toContain('report_openai_usage');
+  });
+
   it('returns every integration example from one helper', () => {
     const examples = createIntegrationExamples({
       usageUrl: '',
@@ -67,6 +81,8 @@ describe('integration example builders', () => {
     expect(examples.curlUsage).toContain('17391');
     expect(examples.jsUsage).toContain('fetch');
     expect(examples.pythonUsage).toContain('requests.post');
+    expect(examples.jsReporterHelper).toContain('reportOpenAIUsage');
+    expect(examples.pythonReporterHelper).toContain('report_openai_usage');
     expect(examples.openAiSdkProxy).toContain('OpenAI');
     expect(examples.agentInstruction).toContain('Token Shredder');
     expect(examples.agentImplementationPrompt).toContain('当前项目接入 Token Shredder');

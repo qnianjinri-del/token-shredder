@@ -48,6 +48,18 @@ export function IntegrationRecipesPanel({
       code: examples.pythonUsage,
     },
     {
+      title: 'JavaScript reporter helper',
+      description: '复制到项目里，模型响应回来后自动把 OpenAI-style usage 上报给 Token Shredder。',
+      icon: Code2,
+      code: examples.jsReporterHelper,
+    },
+    {
+      title: 'Python reporter helper',
+      description: '复制到 Python 项目里，自动从 OpenAI-style response 里提取 usage 并上报。',
+      icon: FileCode2,
+      code: examples.pythonReporterHelper,
+    },
+    {
       title: 'OpenAI SDK 本机代理',
       description: '适合 OpenAI-compatible 客户端，把 baseURL 指到本机。',
       icon: PlugZap,

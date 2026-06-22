@@ -25,7 +25,7 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - Static storyboard: `docs/assets/token-shredder-demo-storyboard.png`
 - Animated SVG fallback: `docs/assets/token-shredder-demo-animated.svg`
 - Landing page: `docs/index.html`
-- Release notes: `docs/releases/v0.1.18.md`
+- Release notes: `docs/releases/v0.1.19.md`
 
 For the first launch push, lead with the GIF. For follow-up posts, use the first-run and troubleshooting cards to show that the project is more than a joke.
 
@@ -44,7 +44,7 @@ I am not a professional developer, and this started as a small AI-assisted learn
 I built Token Shredder, a tiny desktop pet that shreds dollar bills whenever my AI agent spends tokens.
 
 Local-first. No prompt logging. OpenAI-compatible local proxy. Pixel-art TOKEN chunks.
-New in the latest build: copy a Codex / ChatGPT prompt that asks your coding agent to wire usage reporting into your own project safely.
+New in the latest build: copy-paste JS/Python reporter helpers that extract OpenAI-style usage without logging prompts or keys.
 
 I’m not a professional developer, so a lot of it is still rough. Feedback and PRs welcome.
 
@@ -58,7 +58,7 @@ https://github.com/qnianjinri-del/token-shredder
 
 本地优先，不上传数据，不记录 prompt/completion。现在还是很早期，我也不是专业开发者，所以肯定有很多地方做得不够好，欢迎大家提 issue / PR 一起优化。
 
-新版还加了“复制给 Codex/ChatGPT”的提示词，可以让 coding agent 帮你把自己的项目接入 Token Shredder。
+新版还加了 JS / Python reporter helper，可以直接从 OpenAI-style response 里提取 usage，只把 token 数字发给本机宠物。
 
 https://github.com/qnianjinri-del/token-shredder
 

@@ -42,6 +42,142 @@ requests.post("${normalizeUrl(usageUrl, fallbackUsageUrl)}", json={
     "reasoningTokens": 8000,
 })`;
 
+export const createJsReporterHelperExample = (usageUrl: string) => `const TOKEN_SHREDDER_URL =
+  process.env.TOKEN_SHREDDER_URL || "${normalizeUrl(usageUrl, fallbackUsageUrl)}";
+
+const numberFrom = (...values) => {
+  for (const value of values) {
+    if (typeof value === "number" && Number.isFinite(value)) return Math.max(0, value);
+    if (typeof value === "string" && value.trim()) {
+      const parsed = Number(value.replace(/,/g, "").trim());
+      if (Number.isFinite(parsed)) return Math.max(0, parsed);
+    }
+  }
+  return 0;
+};
+
+export const eventFromOpenAIUsage = ({
+  source = "my-agent",
+  scenarioName = "AI call",
+  usage,
+  directCost = 0,
+}) => {
+  const promptTokens = numberFrom(usage?.prompt_tokens, usage?.input_tokens);
+  const cachedInputTokens = numberFrom(
+    usage?.prompt_tokens_details?.cached_tokens,
+    usage?.input_tokens_details?.cached_tokens,
+  );
+
+  return {
+    source,
+    scenarioName,
+    inputTokens: Math.max(0, promptTokens - cachedInputTokens),
+    outputTokens: numberFrom(usage?.completion_tokens, usage?.output_tokens),
+    cachedInputTokens,
+    reasoningTokens: numberFrom(
+      usage?.completion_tokens_details?.reasoning_tokens,
+      usage?.output_tokens_details?.reasoning_tokens,
+    ),
+    directCost: numberFrom(directCost),
+  };
+};
+
+export const reportUsage = async (event, endpoint = TOKEN_SHREDDER_URL) => {
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(event),
+  });
+
+  const body = await response.text();
+  if (!response.ok) {
+    throw new Error(\`Token Shredder rejected usage: \${response.status} \${body}\`);
+  }
+
+  return body ? JSON.parse(body) : null;
+};
+
+export const reportOpenAIUsage = async (response, options = {}) => {
+  const event = eventFromOpenAIUsage({
+    source: options.source,
+    scenarioName: options.scenarioName,
+    usage: response?.usage,
+    directCost: options.directCost,
+  });
+
+  const total =
+    event.inputTokens +
+    event.outputTokens +
+    event.cachedInputTokens +
+    event.reasoningTokens +
+    event.directCost;
+
+  if (total <= 0) return null;
+  return reportUsage(event, options.endpoint);
+};`;
+
+export const createPythonReporterHelperExample = (usageUrl: string) => `import json
+import os
+import urllib.request
+
+
+TOKEN_SHREDDER_URL = os.environ.get("TOKEN_SHREDDER_URL", "${normalizeUrl(usageUrl, fallbackUsageUrl)}")
+
+
+def number_from(*values):
+    for value in values:
+        if isinstance(value, (int, float)):
+            return max(0, value)
+        if isinstance(value, str) and value.strip():
+            try:
+                return max(0, float(value.replace(",", "").strip()))
+            except ValueError:
+                pass
+    return 0
+
+
+def event_from_openai_usage(source="my-python-agent", scenario_name="AI call", usage=None, direct_cost=0):
+    usage = usage or {}
+    prompt_details = usage.get("prompt_tokens_details") or usage.get("input_tokens_details") or {}
+    completion_details = usage.get("completion_tokens_details") or usage.get("output_tokens_details") or {}
+    prompt_tokens = number_from(usage.get("prompt_tokens"), usage.get("input_tokens"))
+    cached_input_tokens = number_from(
+        prompt_details.get("cached_tokens"),
+        prompt_details.get("cached_input_tokens"),
+    )
+
+    return {
+        "source": source,
+        "scenarioName": scenario_name,
+        "inputTokens": max(0, prompt_tokens - cached_input_tokens),
+        "outputTokens": number_from(usage.get("completion_tokens"), usage.get("output_tokens")),
+        "cachedInputTokens": cached_input_tokens,
+        "reasoningTokens": number_from(
+            completion_details.get("reasoning_tokens")
+        ),
+        "directCost": number_from(direct_cost),
+    }
+
+
+def report_usage(event, endpoint=TOKEN_SHREDDER_URL):
+    request = urllib.request.Request(
+        endpoint,
+        data=json.dumps(event).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=10) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def report_openai_usage(response, source="my-python-agent", scenario_name="AI call", endpoint=TOKEN_SHREDDER_URL):
+    usage = response.get("usage") if isinstance(response, dict) else getattr(response, "usage", None)
+    event = event_from_openai_usage(source=source, scenario_name=scenario_name, usage=usage)
+    total = sum(event[key] for key in ["inputTokens", "outputTokens", "cachedInputTokens", "reasoningTokens", "directCost"])
+    if total <= 0:
+        return None
+    return report_usage(event, endpoint=endpoint)`;
+
 export const createOpenAiSdkProxyExample = ({
   proxyBaseUrl,
   model,
@@ -152,6 +288,8 @@ export const createIntegrationExamples = (options: IntegrationExampleOptions) =>
   curlUsage: createCurlUsageExample(options.usageUrl),
   jsUsage: createJsUsageExample(options.usageUrl),
   pythonUsage: createPythonUsageExample(options.usageUrl),
+  jsReporterHelper: createJsReporterHelperExample(options.usageUrl),
+  pythonReporterHelper: createPythonReporterHelperExample(options.usageUrl),
   openAiSdkProxy: createOpenAiSdkProxyExample(options),
   agentInstruction: createAgentInstructionExample(options),
   agentImplementationPrompt: createAgentImplementationPrompt(options),
@@ -185,6 +323,12 @@ ${createJsUsageExample(usageUrl)}
 
 Python requests:
 ${createPythonUsageExample(usageUrl)}
+
+JavaScript reporter helper:
+${createJsReporterHelperExample(usageUrl)}
+
+Python reporter helper:
+${createPythonReporterHelperExample(usageUrl)}
 
 OpenAI SDK proxy:
 ${createOpenAiSdkProxyExample({ proxyBaseUrl, model })}

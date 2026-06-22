@@ -47,6 +47,7 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 - [中文说明](docs/README.zh-CN.md)：从下载、试玩到接入真实 usage。
 - [中文新手上手](docs/GETTING_STARTED.zh-CN.md)：第一次打开后该点什么、填什么、怎么验证。
 - [English getting started](docs/GETTING_STARTED.md): the shortest path from first launch to real usage.
+- [Integration cookbook](docs/INTEGRATION_COOKBOOK.md): direct POST, JS/Python reporter helpers, and local proxy recipes.
 - [中文排障指南](docs/TROUBLESHOOTING.zh-CN.md)：本地服务、POST /usage、本机代理和成本估算问题。
 - [Troubleshooting](docs/TROUBLESHOOTING.md): local collector, proxy, provider, and usage debugging.
 - [发布资产说明](docs/ASSETS.md)：README、落地页和社交平台用图，以及如何重生成。
@@ -103,6 +104,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [open issues](https://github.com/qnianji
 - First-screen `从这里开始` guide with three clear paths: no-key demo, provider proxy, or direct `POST /usage`.
 - Backstage 30-second verification panel with one-click demo, collector test, and example commands.
 - One-click copy for curl, JavaScript fetch, Python requests, OpenAI SDK proxy setup, and paste-ready Agent instructions.
+- Copy-paste JavaScript and Python reporter helpers that extract OpenAI-style `usage` and avoid cached-token double counting.
 - New-user checklist that links directly to pricing, provider setup, skin selection, monitoring, and backup.
 - Config backup / restore that intentionally excludes API keys and session usage logs.
 - Copyable diagnostics for GitHub issues without prompts, completions, messages, or API keys.
@@ -183,6 +185,8 @@ Fast paths:
 node examples/post-usage-node.mjs
 python3 examples/post-usage-python.py
 node examples/post-openai-style-usage.mjs
+node examples/token-shredder-reporter.mjs
+python3 examples/token_shredder_reporter.py
 ```
 
 If Token Shredder switched away from port `17391`, copy the actual backstage endpoint and run:
@@ -193,6 +197,8 @@ node examples/post-usage-node.mjs
 ```
 
 These examples send only usage numbers. They do not send prompts, completions, messages, or API keys.
+
+For real projects, copy the no-dependency reporter helpers from [`examples/token-shredder-reporter.mjs`](examples/token-shredder-reporter.mjs) or [`examples/token_shredder_reporter.py`](examples/token_shredder_reporter.py). They extract OpenAI-style `usage`, subtract cached tokens from prompt tokens, and POST only token counts to Token Shredder. See [docs/INTEGRATION_COOKBOOK.md](docs/INTEGRATION_COOKBOOK.md).
 
 ## Connect Your Agent
 
@@ -300,7 +306,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
