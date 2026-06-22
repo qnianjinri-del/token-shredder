@@ -67,6 +67,8 @@ npm run release:ship:mac
 - `npm run smoke:package` passes after `npm run dist:mac`.
 - `npm run release:manifest` creates SHA256 hashes for release artifacts.
 - `npm run release:verify` confirms the GitHub Release page and download assets.
+- Packaged `app.asar` does not contain frontend build-time `node_modules`.
+- macOS `.dmg` / `.zip` size is reasonable for an Electron desktop pet release.
 
 ## Local API Smoke Test
 
@@ -89,7 +91,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.19
+Token Shredder v0.1.20
 ```
 
 Body:
@@ -101,6 +103,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 
 ### Highlights
 
+- Leaner macOS package: frontend build-time dependencies are no longer bundled as runtime `node_modules`.
 - Pixel-art desktop shredder pet for macOS.
 - Backstage tabs organized as `开始 / 接入 / 成本 / 宠物 / 诊断`.
 - Smart `下一步建议` card that tells new users what to do next.

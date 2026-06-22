@@ -306,7 +306,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,
@@ -448,6 +448,8 @@ npm run dist:mac
 ```
 
 `package:mac` creates an unpacked `.app` for local QA. `dist:mac` creates `.dmg` and `.zip` artifacts in `release/`.
+
+The packaged app includes the built renderer (`dist/`) and Electron output (`dist-electron/`). Frontend libraries such as React, Vite, Tailwind, and Framer Motion are build-time dependencies and are not bundled as runtime `node_modules` inside the macOS app.
 
 The v0.1.x local build is unsigned and not notarized. Code signing and notarization are release operations for a later public distribution step.
 

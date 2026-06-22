@@ -25,7 +25,7 @@ Token Shredder is a tiny local desktop pet that shreds your AI token spending in
 - Static storyboard: `docs/assets/token-shredder-demo-storyboard.png`
 - Animated SVG fallback: `docs/assets/token-shredder-demo-animated.svg`
 - Landing page: `docs/index.html`
-- Release notes: `docs/releases/v0.1.19.md`
+- Release notes: `docs/releases/v0.1.20.md`
 
 For the first launch push, lead with the GIF. For follow-up posts, use the first-run and troubleshooting cards to show that the project is more than a joke.
 
@@ -44,7 +44,7 @@ I am not a professional developer, and this started as a small AI-assisted learn
 I built Token Shredder, a tiny desktop pet that shreds dollar bills whenever my AI agent spends tokens.
 
 Local-first. No prompt logging. OpenAI-compatible local proxy. Pixel-art TOKEN chunks.
-New in the latest build: copy-paste JS/Python reporter helpers that extract OpenAI-style usage without logging prompts or keys.
+New in the latest build: a leaner macOS package that keeps frontend build dependencies out of the shipped app bundle.
 
 I’m not a professional developer, so a lot of it is still rough. Feedback and PRs welcome.
 
@@ -58,7 +58,7 @@ https://github.com/qnianjinri-del/token-shredder
 
 本地优先，不上传数据，不记录 prompt/completion。现在还是很早期，我也不是专业开发者，所以肯定有很多地方做得不够好，欢迎大家提 issue / PR 一起优化。
 
-新版还加了 JS / Python reporter helper，可以直接从 OpenAI-style response 里提取 usage，只把 token 数字发给本机宠物。
+新版把 macOS 安装包又收紧了一轮：前端构建依赖不会再作为运行时 node_modules 塞进 App 包里，下载和分发更轻一些。
 
 https://github.com/qnianjinri-del/token-shredder
 
