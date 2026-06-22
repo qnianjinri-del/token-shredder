@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from typing import Iterable
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -17,19 +16,19 @@ SKINS = [
     {
         "id": "shredder",
         "label": "碎钞机",
-        "tag": "TOKEN BILL -> TOKEN",
+        "tag": "real spend -> TOKEN",
         "accent": (94, 234, 212),
         "frames": [
-            ROOT / "public/assets/shredder-token-frames-tight/0-idle.png",
-            ROOT / "public/assets/shredder-token-frames-tight/1-feed.png",
-            ROOT / "public/assets/shredder-token-frames-tight/3-shred-50.png",
-            ROOT / "public/assets/shredder-token-frames-tight/5-shred-full.png",
-            ROOT / "public/assets/shredder-token-frames-tight/6-burst.png",
+            ROOT / "public/assets/shredder-frames-tight/0-idle.png",
+            ROOT / "public/assets/shredder-frames-tight/1-feed.png",
+            ROOT / "public/assets/shredder-frames-tight/3-shred-50.png",
+            ROOT / "public/assets/shredder-frames-tight/5-shred-full.png",
+            ROOT / "public/assets/shredder-frames-tight/6-burst.png",
         ],
     },
     {
         "id": "doh-dad",
-        "label": "刀～爸爸",
+        "label": "刀～",
         "tag": "burning budget",
         "accent": (251, 191, 36),
         "frames": [ROOT / f"public/assets/skins/doh-dad-burn-frames/{index}.png" for index in range(6)],
@@ -282,22 +281,19 @@ def all_skins_vertical() -> Path:
         y_card = start_y + row * (card_h + gap_y)
         draw_skin_card(image, (x, y_card, x + card_w, y_card + card_h), skin)
 
-    footer_y = 1560
-    rounded(draw, (64, footer_y, 1016, 1810), fill=(2, 6, 23, 210), outline=(94, 234, 212, 160), width=4, radius=32)
-    draw.text((96, footer_y + 42), "新人打开后怎么用？", font=FONTS["h2"], fill=COLORS["ink"])
-    steps = [
-        ("1", "一键试玩", "不需要 API Key"),
-        ("2", "填 API Key", "走本机代理"),
-        ("3", "POST /usage", "脚本直接上报"),
-    ]
-    for index, (num, label, detail) in enumerate(steps):
-        x = 98 + index * 300
-        rounded(draw, (x, footer_y + 104, x + 252, footer_y + 184), fill=(15, 23, 42, 255), outline=(148, 163, 184, 80), width=2, radius=18)
-        draw.ellipse((x + 18, footer_y + 126, x + 54, footer_y + 162), fill=COLORS["lime"])
-        draw.text((x + 30, footer_y + 130), num, font=FONTS["small_bold"], fill=COLORS["dark"])
-        draw.text((x + 68, footer_y + 119), label, font=FONTS["small_bold"], fill=COLORS["ink"])
-        draw.text((x + 68, footer_y + 148), detail, font=FONTS["tiny"], fill=COLORS["muted"])
-    draw.text((96, footer_y + 210), "GitHub: qnianjinri-del/token-shredder", font=FONTS["small_bold"], fill=COLORS["cyan"])
+    footer_y = 1578
+    rounded(draw, (64, footer_y, 1016, 1808), fill=(2, 6, 23, 210), outline=(94, 234, 212, 160), width=4, radius=32)
+    draw.text((96, footer_y + 44), "Token Shredder", font=FONTS["h2"], fill=COLORS["ink"])
+    draw_wrapped(
+        draw,
+        (96, footer_y + 96),
+        "本机运行的 AI token 成本桌面宠物，把 usage 发到 localhost，它就把花费碎成 TOKEN。",
+        FONTS["body_bold"],
+        COLORS["muted"],
+        820,
+        10,
+    )
+    draw.text((96, footer_y + 182), "GitHub: qnianjinri-del/token-shredder", font=FONTS["small_bold"], fill=COLORS["cyan"])
 
     path = OUT_DIR / "douyin-all-skins-poster.png"
     image.convert("RGB").save(path, quality=95)
@@ -328,8 +324,9 @@ def hook_square() -> Path:
         y = 656 + i * 58
         draw.text((108, y), label, font=FONTS["h3"], fill=COLORS["cyan" if i == 0 else "ink"])
         draw.text((360, y + 4), detail, font=FONTS["small"], fill=COLORS["muted"])
-    draw.text((74, 930), "Token Shredder", font=FONTS["h2"], fill=COLORS["ink"])
-    draw.text((74, 982), "GitHub: qnianjinri-del/token-shredder", font=FONTS["small_bold"], fill=COLORS["lime"])
+    rounded(draw, (72, 900, 1008, 1024), fill=(2, 6, 23, 214), outline=(94, 234, 212, 120), width=3, radius=28)
+    draw.text((104, 930), "Token Shredder：本机 AI token 成本桌面宠物", font=FONTS["small_bold"], fill=COLORS["ink"])
+    draw.text((104, 976), "GitHub: qnianjinri-del/token-shredder", font=FONTS["small_bold"], fill=COLORS["lime"])
 
     path = OUT_DIR / "square-hook-token-cost.png"
     image.convert("RGB").save(path, quality=95)
@@ -388,9 +385,9 @@ def wide_showcase() -> Path:
         x = 72 + index * 250
         draw_skin_card(image, (x, y, x + card_w, y + card_h), skin, compact=True)
     rounded(draw, (72, 700, 1528, 812), fill=(2, 6, 23, 218), outline=(94, 234, 212, 150), width=4, radius=28)
-    draw.text((106, 734), "Download on GitHub Releases", font=FONTS["h2"], fill=COLORS["ink"])
+    draw.text((106, 734), "Token Shredder：本机 AI token 成本桌面宠物", font=FONTS["h2"], fill=COLORS["ink"])
     draw.text((106, 778), "github.com/qnianjinri-del/token-shredder", font=FONTS["small_bold"], fill=COLORS["lime"])
-    draw.text((960, 745), "No cloud · No prompt logging · Editable pricing", font=FONTS["small_bold"], fill=COLORS["cyan"])
+    draw.text((1010, 745), "Local-first · Pixel pets", font=FONTS["small_bold"], fill=COLORS["cyan"])
 
     path = OUT_DIR / "wide-all-skins-banner.png"
     image.convert("RGB").save(path, quality=95)
@@ -428,14 +425,14 @@ def carousel_gif() -> Path:
 
 def classic_loop_gif() -> Path:
     sequence = [
-        ROOT / "public/assets/shredder-token-frames-tight/0-idle.png",
-        ROOT / "public/assets/shredder-token-frames-tight/1-feed.png",
-        ROOT / "public/assets/shredder-token-frames-tight/2-shred-25.png",
-        ROOT / "public/assets/shredder-token-frames-tight/3-shred-50.png",
-        ROOT / "public/assets/shredder-token-frames-tight/4-shred-75.png",
-        ROOT / "public/assets/shredder-token-frames-tight/5-shred-full.png",
-        ROOT / "public/assets/shredder-token-frames-tight/6-burst.png",
-        ROOT / "public/assets/shredder-token-frames-tight/7-pile.png",
+        ROOT / "public/assets/shredder-frames-tight/0-idle.png",
+        ROOT / "public/assets/shredder-frames-tight/1-feed.png",
+        ROOT / "public/assets/shredder-frames-tight/2-shred-25.png",
+        ROOT / "public/assets/shredder-frames-tight/3-shred-50.png",
+        ROOT / "public/assets/shredder-frames-tight/4-shred-75.png",
+        ROOT / "public/assets/shredder-frames-tight/5-shred-full.png",
+        ROOT / "public/assets/shredder-frames-tight/6-burst.png",
+        ROOT / "public/assets/shredder-frames-tight/7-pile.png",
     ]
     frames: list[Image.Image] = []
     captions = [

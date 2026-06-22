@@ -114,7 +114,7 @@ export function DohDadPet({
     <motion.div
       animate={controls}
       className={`doh-dad-stage ${compact ? 'doh-dad-stage-compact' : ''} ${isBurning ? 'is-burning' : ''} ${demoLoop ? 'is-demo-loop' : ''}`}
-      aria-label="像素风燃钞爸爸宠物"
+      aria-label="像素风燃钞宠物"
     >
       {!compact ? (
         <div className="generated-pet-readout">

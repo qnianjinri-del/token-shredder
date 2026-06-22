@@ -57,12 +57,12 @@ const escapeXml = (value) =>
     .replaceAll('"', '&quot;');
 
 const frame = {
-  idle: dataUri('public/assets/shredder-token-frames-tight/0-idle.png'),
-  feed: dataUri('public/assets/shredder-token-frames-tight/1-feed.png'),
-  half: dataUri('public/assets/shredder-token-frames-tight/3-shred-50.png'),
-  full: dataUri('public/assets/shredder-token-frames-tight/5-shred-full.png'),
-  burst: dataUri('public/assets/shredder-token-frames-tight/6-burst.png'),
-  pile: dataUri('public/assets/shredder-token-frames-tight/7-pile.png'),
+  idle: dataUri('public/assets/shredder-frames-tight/0-idle.png'),
+  feed: dataUri('public/assets/shredder-frames-tight/1-feed.png'),
+  half: dataUri('public/assets/shredder-frames-tight/3-shred-50.png'),
+  full: dataUri('public/assets/shredder-frames-tight/5-shred-full.png'),
+  burst: dataUri('public/assets/shredder-frames-tight/6-burst.png'),
+  pile: dataUri('public/assets/shredder-frames-tight/7-pile.png'),
 };
 
 const skins = [
@@ -330,6 +330,7 @@ const renderSvgToPng = (svgPath, pngPath, width, height) => {
   const tmpDir = resolve(root, 'tmp/launch-assets-chrome');
   rmSync(tmpDir, { recursive: true, force: true });
   mkdirSync(tmpDir, { recursive: true });
+  rmSync(pngPath, { force: true });
   const result = spawnSync(chrome, [
     '--headless=new',
     '--disable-gpu',

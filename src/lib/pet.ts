@@ -16,7 +16,7 @@ export const PET_SKIN_IDS = [
 
 export const PET_SKINS: Array<{ id: PetSkinId; label: string }> = [
   { id: 'shredder', label: '碎钞机' },
-  { id: 'doh-dad', label: '刀～爸爸' },
+  { id: 'doh-dad', label: '刀～' },
   { id: 'codex-chomp', label: 'Codex 吞钞' },
   { id: 'agent-bot', label: 'Agent 小机器人' },
   { id: 'token-furnace', label: 'Token 小火炉' },

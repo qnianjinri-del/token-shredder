@@ -24,5 +24,33 @@ module.exports = async function afterPackMac(context) {
 
   fs.rmSync(packagedFrameworksPath, { recursive: true, force: true });
   fs.cpSync(sourceFrameworksPath, packagedFrameworksPath, { recursive: true, dereference: false });
+
+  for (const entry of fs.readdirSync(packagedFrameworksPath)) {
+    if (!entry.endsWith('.framework')) {
+      continue;
+    }
+
+    const frameworkPath = path.join(packagedFrameworksPath, entry);
+    const binaryName = entry.replace(/\.framework$/, '');
+    const relinks = [
+      [binaryName, path.join('Versions', 'Current', binaryName)],
+      ['Resources', path.join('Versions', 'Current', 'Resources')],
+      [path.join('Versions', 'Current'), 'A'],
+    ];
+
+    if (entry === 'Electron Framework.framework') {
+      relinks.push(
+        ['Libraries', path.join('Versions', 'Current', 'Libraries')],
+        ['Helpers', path.join('Versions', 'Current', 'Helpers')],
+      );
+    }
+
+    for (const [linkPath, target] of relinks) {
+      const absoluteLinkPath = path.join(frameworkPath, linkPath);
+      fs.rmSync(absoluteLinkPath, { recursive: true, force: true });
+      fs.symlinkSync(target, absoluteLinkPath);
+    }
+  }
+
   console.log(`  • restored original Electron Frameworks for macOS local distribution`);
 };
