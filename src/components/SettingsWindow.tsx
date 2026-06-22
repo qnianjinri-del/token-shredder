@@ -16,6 +16,7 @@ import { BackupPanel } from './BackupPanel';
 import { CostBreakdown } from './CostBreakdown';
 import { DemoModePanel } from './DemoModePanel';
 import { DiagnosticsPanel } from './DiagnosticsPanel';
+import { GuidedSetupPanel } from './GuidedSetupPanel';
 import { IntegrationRecipesPanel } from './IntegrationRecipesPanel';
 import { MonitorPanel } from './MonitorPanel';
 import { NextStepPanel } from './NextStepPanel';
@@ -67,6 +68,7 @@ const settingsTabs: Array<{
 ];
 
 const hashTabMap: Record<string, SettingsTab> = {
+  'guided-setup': 'start',
   'start-here': 'start',
   'self-check': 'start',
   recipes: 'connect',
@@ -202,6 +204,14 @@ export function SettingsWindow({
         {activeTab === 'start' ? (
           <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
             <div className="space-y-4">
+              <GuidedSetupPanel
+                state={state}
+                monitorInfo={monitorInfo}
+                providerConfig={providerConfig}
+                onRunQuickStartDemo={onRunQuickStartDemo}
+                onSendTestUsageEvent={onSendTestUsageEvent}
+              />
+
               <NextStepPanel
                 state={state}
                 runtimeState={runtimeState}

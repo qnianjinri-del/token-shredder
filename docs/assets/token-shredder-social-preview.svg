@@ -35,7 +35,7 @@
   
       
   <rect x="68" y="54" width="250" height="34" rx="17" fill="rgba(15,23,42,0.78)" stroke="#bef264" stroke-opacity="0.48"/>
-  <text x="85" y="77" class="ink caption" font-size="14" fill="#bef264">macOS v0.1.20 · local-first</text>
+  <text x="85" y="77" class="ink caption" font-size="14" fill="#bef264">macOS v0.1.21 · local-first</text>
 
       <text x="68" y="168" class="ink title" font-size="72">Token Shredder</text>
       <text x="72" y="224" class="muted caption" font-size="26">一个本机运行的 AI token 成本桌面宠物</text>

@@ -24,7 +24,14 @@ A tiny desktop pet that shreds your AI token spending in real time.
 
 Token Shredder 是一个 local-first 的 Electron 桌面宠物。你可以先用内置一键试玩，不需要 API Key；也可以配置 provider key、Base URL、模型 ID 和可编辑示例价格，把 OpenAI-compatible 客户端指向本机代理。像素宠物会把真实 token 消耗变成碎掉的 TOKEN 字块。
 
-第一次使用最短路径：打开 App，右键宠物进入后台，停在 `开始` 分区，先点 `运行自动体检`，再选择 `一键试玩`、`复制给 Codex/ChatGPT` 或 `POST /usage`。
+第一次使用最短路径：打开 App，右键宠物进入后台，停在 `开始` 分区，先看 `新手向导`。它会让你从四条路里选一种：
+
+| 我是这种用户 | 先点什么 | 需要准备什么 |
+| --- | --- | --- |
+| 只想看效果 | `一键试玩` | 不需要 API Key |
+| 有服务商 API Key | `填写 API Key 等信息` | API Key、上游 Base URL、模型 / 接入点 ID、价格 |
+| 我的项目已有 usage 数字 | `复制 POST 示例` | 让脚本 POST token 数字到本机 |
+| 想看 Codex 消耗 | `查看 Codex 监控` | 本机 Codex 新产生的 `token_count` 事件 |
 
 Token Shredder is a local-first Electron desktop pet. Click the built-in quick demo to try it without an API key, or configure your provider key, base URL, model ID, and editable sample token prices to point an OpenAI-compatible client at the local proxy.
 
@@ -37,8 +44,9 @@ Token Shredder is a local-first Electron desktop pet. Click the built-in quick d
 1. 从 [GitHub Releases](https://github.com/qnianjinri-del/token-shredder/releases/latest) 下载 macOS 版本。
 2. 打开 Token Shredder，桌面会出现一个像素风计费宠物。
 3. 右键宠物，点击 `进入后台`。
-4. 在第一屏 `从这里开始` 选择 `一键试玩`，不需要 API Key。
-5. 想接真实 usage 时，可以复制 curl / JS / Python / Agent 接入说明，或让你的脚本 POST 到 `http://127.0.0.1:17391/usage`。
+4. 在第一屏 `新手向导` 选择一种路径。
+5. 只想看效果就点 `一键试玩`；有 API Key 就填 provider 信息；已有 usage 数字就复制 POST 示例；用 Codex 就看本地监控状态。
+6. 想接真实 usage 时，可以复制 curl / JS / Python / Agent 接入说明，或让你的脚本 POST 到 `http://127.0.0.1:17391/usage`。
 
 如果本机端口不是 `17391`，后台会显示实际端口。Token Shredder 默认只记录 usage 数字，不需要记录 prompt、completion 或 API key。
 
@@ -306,7 +314,7 @@ Example response:
 {
   "ok": true,
   "app": "Token Shredder",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "port": 17391,
   "sessionActive": false,
   "receivedUsageEvents": 0,

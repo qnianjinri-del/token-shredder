@@ -43,6 +43,7 @@ npm run release:ship:mac
 - Backstage window opens.
 - Backstage UI is Chinese and usable.
 - Backstage shows the actual collector port.
+- Backstage first screen shows `新手向导` with no-key demo, provider proxy, direct usage, and Codex monitor paths.
 - Beginner setup includes the no-key quick demo.
 - Backstage `30 秒验证` can drive a quick demo and a collector smoke test.
 - Share panel can copy English and Chinese launch posts after a session.
@@ -91,7 +92,7 @@ curl -X DELETE http://127.0.0.1:17391/usage
 Title:
 
 ```txt
-Token Shredder v0.1.20
+Token Shredder v0.1.21
 ```
 
 Body:
@@ -103,7 +104,7 @@ I am not a professional developer, and this is a small AI-assisted learning proj
 
 ### Highlights
 
-- Leaner macOS package: frontend build-time dependencies are no longer bundled as runtime `node_modules`.
+- First-screen guided setup with four paths: no-key demo, provider proxy, direct POST usage, and Codex local monitoring.
 - Pixel-art desktop shredder pet for macOS.
 - Backstage tabs organized as `开始 / 接入 / 成本 / 宠物 / 诊断`.
 - Smart `下一步建议` card that tells new users what to do next.
